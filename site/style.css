@@ -1,0 +1,394 @@
+/* ==========================================================================
+   人生ラボ — Shared Stylesheet
+   Concept: 研究所カタログ（laboratory index card system）
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+  --paper: #F7F6F2;
+  --paper-raised: #FCFBF8;
+  --ink: #1A1A17;
+  --ink-soft: #55534C;
+  --line: #D8D5CB;
+  --line-strong: #B9B5A6;
+
+  /* Lab accent colors — each acts as a specimen tag */
+  --lab-career: #1F4D3C;
+  --lab-ai: #2B3A8F;
+  --lab-childcare: #C68A2E;
+  --lab-english: #16706B;
+  --lab-money: #7A2E3B;
+
+  --font-display: 'Noto Serif JP', serif;
+  --font-body: 'Noto Sans JP', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  --measure: 68ch;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-feature-settings: "palt";
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+img { max-width: 100%; display: block; }
+
+/* ----- Layout shell ----- */
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ----- Header ----- */
+.site-header {
+  border-bottom: 1px solid var(--line);
+  position: sticky;
+  top: 0;
+  background: rgba(247, 246, 242, 0.92);
+  backdrop-filter: blur(6px);
+  z-index: 50;
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.02em;
+}
+
+.wordmark small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-weight: 400;
+  color: var(--ink-soft);
+  letter-spacing: 0.14em;
+  margin-top: 3px;
+}
+
+.site-nav {
+  display: flex;
+  gap: 22px;
+  font-size: 0.82rem;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.site-nav a {
+  color: var(--ink-soft);
+  border-bottom: 1px solid transparent;
+  padding-bottom: 2px;
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.site-nav a:hover { color: var(--ink); border-color: var(--line-strong); }
+
+/* ----- Hero ----- */
+.hero {
+  padding: 88px 0 64px;
+  border-bottom: 1px solid var(--line);
+}
+
+.hero-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-soft);
+  margin: 0 0 20px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  line-height: 1.35;
+  margin: 0 0 26px;
+  max-width: 16ch;
+}
+
+.hero p {
+  max-width: var(--measure);
+  color: var(--ink-soft);
+  font-size: 1.02rem;
+  margin: 0;
+}
+
+/* ----- Section heading ----- */
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 56px 0 24px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.section-head h2 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.section-head .count {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+}
+
+/* ----- Lab catalog ----- */
+.catalog {
+  border-top: 1px solid var(--line);
+}
+
+.catalog-entry {
+  display: grid;
+  grid-template-columns: 64px 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+  position: relative;
+  transition: padding-left 0.2s ease;
+}
+
+.catalog-entry::before {
+  content: "";
+  position: absolute;
+  left: -24px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--accent, var(--ink));
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.catalog-entry:hover::before { opacity: 1; }
+.catalog-entry:hover { padding-left: 10px; }
+
+.entry-code {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--accent, var(--ink-soft));
+  font-weight: 500;
+}
+
+.entry-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.entry-body p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  max-width: 56ch;
+}
+
+.entry-tags {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.entry-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent, var(--ink-soft));
+  border: 1px solid currentColor;
+  padding: 3px 8px;
+  border-radius: 2px;
+  opacity: 0.85;
+}
+
+.entry-arrow {
+  font-family: var(--font-mono);
+  font-size: 1.3rem;
+  color: var(--line-strong);
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.catalog-entry:hover .entry-arrow {
+  transform: translateX(4px);
+  color: var(--accent, var(--ink));
+}
+
+/* Entry accent bindings */
+.entry-career { --accent: var(--lab-career); }
+.entry-ai { --accent: var(--lab-ai); }
+.entry-childcare { --accent: var(--lab-childcare); }
+.entry-english { --accent: var(--lab-english); }
+.entry-money { --accent: var(--lab-money); }
+
+/* ----- Manifesto strip ----- */
+.manifesto {
+  padding: 72px 0;
+  border-bottom: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 48px;
+}
+
+.manifesto h2 {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  margin: 0;
+  line-height: 1.5;
+}
+
+.manifesto-body p {
+  color: var(--ink-soft);
+  margin: 0 0 16px;
+  max-width: var(--measure);
+}
+
+.manifesto-body p:last-child { margin-bottom: 0; }
+
+@media (max-width: 720px) {
+  .manifesto { grid-template-columns: 1fr; gap: 20px; }
+  .catalog-entry { grid-template-columns: 40px 1fr; }
+  .entry-arrow { display: none; }
+}
+
+/* ----- Footer ----- */
+.site-footer {
+  padding: 40px 0 56px;
+}
+
+.site-footer .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.site-footer p {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+/* ----- Lab page specific ----- */
+.lab-header {
+  padding: 56px 0 40px;
+  border-bottom: 1px solid var(--line);
+}
+
+.lab-header .hero-eyebrow { color: var(--accent, var(--ink-soft)); }
+
+.lab-header h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 2.8rem);
+  margin: 0 0 16px;
+}
+
+.lab-header p {
+  color: var(--ink-soft);
+  max-width: var(--measure);
+  margin: 0;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--ink-soft);
+  margin-bottom: 28px;
+}
+
+.back-link:hover { color: var(--ink); }
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin: 40px 0;
+}
+
+.article-card {
+  background: var(--paper-raised);
+  padding: 28px;
+}
+
+.article-card .cat {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--accent, var(--ink-soft));
+  letter-spacing: 0.08em;
+}
+
+.article-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin: 10px 0 8px;
+  font-weight: 600;
+}
+
+.article-card p {
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.placeholder-note {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--line-strong);
+  padding: 40px 0;
+  text-align: center;
+  border: 1px dashed var(--line-strong);
+}
+
+@media (max-width: 640px) {
+  .article-grid { grid-template-columns: 1fr; }
+}
