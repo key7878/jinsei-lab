@@ -85,6 +85,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   {hero_image}
   <div class="article-body">
     {body}
+    {cta_box}
     {disclosure}
   </div>
 </article>
@@ -113,6 +114,12 @@ RELATED_CARD = """    <a href="{slug}.html" class="related-card">
     </a>"""
 
 DISCLOSURE_HTML = '<p class="disclosure">本記事にはアフィリエイトリンクを含む場合があります。商品の選定・評価は独自の基準に基づいています。</p>'
+
+CTA_BOX_TEMPLATE = """<div class="cta-box">
+  <p class="cta-label">{label}</p>
+  <p class="cta-text">{text}</p>
+  <a href="{url}" class="cta-button" target="_blank" rel="noopener sponsored">{button_text}</a>
+</div>"""
 
 LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
 <html lang="ja">
@@ -230,6 +237,14 @@ def build_article_pages(articles_by_lab):
                 hero_image=(
                     f'<img class="hero-image" src="../../{a["hero_image"]}" alt="{a["title"]}">'
                     if a.get("hero_image") else ""
+                ),
+                cta_box=(
+                    CTA_BOX_TEMPLATE.format(
+                        label=a.get("cta_label", "おすすめ"),
+                        text=a.get("cta_text", ""),
+                        url=a.get("cta_url", "#"),
+                        button_text=a.get("cta_button_text", "詳しく見る"),
+                    ) if a.get("cta_url") else ""
                 ),
                 disclosure=DISCLOSURE_HTML if a.get("affiliate") else "",
                 related=related_html,
