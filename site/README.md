@@ -18,8 +18,35 @@
 └── generate_labs.py     研究所ページの生成スクリプト（テンプレ管理用）
 ```
 
-記事コンテンツを追加する際は `generate_labs.py` の `LABS` 配列に
-`articles` を追記して再実行するか、`labs/*.html` を直接編集してください。
+## 記事生成フロー
+
+1. `content/{lab}/{slug}.md` にMarkdownで記事を書く（下記フォーマット参照）
+2. `pip install pyyaml markdown --break-system-packages`（初回のみ）
+3. `python3 build.py` を実行
+4. 以下が自動生成される
+   - `labs/{lab}/{slug}.html` … 記事詳細ページ（関連記事付き）
+   - `labs/{lab}.html` … 研究所トップの記事一覧（自動更新）
+   - `sns/{slug}.txt` … SNS投稿文ドラフト
+5. `git add . && git commit -m "add: {slug}" && git push`
+
+### Markdownフォーマット
+
+```markdown
+---
+title: 記事タイトル
+lab: career            # career / ai / childcare / english / money のいずれか
+category: 転職判断      # 記事カテゴリタグ
+description: 検索結果やSNSに表示される要約（100字程度）
+date: 2026-07-03
+tags: [転職, 意思決定]
+affiliate: false        # アフィリエイトリンクを含む場合はtrue
+---
+
+ここから本文をMarkdownで記述。## で見出し、通常の段落、箇条書きなどが使える。
+```
+
+Claude Codeへの依頼例:
+> 「content/ai/ に、ChatGPTとClaudeの比較記事を書いて。書いたらbuild.pyを実行してpushして」
 
 ## デプロイ手順（GitHub → Cloudflare Pages）
 
