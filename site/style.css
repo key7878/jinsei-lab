@@ -178,13 +178,10 @@ img { max-width: 100%; display: block; }
 }
 
 .hv-node {
-  transform-box: fill-box;
-  transform-origin: center;
   opacity: 0;
   animation:
     hv-fade-in 0.5s ease-out forwards,
     hv-pulse 3.6s ease-in-out infinite;
-  animation-delay: inherit;
 }
 
 @keyframes hv-draw {
@@ -198,8 +195,8 @@ img { max-width: 100%; display: block; }
 }
 
 @keyframes hv-pulse {
-  0%, 100% { transform: scale(1); }
-  50%      { transform: scale(1.14); }
+  0%, 100% { r: 13px; }
+  50%      { r: 15.5px; }
 }
 
 @media (max-width: 720px) {
