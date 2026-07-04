@@ -52,22 +52,22 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../../style.css">
 </head>
 <body>
 
 <header class="site-header">
   <div class="wrap">
-    <a href="../index.html" class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></a>
+    <a href="../../index.html" class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></a>
     <nav class="site-nav">
-      <a href="../index.html#labs">研究所一覧</a>
-      <a href="../labs/{lab}.html">{lab_name}</a>
+      <a href="../../index.html#labs">研究所一覧</a>
+      <a href="../{lab}.html">{lab_name}</a>
     </nav>
   </div>
 </header>
 
 <div class="wrap">
-  <a href="../labs/{lab}.html" class="back-link">← {lab_name}に戻る</a>
+  <a href="../{lab}.html" class="back-link">← {lab_name}に戻る</a>
 </div>
 
 <section class="article-page-header entry-{accent}">
