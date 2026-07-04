@@ -82,6 +82,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 </section>
 
 <article class="wrap entry-{accent}">
+  {hero_image}
   <div class="article-body">
     {body}
     {disclosure}
@@ -226,6 +227,10 @@ def build_article_pages(articles_by_lab):
                 category=a.get("category", ""),
                 date=a.get("date", ""),
                 body=a["body_html"],
+                hero_image=(
+                    f'<img class="hero-image" src="../../{a["hero_image"]}" alt="{a["title"]}">'
+                    if a.get("hero_image") else ""
+                ),
                 disclosure=DISCLOSURE_HTML if a.get("affiliate") else "",
                 related=related_html,
                 code=info["code"],

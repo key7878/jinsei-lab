@@ -1,0 +1,35 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#FAF7F2"/>
+
+  <!-- soft background shapes representing three "causes" -->
+  <circle cx="430" cy="300" r="190" fill="#3E7A63" opacity="0.10"/>
+  <circle cx="650" cy="220" r="150" fill="#3E7A63" opacity="0.14"/>
+  <circle cx="640" cy="400" r="170" fill="#3E7A63" opacity="0.08"/>
+
+  <!-- three labeled nodes -->
+  <g>
+    <rect x="180" y="260" width="220" height="88" rx="18" fill="#FFFEFB" stroke="#DCD2BE" stroke-width="1.5"/>
+    <text x="290" y="298" font-family="Noto Sans JP, sans-serif" font-size="20" fill="#2B2620" text-anchor="middle" font-weight="500">会社起因</text>
+    <text x="290" y="324" font-family="Noto Sans JP, sans-serif" font-size="13" fill="#7A7266" text-anchor="middle">評価・給与・社風</text>
+  </g>
+
+  <g>
+    <rect x="500" y="150" width="220" height="88" rx="18" fill="#FFFEFB" stroke="#DCD2BE" stroke-width="1.5"/>
+    <text x="610" y="188" font-family="Noto Sans JP, sans-serif" font-size="20" fill="#2B2620" text-anchor="middle" font-weight="500">仕事内容起因</text>
+    <text x="610" y="214" font-family="Noto Sans JP, sans-serif" font-size="13" fill="#7A7266" text-anchor="middle">業務・裁量・成長</text>
+  </g>
+
+  <g>
+    <rect x="560" y="400" width="220" height="88" rx="18" fill="#FFFEFB" stroke="#DCD2BE" stroke-width="1.5"/>
+    <text x="670" y="438" font-family="Noto Sans JP, sans-serif" font-size="20" fill="#2B2620" text-anchor="middle" font-weight="500">状態起因</text>
+    <text x="670" y="464" font-family="Noto Sans JP, sans-serif" font-size="13" fill="#7A7266" text-anchor="middle">疲労・一時的な要因</text>
+  </g>
+
+  <!-- connecting lines to a center point -->
+  <circle cx="500" cy="330" r="7" fill="#3E7A63"/>
+  <line x1="400" y1="304" x2="500" y2="330" stroke="#3E7A63" stroke-width="1.5" opacity="0.5"/>
+  <line x1="600" y1="238" x2="500" y2="330" stroke="#3E7A63" stroke-width="1.5" opacity="0.5"/>
+  <line x1="580" y1="400" x2="500" y2="330" stroke="#3E7A63" stroke-width="1.5" opacity="0.5"/>
+
+  <text x="600" y="580" font-family="JetBrains Mono, monospace" font-size="13" fill="#7A7266" text-anchor="middle" letter-spacing="1">LAB.01 / CAREER RESEARCH LAB</text>
+</svg>
