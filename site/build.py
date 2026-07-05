@@ -384,10 +384,35 @@ def build_sns_drafts(articles_by_lab):
     print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, posted status preserved)")
 
 
+def build_sitemap(articles_by_lab):
+    # Cloudflare Pagesは/index.htmlや*.htmlを拡張子なしの正規URLへ308リダイレクトするため、
+    # sitemapにはリダイレクト前ではなく正規URLを直接記載する。
+    base_url = "https://mylifejinseilab.com"
+    urls = [f"{base_url}/"]
+    for lab in LABS:
+        urls.append(f"{base_url}/labs/{lab}")
+        for a in articles_by_lab.get(lab, []):
+            urls.append(f"{base_url}/labs/{lab}/{a['slug']}")
+
+    entries = "\n".join(
+        f"  <url><loc>{u}</loc></url>" for u in urls
+    )
+    xml = f'''<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{entries}
+</urlset>
+'''
+    out_path = os.path.join(ROOT, "sitemap.xml")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(xml)
+    print(f"generated sitemap.xml ({len(urls)} urls)")
+
+
 if __name__ == "__main__":
     articles_by_lab = load_articles()
     build_article_pages(articles_by_lab)
     build_lab_indexes(articles_by_lab)
     build_sns_drafts(articles_by_lab)
+    build_sitemap(articles_by_lab)
     total = sum(len(v) for v in articles_by_lab.values())
     print(f"\nDone. {total} articles processed.")
