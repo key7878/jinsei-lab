@@ -15,6 +15,7 @@ Claude Codeへの依頼テンプレート:
 
 import os
 import re
+import csv
 import glob
 import yaml
 import markdown as md
@@ -115,6 +116,11 @@ RELATED_CARD = """    <a href="{slug}.html" class="related-card">
 
 DISCLOSURE_HTML = '<p class="disclosure">本記事にはアフィリエイトリンクを含む場合があります。商品の選定・評価は独自の基準に基づいています。</p>'
 
+FINANCIAL_RISK_DISCLOSURE_HTML = '''<div class="disclosure disclosure-risk">
+  <p><strong>広告に関する注記</strong>：本記事は金融商品・サービスに関する広告（アフィリエイト）を含みます。紹介する情報は独自の基準によるものであり、当該事業者が作成したものではありません。</p>
+  <p><strong>リスクに関する注記</strong>：FXをはじめとする金融商品の取引には、為替相場・金利等の変動により元本を超える損失が生じるおそれがあります。手数料等の詳細は各事業者の公式ページでご確認ください。本記事は特定の商品の利用を推奨するものではなく、投資助言を目的としたものでもありません。</p>
+</div>'''
+
 CTA_BOX_TEMPLATE = """<div class="cta-box">
   <p class="cta-label">{label}</p>
   <p class="cta-text">{text}</p>
@@ -180,12 +186,31 @@ ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
       <p>{description}</p>
     </a>"""
 
-SNS_TEMPLATE = """【新着記事】{title}
+SNS_TEMPLATE_X = """【新着記事】{title}
 
 {description}
 
 #人生ラボ #{lab_name}
 https://mylifejinseilab.com/labs/{lab}/{slug}.html
+"""
+
+SNS_TEMPLATE_THREADS = """{title}
+
+{description}
+
+続きはプロフィールのリンクから、人生ラボの{lab_name}で。
+"""
+
+SNS_TEMPLATE_NOTE = """# {title}
+
+{description}
+
+（この記事は「人生ラボ」{lab_name}に掲載したものです。全文はこちら↓）
+https://mylifejinseilab.com/labs/{lab}/{slug}.html
+
+---
+
+{body_plain}
 """
 
 
@@ -206,6 +231,7 @@ def load_articles():
             meta = yaml.safe_load(fm_match.group(1))
             body_md = fm_match.group(2).strip()
             meta["slug"] = slug
+            meta["body_md"] = body_md
             meta["body_html"] = md.markdown(body_md)
             articles_by_lab[lab].append(meta)
         # newest first
@@ -246,7 +272,10 @@ def build_article_pages(articles_by_lab):
                         button_text=a.get("cta_button_text", "詳しく見る"),
                     ) if a.get("cta_url") else ""
                 ),
-                disclosure=DISCLOSURE_HTML if a.get("affiliate") else "",
+                disclosure=(
+                    FINANCIAL_RISK_DISCLOSURE_HTML if a.get("financial_risk")
+                    else DISCLOSURE_HTML if a.get("affiliate") else ""
+                ),
                 related=related_html,
                 code=info["code"],
             )
@@ -287,17 +316,58 @@ def build_lab_indexes(articles_by_lab):
 
 def build_sns_drafts(articles_by_lab):
     os.makedirs(SNS_DIR, exist_ok=True)
+
+    # 既存キューのposted状態を保持する(再ビルドで投稿済みフラグが消えないように)
+    queue_path = os.path.join(ROOT, "sns_queue.csv")
+    existing_posted = {}
+    if os.path.exists(queue_path):
+        with open(queue_path, "r", encoding="utf-8", newline="") as f:
+            for row in csv.DictReader(f):
+                existing_posted[row["slug"]] = row.get("posted", "FALSE")
+
+    queue_rows = [["slug", "lab", "text", "posted"]]
     for lab, articles in articles_by_lab.items():
         info = LABS[lab]
         for a in articles:
-            text = SNS_TEMPLATE.format(
+            out_dir = os.path.join(SNS_DIR, a["slug"])
+            os.makedirs(out_dir, exist_ok=True)
+
+            # note用の抜粋: 最初の段落(見出し行を除く)を取得
+            paragraphs = [p.strip() for p in a["body_md"].split("\n\n") if p.strip() and not p.strip().startswith("#")]
+            excerpt = paragraphs[0] if paragraphs else ""
+
+            threads_text = SNS_TEMPLATE_THREADS.format(
                 title=a["title"], description=a.get("description", ""),
-                lab_name=info["name"], lab=lab, slug=a["slug"],
+                lab_name=info["name"],
             )
-            out_path = os.path.join(SNS_DIR, f"{a['slug']}.txt")
-            with open(out_path, "w", encoding="utf-8") as f:
-                f.write(text)
-            print(f"generated sns draft: sns/{a['slug']}.txt")
+
+            variants = {
+                "x.txt": SNS_TEMPLATE_X.format(
+                    title=a["title"], description=a.get("description", ""),
+                    lab_name=info["name"], lab=lab, slug=a["slug"],
+                ),
+                "threads.txt": threads_text,
+                "note.txt": SNS_TEMPLATE_NOTE.format(
+                    title=a["title"], description=a.get("description", ""),
+                    lab_name=info["name"], lab=lab, slug=a["slug"],
+                    body_plain=excerpt,
+                ),
+            }
+            for filename, text in variants.items():
+                out_path = os.path.join(out_dir, filename)
+                with open(out_path, "w", encoding="utf-8") as f:
+                    f.write(text)
+            print(f"generated sns drafts: sns/{a['slug']}/{{x,threads,note}}.txt")
+
+            # Threads自動投稿用キュー(Googleスプレッドシートに取り込む想定)
+            flat_text = threads_text.strip().replace("\n", " / ")
+            posted_flag = existing_posted.get(a["slug"], "FALSE")
+            queue_rows.append([a["slug"], lab, flat_text, posted_flag])
+
+    with open(queue_path, "w", encoding="utf-8", newline="") as f:
+        writer = csv.writer(f)
+        writer.writerows(queue_rows)
+    print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, posted status preserved)")
 
 
 if __name__ == "__main__":
