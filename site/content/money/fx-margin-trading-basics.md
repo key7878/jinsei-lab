@@ -5,12 +5,8 @@ category: FX投資
 description: FX（外国為替証拠金取引）は少額で始められる一方、レバレッジにより損失も拡大しやすい。仕組みとリスク、検討する際の判断材料を中立的に整理する。
 date: 2026-07-05
 tags: [FX, 外国為替証拠金取引, レバレッジ, リスク管理]
-affiliate: true
-financial_risk: true
-cta_label: FX口座開設
-cta_text: 少額から取引を試せる口座を比較検討したい場合、まず取引条件や取扱通貨ペアを確認できる公式ページを見ておくと判断しやすくなる。
-cta_url: https://px.a8.net/svt/ejp?a8mat=3N1PW2+18NKOY+1WP2+61Z81
-cta_button_text: 詳しく見る
+affiliate: false
+financial_risk: false
 ---
 
 「FXは少ない資金で始められる」という話を聞いたことがある人は多いが、なぜ少額で始められるのか、なぜハイリスクとも言われるのかを、仕組みごと理解している人は意外と少ない。始める前に、まず取引の構造そのものを整理しておきたい。
