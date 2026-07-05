@@ -43,6 +43,15 @@ LABS = {
               "lead": "家計、住宅ローン、資産形成。感情論を排し、数字とライフプランで判断するための材料を集める研究所です。"},
 }
 
+# 「7つの鍵」— 5研究所とは別の思想レイヤー。ブランド記事はここに置く。
+BRAND_INFO = {
+    "code": "PHILOSOPHY",
+    "accent": "brand",
+    "name": "7つの鍵",
+    "eyebrow": "THE SEVEN KEYS / PHILOSOPHY LAYER",
+    "lead": "7つの鍵は、人生ラボのどの研究所にも属さない、全体を支える思想です。各研究所の記事は、この考え方と自然につながっています。",
+}
+
 ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -200,6 +209,135 @@ ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
       <p>{description}</p>
     </a>"""
 
+# ----- 7つの鍵(ブランド記事)用テンプレート -----
+# brand/{slug}.html は root から1階層下(labs/{lab}.html と同じ深さ)
+
+BRAND_ARTICLE_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title} ― 7つの鍵 ｜ 人生ラボ</title>
+<meta name="description" content="{description}">
+<link rel="stylesheet" href="../style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="../index.html" class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></a>
+    <nav class="site-nav">
+      <a href="../index.html#labs">研究所一覧</a>
+      <a href="../brand.html">7つの鍵</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+  <a href="../brand.html" class="back-link">← 7つの鍵に戻る</a>
+</div>
+
+<section class="article-page-header entry-brand">
+  <div class="wrap">
+    <p class="cat">{category}</p>
+    <h1>{title}</h1>
+    <div class="article-meta">
+      <span>{date}</span>
+      <span>7つの鍵</span>
+    </div>
+  </div>
+</section>
+
+<article class="wrap entry-brand">
+  <div class="article-body">
+    {body}
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 人生ラボ</p>
+    <p>7つの鍵</p>
+  </div>
+</footer>
+
+</body>
+</html>
+"""
+
+BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>7つの鍵 ― 人生ラボ</title>
+<meta name="description" content="{lead}">
+<link rel="stylesheet" href="style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></a>
+    <nav class="site-nav">
+      <a href="index.html#labs">研究所一覧</a>
+      <a href="index.html#manifesto">この場所について</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lab-header entry-brand">
+  <div class="wrap">
+    <a href="index.html" class="back-link">← トップに戻る</a>
+    <p class="hero-eyebrow">PHILOSOPHY LAYER</p>
+    <h1>7つの鍵</h1>
+    <p>{lead}</p>
+  </div>
+</section>
+
+<div class="wrap">
+  <div class="section-head">
+    <h2>記事一覧</h2>
+    <span class="count">{count_label}</span>
+  </div>
+
+  <div class="article-grid entry-brand">
+{articles}
+  </div>
+  {placeholder}
+</div>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 人生ラボ</p>
+    <p>7つの鍵</p>
+  </div>
+</footer>
+
+</body>
+</html>
+"""
+
+BRAND_ARTICLE_CARD = """    <a href="brand/{slug}.html" class="article-card">
+      <p class="cat">{category}</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </a>"""
+
 SNS_TEMPLATE_X = """【新着記事】{title}
 
 {description}
@@ -251,6 +389,30 @@ def load_articles():
         # newest first
         articles_by_lab[lab].sort(key=lambda a: str(a.get("date", "")), reverse=True)
     return articles_by_lab
+
+
+def load_brand_articles():
+    """7つの鍵(ブランド記事)を content/brand/*.md から読み込む"""
+    brand_dir = os.path.join(CONTENT_DIR, "brand")
+    articles = []
+    if not os.path.isdir(brand_dir):
+        return articles
+    for path in sorted(glob.glob(os.path.join(brand_dir, "*.md"))):
+        slug = os.path.splitext(os.path.basename(path))[0]
+        with open(path, "r", encoding="utf-8") as f:
+            raw = f.read()
+        fm_match = re.match(r"^---\n(.*?)\n---\n(.*)$", raw, re.DOTALL)
+        if not fm_match:
+            print(f"WARN: frontmatter not found in {path}, skipping")
+            continue
+        meta = yaml.safe_load(fm_match.group(1))
+        body_md = fm_match.group(2).strip()
+        meta["slug"] = slug
+        meta["body_md"] = body_md
+        meta["body_html"] = md.markdown(body_md)
+        articles.append(meta)
+    articles.sort(key=lambda a: str(a.get("date", "")), reverse=True)
+    return articles
 
 
 def build_article_pages(articles_by_lab):
@@ -328,6 +490,49 @@ def build_lab_indexes(articles_by_lab):
         print(f"updated index: labs/{lab}.html")
 
 
+def build_brand_pages(brand_articles):
+    out_dir = os.path.join(ROOT, "brand")
+    os.makedirs(out_dir, exist_ok=True)
+    for a in brand_articles:
+        html = BRAND_ARTICLE_TEMPLATE.format(
+            title=a["title"],
+            description=a.get("description", ""),
+            category=a.get("category", "7つの鍵"),
+            date=a.get("date", ""),
+            body=a["body_html"],
+        )
+        out_path = os.path.join(out_dir, f"{a['slug']}.html")
+        with open(out_path, "w", encoding="utf-8") as f:
+            f.write(html)
+        print(f"generated brand article: brand/{a['slug']}.html")
+
+
+def build_brand_index(brand_articles):
+    if brand_articles:
+        cards = "\n".join(
+            BRAND_ARTICLE_CARD.format(
+                slug=a["slug"], category=a.get("category", "7つの鍵"),
+                title=a["title"], description=a.get("description", "")
+            )
+            for a in brand_articles
+        )
+        placeholder = ""
+        count_label = f"{len(brand_articles)} ARTICLES"
+    else:
+        cards = ""
+        placeholder = '<p class="placeholder-note">まだ記事はありません。順次公開されます。</p>'
+        count_label = "PREPARING"
+
+    html = BRAND_INDEX_TEMPLATE.format(
+        lead=BRAND_INFO["lead"], articles=cards,
+        placeholder=placeholder, count_label=count_label,
+    )
+    out_path = os.path.join(ROOT, "brand.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("updated index: brand.html")
+
+
 def build_sns_drafts(articles_by_lab):
     os.makedirs(SNS_DIR, exist_ok=True)
 
@@ -384,15 +589,17 @@ def build_sns_drafts(articles_by_lab):
     print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, posted status preserved)")
 
 
-def build_sitemap(articles_by_lab):
+def build_sitemap(articles_by_lab, brand_articles):
     # Cloudflare Pagesは/index.htmlや*.htmlを拡張子なしの正規URLへ308リダイレクトするため、
     # sitemapにはリダイレクト前ではなく正規URLを直接記載する。
     base_url = "https://mylifejinseilab.com"
-    urls = [f"{base_url}/"]
+    urls = [f"{base_url}/", f"{base_url}/brand"]
     for lab in LABS:
         urls.append(f"{base_url}/labs/{lab}")
         for a in articles_by_lab.get(lab, []):
             urls.append(f"{base_url}/labs/{lab}/{a['slug']}")
+    for a in brand_articles:
+        urls.append(f"{base_url}/brand/{a['slug']}")
 
     entries = "\n".join(
         f"  <url><loc>{u}</loc></url>" for u in urls
@@ -410,9 +617,12 @@ def build_sitemap(articles_by_lab):
 
 if __name__ == "__main__":
     articles_by_lab = load_articles()
+    brand_articles = load_brand_articles()
     build_article_pages(articles_by_lab)
     build_lab_indexes(articles_by_lab)
+    build_brand_pages(brand_articles)
+    build_brand_index(brand_articles)
     build_sns_drafts(articles_by_lab)
-    build_sitemap(articles_by_lab)
+    build_sitemap(articles_by_lab, brand_articles)
     total = sum(len(v) for v in articles_by_lab.values())
-    print(f"\nDone. {total} articles processed.")
+    print(f"\nDone. {total} lab articles + {len(brand_articles)} brand articles processed.")

@@ -20,6 +20,7 @@
   --lab-childcare: #D39A3E;
   --lab-english: #3C9088;
   --lab-money: #A8546A;
+  --lab-brand: #8B6F47;
 
   --font-display: 'Noto Serif JP', serif;
   --font-body: 'Noto Sans JP', sans-serif;
@@ -310,6 +311,7 @@ img { max-width: 100%; display: block; }
 .entry-childcare { --accent: var(--lab-childcare); }
 .entry-english { --accent: var(--lab-english); }
 .entry-money { --accent: var(--lab-money); }
+.entry-brand { --accent: var(--lab-brand); }
 
 /* ----- Manifesto strip ----- */
 .manifesto {
@@ -333,6 +335,13 @@ img { max-width: 100%; display: block; }
 }
 
 .manifesto-body p:last-child { margin-bottom: 0; }
+
+.manifesto-body a {
+  border-bottom: 1px solid var(--line-strong);
+  transition: border-color 0.2s ease;
+}
+
+.manifesto-body a:hover { border-color: var(--ink); }
 
 @media (max-width: 720px) {
   .manifesto { grid-template-columns: 1fr; gap: 24px; }
