@@ -54,6 +54,13 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
 <link rel="stylesheet" href="../../style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
 </head>
 <body>
 
@@ -135,6 +142,13 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
 <title>{name} ― 人生ラボ</title>
 <meta name="description" content="{lead}">
 <link rel="stylesheet" href="../style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
 </head>
 <body>
 
