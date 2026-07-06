@@ -1,0 +1,6 @@
+【新着記事】AIに仕事の相談をするときのプロンプトの作り方
+
+仕事の悩みをAIに相談しても、漠然とした回答しか返ってこないことがある。相談の質を上げるための情報の渡し方を整理する。
+
+#人生ラボ #AI研究所
+https://mylifejinseilab.com/labs/ai/ai-work-consultation-prompts.html
