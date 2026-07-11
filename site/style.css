@@ -581,6 +581,9 @@ img { max-width: 100%; display: block; }
 
 /* ----- 所長コメント(ハル) ----- */
 .haru-comment {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
   margin: 36px 0;
   padding: 22px 24px;
   border-radius: var(--radius-md);
@@ -589,12 +592,23 @@ img { max-width: 100%; display: block; }
   border-left: 3px solid var(--lab-brand);
 }
 
+.haru-comment-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  object-fit: cover;
+  margin: 2px 0 0;
+}
+
+.haru-comment-body { min-width: 0; }
+
 .haru-comment-label {
   font-family: var(--font-mono);
   font-size: 0.68rem;
   letter-spacing: 0.06em;
   color: var(--lab-brand);
-  margin: 0 0 10px;
+  margin: 0 0 8px;
 }
 
 .haru-comment-text {
@@ -602,6 +616,11 @@ img { max-width: 100%; display: block; }
   color: var(--ink);
   margin: 0;
   line-height: 1.8;
+}
+
+@media (max-width: 480px) {
+  .haru-comment { gap: 12px; padding: 18px; }
+  .haru-comment-avatar { width: 36px; height: 36px; }
 }
 
 /* ----- 所長紹介ページ ----- */
@@ -613,6 +632,13 @@ img { max-width: 100%; display: block; }
 }
 
 .about-body h2:first-child { margin-top: 0; }
+
+.about-body img {
+  width: 200px;
+  border-radius: var(--radius-lg);
+  margin: 8px 0 32px;
+  border: 1px solid var(--line);
+}
 
 .related-wrap {
   padding: 44px 0 64px;

@@ -151,8 +151,11 @@ HARU_COMMENT_LABELS = {
 }
 
 HARU_COMMENT_TEMPLATE = """<div class="haru-comment">
-  <p class="haru-comment-label">{label}</p>
-  <p class="haru-comment-text">{text}</p>
+  <img class="haru-comment-avatar" src="../../assets/images/haru/avatar.jpg" alt="ハル所長">
+  <div class="haru-comment-body">
+    <p class="haru-comment-label">{label}</p>
+    <p class="haru-comment-text">{text}</p>
+  </div>
 </div>"""
 
 ABOUT_TEMPLATE = """<!DOCTYPE html>
@@ -712,8 +715,9 @@ def build_sns_drafts(articles_by_lab):
 
 
 def build_sitemap(articles_by_lab, brand_articles):
-    # Cloudflare Pagesは/index.htmlや*.htmlを拡張子なしの正規URLへ308リダイレクトするため、
-    # sitemapにはリダイレクト前ではなく正規URLを直接記載する。
+    # 注意: Cloudflare Pagesは .html 付きURLを拡張子なしに308リダイレクトする。
+    # 検索エンジンにはリダイレクト前ではなく正規URL(拡張子なし)を伝える。
+    # この関数を編集する際は、必ずこのルールを維持すること(過去に複数回巻き戻った箇所)。
     base_url = "https://mylifejinseilab.com"
     urls = [f"{base_url}/", f"{base_url}/brand"]
     if os.path.exists(os.path.join(ROOT, "about.html")):
@@ -736,7 +740,7 @@ def build_sitemap(articles_by_lab, brand_articles):
     out_path = os.path.join(ROOT, "sitemap.xml")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(xml)
-    print(f"generated sitemap.xml ({len(urls)} urls)")
+    print(f"generated sitemap.xml ({len(urls)} urls, extension-less canonical URLs)")
 
 
 if __name__ == "__main__":
