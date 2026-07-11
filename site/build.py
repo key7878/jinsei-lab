@@ -102,6 +102,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   {hero_image}
   <div class="article-body">
     {body}
+    {haru_comment}
     {cta_box}
     {disclosure}
   </div>
@@ -142,6 +143,70 @@ CTA_BOX_TEMPLATE = """<div class="cta-box">
   <p class="cta-text">{text}</p>
   <a href="{url}" class="cta-button" target="_blank" rel="noopener sponsored">{button_text}</a>
 </div>"""
+
+HARU_COMMENT_LABELS = {
+    "experiment": "所長の実験メモ",
+    "opinion": "所長の見解",
+    "insight": "所長の気づき",
+}
+
+HARU_COMMENT_TEMPLATE = """<div class="haru-comment">
+  <p class="haru-comment-label">{label}</p>
+  <p class="haru-comment-text">{text}</p>
+</div>"""
+
+ABOUT_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>所長紹介 ― 人生ラボ</title>
+<meta name="description" content="{description}">
+<link rel="stylesheet" href="style.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a href="index.html" class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></a>
+    <nav class="site-nav">
+      <a href="index.html#labs">研究所一覧</a>
+      <a href="brand.html">7つの鍵</a>
+    </nav>
+  </div>
+</header>
+
+<section class="lab-header entry-brand">
+  <div class="wrap">
+    <a href="index.html" class="back-link">← トップに戻る</a>
+    <p class="hero-eyebrow">ABOUT THE DIRECTOR</p>
+    <h1>所長紹介</h1>
+  </div>
+</section>
+
+<article class="wrap">
+  <div class="article-body about-body">
+    {body}
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>© 2026 人生ラボ</p>
+    <p>ABOUT</p>
+  </div>
+</footer>
+
+</body>
+</html>
+"""
 
 LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
 <html lang="ja">
@@ -433,6 +498,10 @@ def build_article_pages(articles_by_lab):
                 for o in others
             ) or '    <p class="placeholder-note" style="grid-column: 1/-1;">他の記事は準備中です。</p>'
 
+            haru_text = a.get("haru_comment", "")
+            if "[要確認:" in haru_text or "[要確認：" in haru_text:
+                print(f"WARNING: {lab}/{a['slug']} の所長コメントに未確認のプレースホルダーが残っています。公開前に運営者の確認が必要です。")
+
             html = ARTICLE_TEMPLATE.format(
                 title=a["title"],
                 description=a.get("description", ""),
@@ -445,6 +514,12 @@ def build_article_pages(articles_by_lab):
                 hero_image=(
                     f'<img class="hero-image" src="../../{a["hero_image"]}" alt="{a["title"]}">'
                     if a.get("hero_image") else ""
+                ),
+                haru_comment=(
+                    HARU_COMMENT_TEMPLATE.format(
+                        label=HARU_COMMENT_LABELS.get(a.get("haru_comment_type"), "所長コメント"),
+                        text=haru_text,
+                    ) if haru_text else ""
                 ),
                 cta_box=(
                     CTA_BOX_TEMPLATE.format(
@@ -539,6 +614,35 @@ def build_brand_index(brand_articles):
     print("updated index: brand.html")
 
 
+def build_about_page():
+    about_path = os.path.join(CONTENT_DIR, "about.md")
+    if not os.path.exists(about_path):
+        print("INFO: content/about.md が無いため about.html は生成しません")
+        return
+    with open(about_path, "r", encoding="utf-8") as f:
+        raw = f.read()
+    fm_match = re.match(r"^---\n(.*?)\n---\n(.*)$", raw, re.DOTALL)
+    if fm_match:
+        meta = yaml.safe_load(fm_match.group(1)) or {}
+        body_md = fm_match.group(2).strip()
+    else:
+        meta = {}
+        body_md = raw.strip()
+
+    haru_text = meta.get("haru_comment", "")
+    if "[要確認:" in body_md or "[要確認：" in body_md or "[要確認:" in haru_text:
+        print("WARNING: content/about.md に未確認のプレースホルダーが残っています。公開前に運営者の確認が必要です。")
+
+    html = ABOUT_TEMPLATE.format(
+        description=meta.get("description", "人生ラボ所長についてのページです。"),
+        body=md.markdown(body_md),
+    )
+    out_path = os.path.join(ROOT, "about.html")
+    with open(out_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    print("updated: about.html")
+
+
 def build_sns_drafts(articles_by_lab):
     os.makedirs(SNS_DIR, exist_ok=True)
 
@@ -608,14 +712,18 @@ def build_sns_drafts(articles_by_lab):
 
 
 def build_sitemap(articles_by_lab, brand_articles):
+    # Cloudflare Pagesは/index.htmlや*.htmlを拡張子なしの正規URLへ308リダイレクトするため、
+    # sitemapにはリダイレクト前ではなく正規URLを直接記載する。
     base_url = "https://mylifejinseilab.com"
-    urls = [f"{base_url}/", f"{base_url}/index.html", f"{base_url}/brand.html"]
+    urls = [f"{base_url}/", f"{base_url}/brand"]
+    if os.path.exists(os.path.join(ROOT, "about.html")):
+        urls.append(f"{base_url}/about")
     for lab in LABS:
-        urls.append(f"{base_url}/labs/{lab}.html")
+        urls.append(f"{base_url}/labs/{lab}")
         for a in articles_by_lab.get(lab, []):
-            urls.append(f"{base_url}/labs/{lab}/{a['slug']}.html")
+            urls.append(f"{base_url}/labs/{lab}/{a['slug']}")
     for a in brand_articles:
-        urls.append(f"{base_url}/brand/{a['slug']}.html")
+        urls.append(f"{base_url}/brand/{a['slug']}")
 
     entries = "\n".join(
         f"  <url><loc>{u}</loc></url>" for u in urls
@@ -638,6 +746,7 @@ if __name__ == "__main__":
     build_lab_indexes(articles_by_lab)
     build_brand_pages(brand_articles)
     build_brand_index(brand_articles)
+    build_about_page()
     build_sns_drafts(articles_by_lab)
     build_sitemap(articles_by_lab, brand_articles)
     total = sum(len(v) for v in articles_by_lab.values())
