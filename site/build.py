@@ -209,6 +209,12 @@ ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
       <p>{description}</p>
     </a>"""
 
+ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
+      <p class="cat">{category}</p>
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </a>"""
+
 # ----- 7つの鍵(ブランド記事)用テンプレート -----
 # brand/{slug}.html は root から1階層下(labs/{lab}.html と同じ深さ)
 
@@ -544,10 +550,13 @@ def build_sns_drafts(articles_by_lab):
             for row in csv.DictReader(f):
                 existing_posted[row["slug"]] = row.get("posted", "FALSE")
 
-    queue_rows = [["slug", "lab", "text", "posted"]]
+    # 研究所ごとにキュー候補を溜める(ファイル生成はこれまで通り全記事分行う)
+    entries_by_lab = {lab: [] for lab in LABS}
+
     for lab, articles in articles_by_lab.items():
         info = LABS[lab]
-        for a in articles:
+        # 投稿順は古い記事から(公開が早かったものを先に消化する)
+        for a in sorted(articles, key=lambda x: str(x.get("date", ""))):
             out_dir = os.path.join(SNS_DIR, a["slug"])
             os.makedirs(out_dir, exist_ok=True)
 
@@ -578,28 +587,35 @@ def build_sns_drafts(articles_by_lab):
                     f.write(text)
             print(f"generated sns drafts: sns/{a['slug']}/{{x,threads,note}}.txt")
 
-            # Threads自動投稿用キュー(Googleスプレッドシートに取り込む想定)
             flat_text = threads_text.strip().replace("\n", " / ")
             posted_flag = existing_posted.get(a["slug"], "FALSE")
-            queue_rows.append([a["slug"], lab, flat_text, posted_flag])
+            entries_by_lab[lab].append([a["slug"], lab, flat_text, posted_flag])
+
+    # ラウンドロビンで並べ替え: career[0], ai[0], childcare[0], english[0], money[0], career[1], ...
+    # これにより、数日分まとめてスプレッドシートに貼っても研究所が偏らない
+    queue_rows = [["slug", "lab", "text", "posted"]]
+    lab_order = list(LABS.keys())
+    max_len = max((len(v) for v in entries_by_lab.values()), default=0)
+    for i in range(max_len):
+        for lab in lab_order:
+            if i < len(entries_by_lab[lab]):
+                queue_rows.append(entries_by_lab[lab][i])
 
     with open(queue_path, "w", encoding="utf-8", newline="") as f:
         writer = csv.writer(f)
         writer.writerows(queue_rows)
-    print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, posted status preserved)")
+    print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, round-robin order, posted status preserved)")
 
 
 def build_sitemap(articles_by_lab, brand_articles):
-    # Cloudflare Pagesは/index.htmlや*.htmlを拡張子なしの正規URLへ308リダイレクトするため、
-    # sitemapにはリダイレクト前ではなく正規URLを直接記載する。
     base_url = "https://mylifejinseilab.com"
-    urls = [f"{base_url}/", f"{base_url}/brand"]
+    urls = [f"{base_url}/", f"{base_url}/index.html", f"{base_url}/brand.html"]
     for lab in LABS:
-        urls.append(f"{base_url}/labs/{lab}")
+        urls.append(f"{base_url}/labs/{lab}.html")
         for a in articles_by_lab.get(lab, []):
-            urls.append(f"{base_url}/labs/{lab}/{a['slug']}")
+            urls.append(f"{base_url}/labs/{lab}/{a['slug']}.html")
     for a in brand_articles:
-        urls.append(f"{base_url}/brand/{a['slug']}")
+        urls.append(f"{base_url}/brand/{a['slug']}.html")
 
     entries = "\n".join(
         f"  <url><loc>{u}</loc></url>" for u in urls
