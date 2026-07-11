@@ -601,7 +601,7 @@ img { max-width: 100%; display: block; }
   margin: 2px 0 0;
 }
 
-.haru-comment-body { min-width: 0; }
+.haru-comment-body { flex: 1; min-width: 0; }
 
 .haru-comment-label {
   font-family: var(--font-mono);
