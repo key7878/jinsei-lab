@@ -633,7 +633,7 @@ img { max-width: 100%; display: block; }
 
 .about-body h2:first-child { margin-top: 0; }
 
-.about-body img {
+.article-body.about-body img {
   width: 200px;
   border-radius: var(--radius-lg);
   margin: 8px 0 32px;
