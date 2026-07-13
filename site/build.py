@@ -277,12 +277,6 @@ ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
       <p>{description}</p>
     </a>"""
 
-ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
-      <p class="cat">{category}</p>
-      <h3>{title}</h3>
-      <p>{description}</p>
-    </a>"""
-
 # ----- 7つの鍵(ブランド記事)用テンプレート -----
 # brand/{slug}.html は root から1階層下(labs/{lab}.html と同じ深さ)
 
@@ -407,6 +401,7 @@ BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
 """
 
 NEW_ARTICLE_CARD = """    <a href="labs/{lab}/{slug}.html" class="new-article-card entry-{accent}">
+      {badge}
       <p class="new-article-lab">{lab_name}</p>
       <h3>{title}</h3>
       <p class="new-article-date">{date}</p>
@@ -786,8 +781,9 @@ def build_index_page(articles_by_lab, n=6):
             NEW_ARTICLE_CARD.format(
                 lab=lab, slug=a["slug"], accent=info["accent"],
                 lab_name=info["name"], title=a["title"], date=a.get("date", ""),
+                badge='<span class="new-badge">NEW</span>' if idx == 0 else "",
             )
-            for (_, lab, info, a) in latest
+            for idx, (_, lab, info, a) in enumerate(latest)
         )
     else:
         cards = '    <p class="placeholder-note" style="grid-column: 1/-1;">まだ記事がありません。</p>'
