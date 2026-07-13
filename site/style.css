@@ -349,6 +349,55 @@ img { max-width: 100%; display: block; }
   .entry-arrow { display: none; }
 }
 
+/* ----- 新着記事(トップページ) ----- */
+.new-articles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin: 0 0 8px;
+}
+
+.new-article-card {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 22px;
+  transition: border-color 0.25s ease, transform 0.2s ease;
+}
+
+.new-article-card:hover {
+  border-color: color-mix(in srgb, var(--accent, var(--ink)) 35%, var(--line));
+  transform: translateY(-2px);
+}
+
+.new-article-lab {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+  color: var(--accent, var(--ink-soft));
+  margin: 0 0 10px;
+}
+
+.new-article-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 0 0 10px;
+  line-height: 1.5;
+}
+
+.new-article-date {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  margin: 0;
+  opacity: 0.7;
+}
+
+@media (max-width: 720px) {
+  .new-articles-grid { grid-template-columns: 1fr; }
+}
+
 /* ----- Footer ----- */
 .site-footer {
   padding: 48px 0 64px;
