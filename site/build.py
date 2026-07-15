@@ -28,7 +28,17 @@ SNS_DIR = os.path.join(ROOT, "sns")
 LABS = {
     "career": {"code": "LAB.01", "accent": "career", "name": "キャリア研究所",
                "eyebrow": "CAREER / DECISION-MAKING",
-               "lead": "転職、昇進、異動、キャリアの分岐点で立ち止まったときに、意思決定と自己理解のための知見を集める研究所です。"},
+               "lead": "現役の人事として、これまでキャリア相談2,000件超、採用面接1,000件超に携わってきました。昇格、異動、退職の意思決定の現場にも数多く立ち会ってきた経験から、キャリアの分岐点で使える意思決定と自己理解の知見を届ける研究所です。",
+               "name_policy": '\n    <p class="lab-name-policy">現役の人事だからこそ、実名は明かせません。勤務先や当事者が特定されれば、ここで書けることの多くは書けなくなってしまうからです。だからこそ、利害関係を気にせず、人事目線の本音をそのまま届けられる場所にしたいと考えています。</p>',
+               "consult_cta": '''
+
+  <div class="entry-career">
+    <div class="cta-box">
+      <p class="cta-label">無料相談</p>
+      <p class="cta-text">今のモヤモヤ、まずは気軽に聞かせてください。転職、昇格、異動、退職。人事目線での壁打ち相手として、Threads DMで相談を受け付けています。</p>
+      <a href="https://www.threads.net/@mylifejinseilab" class="cta-button" target="_blank" rel="noopener">Threadsで相談してみる</a>
+    </div>
+  </div>'''},
     "ai": {"code": "LAB.02", "accent": "ai", "name": "AI研究所",
            "eyebrow": "AI / TOOLS & AUTOMATION",
            "lead": "生活と仕事にAIをどう組み込むか。ツールの選び方から使いこなし方まで、実際に試した結果を共有する研究所です。"},
@@ -244,7 +254,7 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
     <a href="../index.html" class="back-link">← 研究所一覧に戻る</a>
     <p class="hero-eyebrow">{code} / {eyebrow}</p>
     <h1>{name}</h1>
-    <p>{lead}</p>
+    <p>{lead}</p>{name_policy}
   </div>
 </section>
 
@@ -257,7 +267,7 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
   <div class="article-grid entry-{accent}">
 {articles}
   </div>
-  {placeholder}
+  {placeholder}{consult_cta}
 </div>
 
 <footer class="site-footer">
@@ -715,6 +725,8 @@ def build_lab_indexes(articles_by_lab):
         html = LAB_INDEX_TEMPLATE.format(
             name=info["name"], accent=info["accent"], code=info["code"],
             eyebrow=info["eyebrow"], lead=info["lead"],
+            name_policy=info.get("name_policy", ""),
+            consult_cta=info.get("consult_cta", ""),
             articles=cards, placeholder=placeholder, count_label=count_label,
         )
         out_path = os.path.join(LABS_DIR, f"{lab}.html")
