@@ -629,7 +629,7 @@ img { max-width: 100%; display: block; }
   margin: 0 0 18px;
 }
 
-.cta-button {
+.cta-box .cta-button {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -642,7 +642,7 @@ img { max-width: 100%; display: block; }
   transition: opacity 0.2s ease;
 }
 
-.cta-button:hover { opacity: 0.85; }
+.cta-box .cta-button:hover { opacity: 0.85; }
 
 /* ----- 所長コメント(ハル) ----- */
 .haru-comment {
