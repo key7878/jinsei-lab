@@ -10,6 +10,10 @@ cta_label: MyVision
 cta_text: コンサル業界に特化した転職支援を検討するなら「MyVision」という選択肢もあります
 cta_url: https://px.a8.net/svt/ejp?a8mat=4B81T0+3BO6WY+5B0Y+5ZMCJ
 cta_button_text: MyVisionを確認する
+cta_banner_html: |
+  <a href="https://px.a8.net/svt/ejp?a8mat=4B81T0+3BO6WY+5B0Y+63WO1" rel="nofollow">
+  <img border="0" width="300" height="250" alt="" src="https://www24.a8.net/svt/bgt?aid=260716068201&wid=003&eno=01&mid=s00000024757001026000&mc=1"></a>
+  <img border="0" width="1" height="1" src="https://www12.a8.net/0.gif?a8mat=4B81T0+3BO6WY+5B0Y+63WO1" alt="">
 haru_comment_type: opinion
 haru_comment: "これまで多くのキャリア相談・面接に関わる中で感じるのは、憧れだけで挑戦して苦戦する人と、地道に準備をして結果を出す人の差は、地頭そのものより準備の質にあることが多いということです。コンサルに限らず、選考で問われているのは、地頭の使い方を訓練できているかどうかだと思っています。"
 ---

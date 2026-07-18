@@ -151,7 +151,7 @@ FINANCIAL_RISK_DISCLOSURE_HTML = '''<div class="disclosure disclosure-risk">
 CTA_BOX_TEMPLATE = """<div class="cta-box">
   <p class="cta-label">{label}</p>
   <p class="cta-text">{text}</p>
-  <a href="{url}" class="cta-button" target="_blank" rel="noopener sponsored">{button_text}</a>
+  <a href="{url}" class="cta-button" target="_blank" rel="noopener sponsored">{button_text}</a>{banner}
 </div>"""
 
 HARU_COMMENT_LABELS = {
@@ -689,6 +689,10 @@ def build_article_pages(articles_by_lab):
                         text=a.get("cta_text", ""),
                         url=a.get("cta_url", "#"),
                         button_text=a.get("cta_button_text", "詳しく見る"),
+                        banner=(
+                            f'\n  <div class="cta-banner">\n{a["cta_banner_html"].strip()}\n  </div>'
+                            if a.get("cta_banner_html") else ""
+                        ),
                     ) if a.get("cta_url") else ""
                 ),
                 disclosure=(

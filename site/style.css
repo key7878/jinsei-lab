@@ -644,6 +644,10 @@ img { max-width: 100%; display: block; }
 
 .cta-box .cta-button:hover { opacity: 0.85; }
 
+.cta-banner { margin-top: 18px; }
+.cta-banner a { border-bottom: none; }
+.cta-banner img { border-radius: var(--radius-sm); max-width: 100%; height: auto; }
+
 /* ----- 所長コメント(ハル) ----- */
 .haru-comment {
   display: flex;
