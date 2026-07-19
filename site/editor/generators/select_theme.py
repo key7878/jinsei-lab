@@ -6,7 +6,6 @@ site/editor/prompts/theme_select.md を組み立てて実行し、
 import os
 import sys
 import json
-import re
 
 _HERE = os.path.dirname(os.path.abspath(__file__))         # site/editor/generators/
 _EDITOR_DIR = os.path.dirname(_HERE)                         # site/editor/
@@ -14,7 +13,7 @@ sys.path.insert(0, _EDITOR_DIR)
 sys.path.insert(0, _HERE)
 
 from _paths import load_config, resolve_path  # noqa: E402
-from _client import call_llm  # noqa: E402
+from _client import call_llm, strip_code_fence  # noqa: E402
 
 PROMPT_PATH = os.path.join(_EDITOR_DIR, "prompts", "theme_select.md")
 CONTEXT_PATH = os.path.join(_EDITOR_DIR, "context.json")
@@ -28,9 +27,6 @@ REQUIRED_FIELDS = [
 ]
 ALLOWED_FIELDS = set(REQUIRED_FIELDS)
 
-# 前後についたMarkdownのコードフェンス(```や```json)を防御的に剥がす
-_CODE_FENCE_RE = re.compile(r"^```(?:json)?\s*\n(.*?)\n```\s*$", re.DOTALL)
-
 
 class ThemeSelectionError(Exception):
     """LLM出力の検証に失敗した場合に送出する。raw_outputに生の出力を保持する。"""
@@ -38,12 +34,6 @@ class ThemeSelectionError(Exception):
     def __init__(self, message, raw_output=None):
         super().__init__(message)
         self.raw_output = raw_output
-
-
-def _strip_code_fence(text: str) -> str:
-    text = text.strip()
-    m = _CODE_FENCE_RE.match(text)
-    return m.group(1).strip() if m else text
 
 
 def _build_prompt(config) -> str:
@@ -157,7 +147,7 @@ def select_theme() -> dict:
     prompt = _build_prompt(config)
 
     raw_output = call_llm(prompt)
-    cleaned = _strip_code_fence(raw_output)
+    cleaned = strip_code_fence(raw_output)
 
     try:
         decision = json.loads(cleaned)
@@ -171,6 +161,18 @@ def select_theme() -> dict:
     date_dir = os.path.join(drafts_dir, decision["date"])
     os.makedirs(date_dir, exist_ok=True)
     out_path = os.path.join(date_dir, "theme_decision.json")
+
+    if os.path.exists(out_path):
+        try:
+            with open(out_path, "r", encoding="utf-8") as f:
+                old_theme_id = json.load(f).get("theme_id", "?")
+        except (OSError, json.JSONDecodeError):
+            old_theme_id = "?"
+        print(
+            f"WARN: {out_path} は既に存在します(theme_id={old_theme_id!r})。"
+            f"theme_id={decision['theme_id']!r} で上書きします。"
+        )
+
     with open(out_path, "w", encoding="utf-8") as f:
         json.dump(decision, f, ensure_ascii=False, indent=2)
         f.write("\n")

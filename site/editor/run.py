@@ -2,8 +2,10 @@
 人生ラボ編集長AI CLI。
 
 使い方:
-  python run.py context   # context.jsonを組み立てて site/editor/context.json に書き出す
-  python run.py theme     # 今日のテーマを選定し、drafts/{date}/theme_decision.json に書き出す
+  python run.py context             # context.jsonを組み立てて site/editor/context.json に書き出す
+  python run.py theme               # 今日のテーマを選定し、drafts/{date}/theme_decision.json に書き出す
+  python run.py content [theme_id]  # Threads3本+noteドラフトを生成し、drafts/{date}/content_draft.json に書き出す
+                                     # theme_id省略時は本日日付のtheme_decision.jsonを使う
 
 サブコマンドを追加していく前提のCLI構造(argparse)。
 将来的に `python run.py brief` 等を追加する場合は、
@@ -36,6 +38,20 @@ def cmd_theme(args):
     print(json.dumps(decision, ensure_ascii=False, indent=2))
 
 
+def cmd_content(args):
+    from generators.generate_content import generate_content, ContentGenerationError
+
+    try:
+        content = generate_content(args.theme_id)
+    except ContentGenerationError as e:
+        print(f"ERROR: {e}")
+        print("--- raw LLM output ---")
+        print(e.raw_output)
+        sys.exit(1)
+
+    print(json.dumps(content, ensure_ascii=False, indent=2))
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="run.py", description="人生ラボ編集長AI CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -45,6 +61,15 @@ def build_parser():
 
     theme_parser = subparsers.add_parser("theme", help="今日の発信テーマを選定する")
     theme_parser.set_defaults(func=cmd_theme)
+
+    content_parser = subparsers.add_parser(
+        "content", help="Threads3本+noteドラフトを生成する"
+    )
+    content_parser.add_argument(
+        "theme_id", nargs="?", default=None,
+        help="対象のtheme_id(省略時は本日日付のtheme_decision.jsonを使う)",
+    )
+    content_parser.set_defaults(func=cmd_content)
 
     return parser
 
