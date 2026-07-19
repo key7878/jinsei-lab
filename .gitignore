@@ -1,1 +1,6 @@
 .DS_Store
+
+# 人生ラボ編集長AI: 実行のたびに変わる生成物(公開サイトの一部ではない)
+site/editor/context.json
+site/editor/drafts/**/theme_decision.json
+site/editor/drafts/**/content_draft.json
