@@ -4,3 +4,4 @@
 site/editor/context.json
 site/editor/drafts/**/theme_decision.json
 site/editor/drafts/**/content_draft.json
+site/editor/drafts/**/brief.md
