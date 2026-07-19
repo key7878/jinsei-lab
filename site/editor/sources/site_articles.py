@@ -11,34 +11,21 @@ existing_articles のリストを返すデータ収集層。
 import os
 import re
 import glob
+import sys
 import yaml
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # site/editor/
+from _paths import load_config, resolve_path  # noqa: E402
 
 LABS = ["career", "ai", "childcare", "english", "money"]
 BASE_URL = "https://mylifejinseilab.com"
 
-_SOURCES_DIR = os.path.dirname(os.path.abspath(__file__))   # site/editor/sources/
-_EDITOR_DIR = os.path.dirname(_SOURCES_DIR)                  # site/editor/
-_SITE_DIR = os.path.dirname(_EDITOR_DIR)                     # site/
-_CONFIG_PATH = os.path.join(_EDITOR_DIR, "config.yaml")
-
 _FRONTMATTER_RE = re.compile(r"^---\n(.*?)\n---\n(.*)$", re.DOTALL)
 
 
-def _load_config():
-    with open(_CONFIG_PATH, "r", encoding="utf-8") as f:
-        return yaml.safe_load(f)
-
-
 def _content_dir():
-    """config.yamlのpaths.content_dirを解決する。
-
-    config.yaml上は "content/" という site/ を作業ディレクトリとする前提の相対パスだが、
-    ここでは config.yaml 自身の位置(site/editor/)から site/ を導出して結合するため、
-    実行時のカレントディレクトリに依存せず常に site/content/ を指す。
-    """
-    config = _load_config()
-    content_dir = config["paths"]["content_dir"]
-    return os.path.normpath(os.path.join(_SITE_DIR, content_dir))
+    config = load_config()
+    return resolve_path(config["paths"]["content_dir"])
 
 
 def fetch():
