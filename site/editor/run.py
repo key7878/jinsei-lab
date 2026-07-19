@@ -8,6 +8,8 @@
                                      # theme_id省略時は本日日付のtheme_decision.jsonを使う
   python run.py brief [date]        # Daily Briefを組み立て、drafts/{date}/brief.md に書き出す
                                      # date省略時は本日日付を使う
+  python run.py approve [date]      # brief.mdのチェック済みThreads項目を sns_queue_approved.csv に追記する
+                                     # (対話確認あり。sns_queue.csv本体には一切触れない)
 
 サブコマンドを追加していく前提のCLI構造(argparse)。
 将来的に `python run.py brief` 等を追加する場合は、
@@ -77,6 +79,42 @@ def cmd_brief(args):
     print(brief_md)
 
 
+def cmd_approve(args):
+    from approve import prepare_approval, commit_approval, ApproveError
+
+    try:
+        plan = prepare_approval(args.date)
+    except ApproveError as e:
+        print(f"ERROR: {e}")
+        sys.exit(1)
+
+    print(f"date: {plan['date']}")
+    print(f"brief.md: {plan['brief_path']}")
+    print(f"書き込み先CSV: {plan['csv_path']}")
+    print(
+        f"スキップ: 未チェック {plan['skipped_unchecked']}件 / "
+        f"処理済みマーカーあり {plan['skipped_already_processed']}件"
+    )
+
+    if not plan["to_append"]:
+        print("追記対象はありません。処理を終了します。")
+        return
+
+    print(f"\n以下の{len(plan['to_append'])}件を sns_queue_approved.csv に追記します:\n")
+    for i, row in enumerate(plan["to_append"], 1):
+        print(f"[{i}] role={row['role']} slug={row['slug']} lab={row['lab']}")
+        print(f"    text: {row['text_flat']}")
+
+    answer = input("\nこの内容で追記してよろしいですか？ [y/N]: ").strip().lower()
+    if answer != "y":
+        print("中止しました。sns_queue_approved.csv・brief.md とも変更していません。")
+        return
+
+    commit_approval(plan)
+    print(f"\n追記完了: {plan['csv_path']} に{len(plan['to_append'])}行追加しました。")
+    print(f"{plan['brief_path']} のチェック済み行に処理済みマーカーを付けました。")
+
+
 def build_parser():
     parser = argparse.ArgumentParser(prog="run.py", description="人生ラボ編集長AI CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -102,6 +140,15 @@ def build_parser():
         help="対象の日付(YYYY-MM-DD、省略時は本日日付)",
     )
     brief_parser.set_defaults(func=cmd_brief)
+
+    approve_parser = subparsers.add_parser(
+        "approve", help="brief.mdのチェック済みThreads項目をsns_queue_approved.csvに追記する"
+    )
+    approve_parser.add_argument(
+        "date", nargs="?", default=None,
+        help="対象の日付(YYYY-MM-DD、省略時は本日日付)",
+    )
+    approve_parser.set_defaults(func=cmd_approve)
 
     return parser
 
