@@ -125,6 +125,20 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
   </div>
 </section>
 
+<section class="follow-haru wrap">
+  <div class="follow-haru-inner">
+    <img class="follow-haru-avatar" src="../../assets/images/haru/avatar.jpg" alt="ハル所長">
+    <div class="follow-haru-body">
+      <p class="follow-haru-label">この記事が参考になったら</p>
+      <p class="follow-haru-text">ハル所長をフォローすると、研究所の日々の発見が届きます。</p>
+      <div class="follow-links">
+        <a href="https://www.threads.com/@mylifejinseilab" target="_blank" rel="noopener" class="follow-link">Threadsでフォロー</a>
+        <a href="https://note.com/key7life" target="_blank" rel="noopener" class="follow-link">noteを読む</a>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>
@@ -386,6 +400,19 @@ BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
     <p>{lead}</p>
   </div>
 </section>
+
+<div class="wrap">
+  <div class="follow-haru-inner" style="margin-bottom: 8px;">
+    <img class="follow-haru-avatar" src="assets/images/haru/avatar.jpg" alt="ハル所長">
+    <div class="follow-haru-body">
+      <p class="follow-haru-label">物語の全編はnoteで</p>
+      <p class="follow-haru-text">「ふかふかな人生の7つの鍵」として、ハル所長がnoteで連載しています。</p>
+      <div class="follow-links">
+        <a href="https://note.com/key7life" target="_blank" rel="noopener" class="follow-link">noteで読む</a>
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="wrap">
   <div class="section-head">
