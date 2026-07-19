@@ -1,0 +1,30 @@
+# editor/config.yaml
+
+paths:
+  content_dir: "content/"          # 既存記事の置き場（build.pyと共有）
+  drafts_dir: "editor/drafts/"
+  guidelines_path: "GUIDELINES.md"
+  haru_persona_path: "HARU.md"
+
+lookback:
+  recent_theme_ids_days: 14        # 直近何日分のテーマIDをネタ被り回避に使うか
+  recent_threads_posts_days: 7     # 直近何日分のThreads投稿を重複回避に使うか
+
+lab_focus_weights:
+  career: 1.0
+  childcare: 1.0
+  ai: 0.8
+  money: 0.7
+  english: 0.6
+
+cta_types: [affiliate, diagnosis, consultation, related_article, none]
+funnel_goals: [awareness, trust, conversion]
+threads_roles: [専門知識, 共感・等身大, note誘導]
+
+prohibited_hype_words:
+  - 絶対
+  - 誰でも
+  - 簡単に稼げる
+
+generator:
+  mode: claude_code   # claude_code | api | manual。API化する時はここだけ変更する
