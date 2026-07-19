@@ -192,6 +192,11 @@ def _validate_content(content, theme_decision, prohibited_words, raw_output):
 
     # prohibited_hype_words: threadsの各text、note_draftのtitle・body_markdownを
     # 部分文字列一致でチェックする。
+    #
+    # 注: 「多くの場合」「実際に」等、集計的な実績を暗に匂わせる語調は
+    # 意図的に自動検証の対象外としている。数値・固有名詞の捏造とは異なり、
+    # 語調レベルの経験値の盛りは自動判定が難しいため、最終確認は
+    # 日次レビュー(Daily Brief)側の人の目に委ねる方針。
     texts_to_check = [t["text"] for t in threads]
     texts_to_check.append(str(note_draft.get("title", "")))
     texts_to_check.append(str(note_draft.get("body_markdown", "")))
