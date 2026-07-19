@@ -26,6 +26,7 @@ REQUIRED_FIELDS = [
     "funnel_goal", "cta_type", "cta_placement_note", "related_article_ids",
     "utm_campaign", "alternates",
 ]
+ALLOWED_FIELDS = set(REQUIRED_FIELDS)
 
 # 前後についたMarkdownのコードフェンス(```や```json)を防御的に剥がす
 _CODE_FENCE_RE = re.compile(r"^```(?:json)?\s*\n(.*?)\n```\s*$", re.DOTALL)
@@ -73,7 +74,13 @@ def _build_prompt(config) -> str:
     return prompt
 
 
-def _validate(decision, config, raw_output):
+def _load_existing_article_ids():
+    with open(CONTEXT_PATH, "r", encoding="utf-8") as f:
+        context = json.load(f)
+    return {a["id"] for a in context.get("existing_articles", [])}
+
+
+def _validate(decision, config, raw_output, existing_article_ids):
     if not isinstance(decision, dict):
         raise ThemeSelectionError(
             f"LLM出力のトップレベルがオブジェクトではありません: {type(decision).__name__}",
@@ -83,6 +90,12 @@ def _validate(decision, config, raw_output):
     missing = [f for f in REQUIRED_FIELDS if f not in decision]
     if missing:
         raise ThemeSelectionError(f"必須フィールドが不足しています: {missing}", raw_output)
+
+    extra_keys = set(decision.keys()) - ALLOWED_FIELDS
+    if extra_keys:
+        raise ThemeSelectionError(
+            f"スキーマに無い余分なキーが含まれています: {sorted(extra_keys)}", raw_output
+        )
 
     if decision["lab"] not in LABS:
         raise ThemeSelectionError(
@@ -124,6 +137,15 @@ def _validate(decision, config, raw_output):
                 raw_output,
             )
 
+    related_ids = decision.get("related_article_ids") or []
+    unknown_ids = [rid for rid in related_ids if rid not in existing_article_ids]
+    if unknown_ids:
+        raise ThemeSelectionError(
+            f"related_article_ids に existing_articles に存在しないIDが含まれています: "
+            f"{unknown_ids}",
+            raw_output,
+        )
+
 
 def select_theme() -> dict:
     """theme_select.mdを実行し、検証済みのtheme decisionをdraftsに書き出して返す。
@@ -142,7 +164,8 @@ def select_theme() -> dict:
     except json.JSONDecodeError as e:
         raise ThemeSelectionError(f"LLM出力が有効なJSONではありません: {e}", raw_output)
 
-    _validate(decision, config, raw_output)
+    existing_article_ids = _load_existing_article_ids()
+    _validate(decision, config, raw_output, existing_article_ids)
 
     drafts_dir = resolve_path(config["paths"]["drafts_dir"])
     date_dir = os.path.join(drafts_dir, decision["date"])
