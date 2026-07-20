@@ -476,6 +476,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
       <a href="#new">新着記事</a>
       <a href="#manifesto">この場所について</a>
       <a href="about.html">所長紹介</a>
+      <a href="specialpage_1/">ワンキャリア転職</a>
     </nav>
   </div>
 </header>

@@ -103,8 +103,30 @@
     margin-top: 14px;
   }
 
+  /* ----- top-right utility nav ----- */
+  .lp-nav {
+    position: absolute;
+    top: 28px;
+    right: 24px;
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+  }
+  .lp-nav a {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .lp-nav a:hover {
+    color: var(--navy);
+    border-color: var(--navy);
+  }
+
   /* ----- hero ----- */
   .hero {
+    position: relative;
     padding: 120px 0 96px;
     text-align: center;
     background:
@@ -272,6 +294,12 @@
     padding: 56px 0 120px;
     text-align: center;
   }
+  footer .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
   footer .back-link {
     display: inline-block;
     font-size: 0.86rem;
@@ -279,7 +307,6 @@
     text-decoration: none;
     border-bottom: 1px solid var(--navy);
     padding-bottom: 2px;
-    margin-bottom: 28px;
   }
   footer .legal {
     font-size: 0.74rem;
@@ -293,6 +320,8 @@
   }
 
   @media (max-width: 720px) {
+    .lp-nav { top: 16px; right: 16px; gap: 12px; }
+    .lp-nav a { font-size: 0.7rem; }
     .hero { padding: 88px 0 72px; }
     section { padding: 72px 0; }
     .value-grid { grid-template-columns: 1fr; }
@@ -323,6 +352,10 @@
 <body>
 
 <section class="hero">
+  <nav class="lp-nav">
+    <a href="https://mylifejinseilab.com/" target="_blank" rel="noopener">人生ラボ</a>
+    <a href="https://note.com/key7life" target="_blank" rel="noopener">ハル所長のnote</a>
+  </nav>
   <div class="wrap">
     <p class="eyebrow fade">ONE CAREER PLUS ｜ ワンキャリア転職</p>
     <h1 class="fade">新卒で「本物」を知った人へ。<br>中途にも、ONE CAREERがある。</h1>
@@ -435,7 +468,10 @@
 
 <footer>
   <div class="wrap">
-    <a class="back-link" href="https://mylifejinseilab.com/">← 人生ラボ トップへ戻る</a>
+    <div class="footer-links">
+      <a class="back-link" href="https://mylifejinseilab.com/">← 人生ラボ トップへ戻る</a>
+      <a class="back-link" href="https://note.com/key7life" target="_blank" rel="noopener">ハル所長のnote</a>
+    </div>
     <p class="legal">
       本ページはプロモーション（アフィリエイト広告）を含みます。掲載内容は制作時点の情報に基づきます。<br>
       「ONE CAREER」「ワンキャリア転職」は各運営会社の商標・サービス名です。本ページは人生ラボが独自に作成した紹介ページです。<br>
