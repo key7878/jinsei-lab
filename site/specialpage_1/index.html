@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>次のキャリアが見える｜ワンキャリア転職 特設ページ｜人生ラボ</title>
+<meta name="description" content="新卒就活の名門「ONE CAREER」が手がける中途版、ワンキャリア転職。リアルな転職事例・選考体験談・社員クチコミで、次のキャリアを解像度高く見極める。登録・利用は無料。">
+<meta property="og:title" content="次のキャリアが見える｜ワンキャリア転職 特設ページ">
+<meta property="og:description" content="新卒就活の名門「ONE CAREER」が手がける中途版、ワンキャリア転職。リアルな転職事例・選考体験談・社員クチコミで、次のキャリアを解像度高く見極める。登録・利用は無料。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mylifejinseilab.com/specialpage_1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F5F0;
+    --bg-raised: #FFFFFF;
+    --ink: #191D24;
+    --ink-soft: #565F6D;
+    --navy: #0B2C6B;
+    --blue: #1E5AF0;
+    --gold: #C9A24B;
+    --line: #E4E0D6;
+    --radius: 4px;
+    --serif: "Noto Serif JP", serif;
+    --sans: "Noto Sans JP", sans-serif;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; }
+
+  .wrap {
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ----- fade-in on scroll ----- */
+  .fade {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .fade.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ----- eyebrow / labels ----- */
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin: 0 0 18px;
+  }
+
+  h1, h2 {
+    font-family: var(--serif);
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0;
+    color: var(--ink);
+  }
+
+  /* ----- CTA button ----- */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: #fff;
+    font-family: var(--sans);
+    font-weight: 700;
+    font-size: 0.98rem;
+    letter-spacing: 0.02em;
+    padding: 18px 36px;
+    border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 12px 28px -12px rgba(11, 44, 107, 0.55);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+  .cta-btn:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 16px 32px -12px rgba(30, 90, 240, 0.5);
+  }
+  .cta-btn svg { flex-shrink: 0; }
+  .cta-note {
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    margin-top: 14px;
+  }
+
+  /* ----- hero ----- */
+  .hero {
+    padding: 120px 0 96px;
+    text-align: center;
+    background:
+      radial-gradient(ellipse at 50% -10%, rgba(30, 90, 240, 0.08), transparent 60%),
+      var(--bg);
+  }
+  .hero .eyebrow { justify-content: center; display: flex; }
+  .hero h1 {
+    font-size: clamp(1.9rem, 4.6vw, 2.9rem);
+    max-width: 15em;
+    margin: 0 auto 28px;
+  }
+  .hero .sub {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 32em;
+    margin: 0 auto 44px;
+  }
+  .hero .sub strong {
+    color: var(--navy);
+    font-weight: 700;
+  }
+
+  /* ----- generic section ----- */
+  section { padding: 96px 0; }
+  .section-line { border-top: 1px solid var(--line); }
+  .section-heading {
+    font-size: clamp(1.4rem, 3vw, 1.9rem);
+    max-width: 18em;
+    margin-bottom: 28px;
+  }
+  .section-body {
+    font-size: 1rem;
+    color: var(--ink-soft);
+    max-width: 38em;
+  }
+  .section-body + .section-body { margin-top: 18px; }
+
+  .section-dark {
+    background: var(--navy);
+    color: #F5F3EC;
+  }
+  .section-dark .eyebrow { color: var(--gold); }
+  .section-dark .section-heading { color: #fff; }
+  .section-dark .section-body { color: #C7D1E6; }
+
+  /* ----- 3 values ----- */
+  .value-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 48px;
+  }
+  .value-card {
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 36px 26px;
+  }
+  .value-card .icon {
+    width: 42px;
+    height: 42px;
+    margin-bottom: 22px;
+    color: var(--navy);
+  }
+  .value-card h3 {
+    font-family: var(--serif);
+    font-size: 1.08rem;
+    margin: 0 0 12px;
+    line-height: 1.6;
+  }
+  .value-card p {
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    margin: 0;
+  }
+
+  /* ----- for-who list ----- */
+  .who-list {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    gap: 16px;
+  }
+  .who-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    font-size: 1rem;
+    padding: 20px 24px;
+    background: var(--bg-raised);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+  .who-list svg { flex-shrink: 0; margin-top: 3px; color: var(--gold); }
+
+  /* ----- companies ----- */
+  .company-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 14px;
+    margin-top: 28px;
+  }
+  .company-chip {
+    font-size: 0.84rem;
+    color: var(--ink-soft);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 18px;
+    background: var(--bg-raised);
+  }
+
+  /* ----- pricing ----- */
+  .price-box {
+    margin-top: 40px;
+    border: 1px solid var(--line);
+    background: var(--bg-raised);
+    border-radius: var(--radius);
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .price-box .amount {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    color: var(--navy);
+  }
+  .price-box .amount small {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    margin-left: 8px;
+  }
+
+  /* ----- closing ----- */
+  .closing {
+    text-align: center;
+    padding: 110px 0 130px;
+  }
+  .closing h2 {
+    font-size: clamp(1.6rem, 4vw, 2.3rem);
+    max-width: 16em;
+    margin: 0 auto 40px;
+  }
+
+  /* ----- disclosure ----- */
+  .disclosure-banner {
+    background: #EFEBDD;
+    border-top: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .disclosure-banner .wrap {
+    padding: 14px 24px;
+    font-size: 0.78rem;
+    color: var(--ink-soft);
+    text-align: center;
+  }
+
+  /* ----- footer ----- */
+  footer {
+    padding: 56px 0 120px;
+    text-align: center;
+  }
+  footer .back-link {
+    display: inline-block;
+    font-size: 0.86rem;
+    color: var(--navy);
+    text-decoration: none;
+    border-bottom: 1px solid var(--navy);
+    padding-bottom: 2px;
+    margin-bottom: 28px;
+  }
+  footer .legal {
+    font-size: 0.74rem;
+    color: var(--ink-soft);
+    line-height: 2;
+  }
+
+  /* ----- mobile sticky CTA ----- */
+  .sticky-cta {
+    display: none;
+  }
+
+  @media (max-width: 720px) {
+    .hero { padding: 88px 0 72px; }
+    section { padding: 72px 0; }
+    .value-grid { grid-template-columns: 1fr; }
+    .price-box { flex-direction: column; align-items: flex-start; text-align: left; }
+    .closing { padding: 80px 0 140px; }
+
+    .sticky-cta {
+      display: block;
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 40;
+      padding: 12px 16px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(247, 245, 240, 0.92);
+      backdrop-filter: blur(8px);
+      border-top: 1px solid var(--line);
+    }
+    .sticky-cta .cta-btn {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 20px;
+    }
+    footer { padding-bottom: 108px; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow fade">ONE CAREER PLUS ｜ ワンキャリア転職</p>
+    <h1 class="fade">新卒で「本物」を知った人へ。<br>中途にも、ONE CAREERがある。</h1>
+    <p class="sub fade">次のキャリアが見える、転職サイト。<br>新卒就活の名門<strong>「ONE CAREER」</strong>が手がける、その中途版です。</p>
+    <a class="cta-btn fade" href="https://px.a8.net/svt/ejp?a8mat=4B7XX3+A36HC2+5O7E+BXB8X" target="_blank" rel="nofollow noopener">
+      無料で見てみる
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+    <p class="cta-note fade">登録・利用は無料です</p>
+  </div>
+</section>
+
+<div class="disclosure-banner">
+  <div class="wrap">本ページはプロモーション（アフィリエイト広告）を含みます</div>
+</div>
+
+<section class="section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">Problem</p>
+    <h2 class="section-heading fade">求人票と口コミだけでは、<br>「本当のところ」は見えない。</h2>
+    <p class="section-body fade">転職活動で手に入る情報は、求人票に書かれた条件と、断片的な口コミサイトの評価がほとんど。実際にその会社でどんなキャリアパスを歩めるのか、選考で何を聞かれ、何を見られているのか——一番知りたい「一次情報」ほど、手に入りにくいのが実情です。</p>
+    <p class="section-body fade">情報の非対称性を抱えたまま、大きな意思決定をすることになりやすい。それが、転職活動が難しく感じられる理由のひとつだと考えられます。</p>
+  </div>
+</section>
+
+<section class="section-dark section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">Bridge</p>
+    <h2 class="section-heading fade">就活で読んだ、<br>あの情報の質を覚えているか。</h2>
+    <p class="section-body fade">新卒就活のとき、「ONE CAREER」の選考体験記や内定者インタビューを読み込んだ人は少なくないはずです。企業ごとのリアルな一次情報、就活生たちが積み上げてきた透明性への信頼。</p>
+    <p class="section-body fade">その思想が、いよいよ中途の転職市場へ降りてきました。名門の作法が、中途へ。</p>
+  </div>
+</section>
+
+<section class="section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">3 Values</p>
+    <h2 class="section-heading fade">ワンキャリア転職で<br>手に入る、3つの一次情報。</h2>
+
+    <div class="value-grid">
+      <div class="value-card fade">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 19V6a2 2 0 0 1 2-2h9l5 5v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v5h5"/><path d="M8 13h8M8 17h5"/></svg>
+        <h3>リアルな転職事例・キャリアパス</h3>
+        <p>「この企業へ／この企業から」、実際に人がどう動いたのか。個人のキャリアの軌跡から、次の一歩の解像度を上げる。</p>
+      </div>
+      <div class="value-card fade">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <h3>リアルな選考体験談</h3>
+        <p>実際に受けた人の言葉で綴られる、選考のプロセスと質問内容。的外れな対策に時間を使わずに済む。</p>
+      </div>
+      <div class="value-card fade">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 10h.01M12 10h.01M16 10h.01"/><path d="M21 12a8 8 0 1 1-3.4-6.6L21 4l-1 4.6" transform="translate(0 1)"/></svg>
+        <h3>社員クチコミ</h3>
+        <p>年収、働きがい、キャリアの築き方。現場の声から、求人票だけでは見えない実態を見極める。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">For You</p>
+    <h2 class="section-heading fade">こんな人へ。</h2>
+    <ul class="who-list">
+      <li class="fade"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>20代〜30代で、次のキャリアを考え始めている</li>
+      <li class="fade"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>初めての転職で、何から情報を集めればいいか迷っている</li>
+      <li class="fade"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>大手・人気企業のリアルな内側を知りたい</li>
+      <li class="fade"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>「なんとなく」ではなく、情報をもとに意思決定したい</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section-dark section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">Background</p>
+    <h2 class="section-heading fade">月間100万人以上が使う、<br>新卒の名門から。</h2>
+    <p class="section-body fade">新卒就活領域で圧倒的な信頼を築いてきた「ONE CAREER」。月間100万人以上が利用するそのプラットフォームを運営する会社が、同じ思想・同じ基準で情報を積み上げているのが、この中途版です。</p>
+    <p class="section-body fade">アクセンチュア、リクルート、デロイト トーマツ、楽天、サイバーエージェントなど、大手企業を中心に、豊富な事例が蓄積されています。</p>
+  </div>
+</section>
+
+<section class="section-line">
+  <div class="wrap">
+    <p class="eyebrow fade">Price</p>
+    <h2 class="section-heading fade">料金の安心。</h2>
+    <p class="section-body fade">気になる企業の情報を、まずは覗いてみるだけでも構いません。次のキャリアの解像度を上げることから、無料で始められます。</p>
+    <div class="price-box fade">
+      <div>
+        <div class="amount">¥0<small>登録・利用ともに無料</small></div>
+      </div>
+      <a class="cta-btn" href="https://px.a8.net/svt/ejp?a8mat=4B7XX3+A36HC2+5O7E+BXB8X" target="_blank" rel="nofollow noopener">
+        無料で登録する
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="closing section-line">
+  <div class="wrap">
+    <p class="eyebrow fade" style="justify-content:center;display:flex;">Start</p>
+    <h2 class="fade">「なんとなく」で、<br>次のキャリアを決めない。</h2>
+    <a class="cta-btn fade" href="https://px.a8.net/svt/ejp?a8mat=4B7XX3+A36HC2+5O7E+BXB8X" target="_blank" rel="nofollow noopener">
+      ワンキャリア転職を見てみる
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+    </a>
+    <p class="cta-note fade">登録・利用は無料です</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a class="back-link" href="https://mylifejinseilab.com/">← 人生ラボ トップへ戻る</a>
+    <p class="legal">
+      本ページはプロモーション（アフィリエイト広告）を含みます。掲載内容は制作時点の情報に基づきます。<br>
+      「ONE CAREER」「ワンキャリア転職」は各運営会社の商標・サービス名です。本ページは人生ラボが独自に作成した紹介ページです。<br>
+      © 2026 人生ラボ
+    </p>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a class="cta-btn" href="https://px.a8.net/svt/ejp?a8mat=4B7XX3+A36HC2+5O7E+BXB8X" target="_blank" rel="nofollow noopener">
+    無料で見てみる
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+  </a>
+</div>
+
+<img border="0" width="1" height="1" src="https://www10.a8.net/0.gif?a8mat=4B7XX3+A36HC2+5O7E+BXB8X" alt="">
+
+<script>
+  (function () {
+    var els = document.querySelectorAll('.fade');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(function (el) { el.classList.add('is-visible'); });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    els.forEach(function (el) { io.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
