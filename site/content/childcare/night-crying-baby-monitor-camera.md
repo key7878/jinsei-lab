@@ -21,8 +21,8 @@ affiliate: true
 【PR】
 
 <a href="https://px.a8.net/svt/ejp?a8mat=4B844Z+GO79E+3PSY+60OXD" rel="nofollow">
-<img border="0" width="125" height="125" alt="" src="https://www21.a8.net/svt/bgt?aid=260719091028&wid=003&eno=01&mid=s00000017341001011000&mc=1"></a>
-<img border="0" width="1" height="1" src="https://www17.a8.net/0.gif?a8mat=4B844Z+GO79E+3PSY+60OXD" alt="">
+<img border="0" width="125" height="125" alt="" src="https://www23.a8.net/svt/bgt?aid=260719091028&wid=003&eno=01&mid=s00000017341001011000&mc=1"></a>
+<img border="0" width="1" height="1" src="https://www11.a8.net/0.gif?a8mat=4B844Z+GO79E+3PSY+60OXD" alt="">
 
 ## 導入するときに確認したい視点
 
