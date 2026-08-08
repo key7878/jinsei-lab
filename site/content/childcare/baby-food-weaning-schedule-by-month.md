@@ -3,7 +3,7 @@ title: 離乳食の進め方、月齢別スケジュールと気をつけたい�
 lab: childcare
 category: 離乳食
 description: 離乳食は月齢によって進め方の目安が変わるが、初めてだと何をどこまで進めていいか分かりにくい。月齢別の目安と気をつけたい点を整理する。
-date: 2026-08-01
+date: 2026-08-09
 tags: [離乳食, 月齢別, ゴックン期, 育児]
 affiliate: false
 haru_comment_type: experience

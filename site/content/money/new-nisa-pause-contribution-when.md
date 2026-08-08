@@ -3,7 +3,7 @@ title: 新NISA、積立を一時停止した方がいいのはどんなときか
 lab: money
 category: 新NISA
 description: 新NISAの積立は、家計状況によって続けるべきか一時停止すべきか迷う場面がある。判断の目安になる考え方を整理する。
-date: 2026-08-01
+date: 2026-08-09
 tags: [新NISA, 積立投資, 家計管理, 資産形成]
 affiliate: false
 haru_comment_type: opinion

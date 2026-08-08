@@ -3,7 +3,7 @@ title: TOEIC IPテストと公開テスト、就活・転職ではどちらを�
 lab: english
 category: TOEIC対策
 description: 大学などで受けられるTOEIC IPテストと、個人で申し込む公開テストは違いが分かりにくい。就活・転職での使い分けを整理する。
-date: 2026-08-01
+date: 2026-08-09
 tags: [TOEIC, IPテスト, 公開テスト, 就活]
 affiliate: false
 ---
