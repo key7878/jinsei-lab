@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>見えない評価ギャップ診断 ― キャリア研究所 ｜ 人生ラボ</title>
+<meta name="description" content="「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。">
+<meta property="og:title" content="見えない評価ギャップ診断 ｜ 人生ラボ">
+<meta property="og:description" content="「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="diagnosis.css">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-D94ZQMMMZ5');
+</script>
+</head>
+<body class="diag-page">
+
+<header class="diag-site-head">
+  <div class="diag-wrap">
+    <a class="diag-logo" href="/">人生ラボ<span>.</span></a>
+    <a class="diag-crumb" href="/labs/career">← キャリア研究所</a>
+  </div>
+</header>
+
+<section class="diag-hero">
+  <div class="diag-wrap">
+    <p class="diag-eyebrow" id="diagEyebrow">見えない評価ギャップ診断</p>
+    <div class="diag-progress-track">
+      <div class="diag-progress-bar" id="progressBar"></div>
+    </div>
+    <p class="diag-progress-label" id="progressLabel">Q1 / 12</p>
+  </div>
+</section>
+
+<main class="diag-wrap diag-main">
+  <div id="quizCard" class="diag-card"></div>
+  <div id="resultCard" class="diag-card diag-result" hidden></div>
+</main>
+
+<footer class="diag-foot">
+  <div class="diag-wrap" style="padding: 0 0 40px; font-family: var(--diag-mono); font-size: 11.5px; color: var(--diag-muted);">
+    <p>mylifejinseilab.com / career-diagnosis</p>
+  </div>
+</footer>
+
+<script src="diagnosis.js"></script>
+</body>
+</html>

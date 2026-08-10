@@ -38,6 +38,14 @@ LABS = {
       <p class="cta-text">今のモヤモヤ、まずは気軽に聞かせてください。転職、昇格、異動、退職。人事目線での壁打ち相手として、Threads DMで相談を受け付けています。</p>
       <a href="https://www.threads.net/@mylifejinseilab" class="cta-button" target="_blank" rel="noopener">Threadsで相談してみる</a>
     </div>
+  </div>''',
+               "diagnostic_cta": '''
+  <div class="entry-career">
+    <div class="cta-box">
+      <p class="cta-label">所長の研究ツール</p>
+      <p class="cta-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
+      <a href="/labs/career-diagnosis" class="cta-button">3分で診断する</a>
+    </div>
   </div>'''},
     "ai": {"code": "LAB.02", "accent": "ai", "name": "AI研究所",
            "eyebrow": "AI / TOOLS & AUTOMATION",
@@ -268,7 +276,7 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
     <a href="../index.html" class="back-link">← 研究所一覧に戻る</a>
     <p class="hero-eyebrow">{code} / {eyebrow}</p>
     <h1>{name}</h1>
-    <p>{lead}</p>{name_policy}
+    <p>{lead}</p>{name_policy}{diagnostic_cta}
   </div>
 </section>
 
@@ -758,6 +766,7 @@ def build_lab_indexes(articles_by_lab):
             name=info["name"], accent=info["accent"], code=info["code"],
             eyebrow=info["eyebrow"], lead=info["lead"],
             name_policy=info.get("name_policy", ""),
+            diagnostic_cta=info.get("diagnostic_cta", ""),
             consult_cta=info.get("consult_cta", ""),
             articles=cards, placeholder=placeholder, count_label=count_label,
         )
@@ -936,6 +945,13 @@ def build_sns_drafts(articles_by_lab):
     print(f"updated sns queue: sns_queue.csv ({len(queue_rows)-1} rows, round-robin order, posted status preserved)")
 
 
+# build.pyが自動検出できない、手動管理の単体ページ一覧(specialpage_1のような
+# 完全独立LPはここに含めない方針。含めるかは別途判断する)
+STANDALONE_PAGES = [
+    "labs/career-diagnosis",
+]
+
+
 def build_sitemap(articles_by_lab, brand_articles):
     # 注意: Cloudflare Pagesは .html 付きURLを拡張子なしに308リダイレクトする。
     # 検索エンジンにはリダイレクト前ではなく正規URL(拡張子なし)を伝える。
@@ -950,6 +966,10 @@ def build_sitemap(articles_by_lab, brand_articles):
             urls.append(f"{base_url}/labs/{lab}/{a['slug']}")
     for a in brand_articles:
         urls.append(f"{base_url}/brand/{a['slug']}")
+
+    # 手動管理の単体ページを別系統で追記(上記の自動検出ロジックには一切触れない)
+    for path in STANDALONE_PAGES:
+        urls.append(f"{base_url}/{path}")
 
     entries = "\n".join(
         f"  <url><loc>{u}</loc></url>" for u in urls

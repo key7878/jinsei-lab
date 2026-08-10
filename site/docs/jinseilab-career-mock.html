@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>キャリア研究所｜人生ラボ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#101C33; --navy-soft:#1B2A45;
+  --brass:#C9A227; --brass-deep:#9C7B1C;
+  --vermillion:#D8452B;
+  --paper:#EDF0F4; --white:#FFFFFF;
+  --ink:#16202E; --muted:#5A6980; --line:#D3DAE3;
+  --serif:"Noto Serif JP",serif;
+  --sans:"Noto Sans JP",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --pad:20px; --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.85;letter-spacing:.01em}
+a{color:inherit}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+
+.spec{display:flex;flex-wrap:wrap;gap:0 14px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;margin:0;padding:0;list-style:none}
+.spec li{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.spec .k{opacity:.55}
+.spec .v{font-weight:500}
+.spec-light .k{color:var(--muted)} .spec-light .v{color:var(--brass-deep)}
+.spec-dark .k{color:#8FA2BE} .spec-dark .v{color:var(--brass)}
+
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--brass-deep);margin:0 0 10px}
+.eyebrow-d{color:var(--brass)}
+
+/* header */
+.site-head{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.28)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:58px}
+.logo{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;
+  text-decoration:none;letter-spacing:.06em}
+.logo span{color:var(--brass)}
+.crumb{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#8FA2BE}
+
+/* lab head */
+.labhead{position:relative;background:var(--navy);
+  background-image:linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px);
+  background-size:26px 26px;padding:40px 0 46px}
+.labhead::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--brass),transparent);opacity:.5}
+.labhead h1{font-family:var(--serif);font-weight:600;font-size:clamp(24px,6.5vw,34px);
+  color:#fff;margin:0 0 12px;letter-spacing:.04em;line-height:1.45}
+.labhead p{color:#B9C6DA;margin:0;max-width:600px;font-size:14px}
+
+/* tool hero */
+.tool{background:var(--white);border:1px solid var(--line);border-top:3px solid var(--vermillion);
+  border-radius:3px;padding:26px 20px 24px;margin-top:28px;
+  box-shadow:0 10px 30px rgba(16,32,51,.22)}
+.tool .verb{font-family:var(--mono);font-size:10.5px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--vermillion);display:block}
+.tool h2{font-family:var(--serif);font-weight:700;font-size:23px;line-height:1.5;
+  margin:6px 0 10px}
+.tool p{margin:0 0 18px;color:var(--muted);font-size:13.5px}
+.tool .spec{border-top:1px solid var(--line);padding-top:14px;margin-top:18px}
+.btn{display:inline-flex;align-items:center;gap:9px;background:var(--vermillion);
+  color:#fff;font-weight:700;font-size:14.5px;letter-spacing:.04em;padding:14px 24px;
+  border-radius:2px;text-decoration:none;transition:background .18s ease}
+.btn:hover{background:#C13A22}
+.btn:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.btn .arw{font-family:var(--mono);font-size:12px}
+
+/* sections */
+.section{padding:46px 0}
+.section-head{margin-bottom:22px}
+.section-head h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0;letter-spacing:.04em}
+.section-head .sub{color:var(--muted);font-size:12.5px;margin:6px 0 0}
+
+/* flow — 順序が情報なので番号を振る */
+.flow{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+.flow li{background:var(--white);border:1px solid var(--line);padding:16px 18px;
+  display:flex;gap:14px;align-items:flex-start}
+.flow .n{font-family:var(--mono);font-size:11px;color:var(--brass-deep);
+  letter-spacing:.08em;padding-top:3px;flex:none}
+.flow h4{margin:0 0 3px;font-size:14.5px;font-family:var(--serif);font-weight:600}
+.flow p{margin:0;font-size:12.5px;color:var(--muted);line-height:1.75}
+
+/* reports grouped */
+.group{margin-bottom:26px}
+.group h4{font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--brass-deep);margin:0 0 4px;
+  padding-bottom:8px;border-bottom:1px solid var(--line)}
+.reports{list-style:none;margin:0;padding:0}
+.reports li{border-bottom:1px solid var(--line)}
+.reports a{display:block;padding:14px 2px;text-decoration:none;transition:padding-left .18s ease}
+.reports a:hover{padding-left:8px}
+.reports a:focus-visible{outline:2px solid var(--brass-deep);outline-offset:-2px}
+.r-title{font-family:var(--serif);font-size:15px;line-height:1.65;font-weight:600;margin:0}
+.r-date{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.08em}
+
+/* note series */
+.series{background:var(--navy-soft);border:1px solid rgba(201,162,39,.34);
+  border-radius:3px;padding:26px 20px;color:#B9C6DA}
+.series h3{font-family:var(--serif);color:#fff;font-size:19px;margin:6px 0 10px;font-weight:600}
+.series p{font-size:13.5px;margin:0 0 16px;line-height:1.85}
+.link-brass{display:inline-flex;align-items:center;gap:9px;color:var(--brass);
+  font-weight:700;font-size:14px;letter-spacing:.04em;text-decoration:none;
+  padding-bottom:5px;border-bottom:1px solid rgba(201,162,39,.45)}
+.link-brass:hover{border-bottom-color:var(--brass)}
+.link-brass:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.link-brass .arw{font-family:var(--mono);font-size:12px}
+.series .spec{margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}
+
+/* consult */
+.consult{background:var(--white);border:1px solid var(--line);border-left:3px solid var(--brass-deep);
+  border-radius:3px;padding:24px 20px}
+.consult h3{font-family:var(--serif);font-size:18px;margin:6px 0 10px;font-weight:600}
+.consult p{font-size:13.5px;color:var(--muted);margin:0 0 16px}
+
+.director{background:var(--navy);color:#C4D0E2;padding:34px 0}
+.director .rule{width:44px;height:2px;background:var(--brass);margin:0 0 16px}
+.director h3{font-family:var(--serif);color:#fff;font-size:17px;margin:0 0 10px;font-weight:600}
+.director p{margin:0 0 10px;font-size:13.5px;line-height:1.9;max-width:620px}
+.foot{padding:24px 0 40px;font-size:11.5px;color:var(--muted)}
+.foot .mono{font-family:var(--mono);letter-spacing:.06em}
+
+@media (min-width:720px){
+  body{font-size:16px}
+  .labhead{padding:56px 0 60px}
+  .tool{padding:34px 32px 30px}
+  .tool h2{font-size:27px}
+  .flow{grid-template-columns:repeat(3,1fr);gap:12px}
+  .flow li{flex-direction:column;gap:8px}
+  .section{padding:58px 0}
+  .series{padding:34px 32px}
+  .consult{padding:30px 28px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#">人生ラボ<span>.</span></a>
+    <span class="crumb">CAREER LAB</span>
+  </div>
+</header>
+
+<section class="labhead">
+  <div class="wrap">
+    <p class="eyebrow eyebrow-d">Laboratory 01</p>
+    <h1>キャリア研究所</h1>
+    <p>採用・昇格・異動・評価を、決める側から見るとどう見えているのか。通る人の共通点より、通らなかった理由のほうを扱います。</p>
+
+    <!-- 研究所の主役はツール。記事ではない。 -->
+    <div class="tool">
+      <span class="verb">Use ｜ 触る</span>
+      <h2>見えない評価ギャップ診断</h2>
+      <p>「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
+      <a class="btn" href="#">3分で診断する <span class="arw">→</span></a>
+      <ul class="spec spec-light">
+        <li><span class="k">状態</span><span class="v">公開中</span></li>
+        <li><span class="k">設問</span><span class="v">全12問</span></li>
+        <li><span class="k">登録</span><span class="v">不要</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">After the test</p>
+      <h3>診断のあとに起きること</h3>
+      <p class="sub">結果を出して終わりにはしません。</p>
+    </div>
+    <ol class="flow">
+      <li>
+        <span class="n">01</span>
+        <div>
+          <h4>その場で結果が出る</h4>
+          <p>メール登録なしで、ズレの出ている領域とその理由まで表示します。</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">02</span>
+        <div>
+          <h4>詳細版を受け取る</h4>
+          <p>領域ごとの改善の順序と、実際の判断でよく見られた事例をメールで送ります。</p>
+        </div>
+      </li>
+      <li>
+        <span class="n">03</span>
+        <div>
+          <h4>個別に相談する</h4>
+          <p>12問で出ない部分は、その人の状況を聞かないと分かりません。DMで受けています。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Reports</p>
+      <h3>研究レポート</h3>
+      <p class="sub">診断の根拠になっている考え方を、テーマごとに置いています。</p>
+    </div>
+
+    <div class="group">
+      <h4>昇格</h4>
+      <ul class="reports">
+        <li><a href="#"><span class="r-date">2026.08.07</span><p class="r-title">昇格と評価は、別の競争である</p></a></li>
+        <li><a href="#"><span class="r-date">2026.07.31</span><p class="r-title">「次の役職で困らないか」しか見ていない</p></a></li>
+        <li><a href="#"><span class="r-date">2026.07.18</span><p class="r-title">昇格が見送られるとき、本人には別の理由が伝えられる</p></a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <h4>評価</h4>
+      <ul class="reports">
+        <li><a href="#"><span class="r-date">2026.08.04</span><p class="r-title">社内での立ち回りは、なぜ必ず見抜かれるのか</p></a></li>
+        <li><a href="#"><span class="r-date">2026.07.29</span><p class="r-title">評判は、自分が見えないところを通って伝わる</p></a></li>
+        <li><a href="#"><span class="r-date">2026.07.11</span><p class="r-title">評価面談で言ってはいけないことは、実はほとんどない</p></a></li>
+      </ul>
+    </div>
+
+    <div class="group">
+      <h4>採用・面接</h4>
+      <ul class="reports">
+        <li><a href="#"><span class="r-date">2026.07.25</span><p class="r-title">面接で落ちる理由は、面接の中にないことがある</p></a></li>
+        <li><a href="#"><span class="r-date">2026.07.08</span><p class="r-title">職務経歴書で最初に見られる3行</p></a></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="series">
+      <p class="eyebrow eyebrow-d">Series</p>
+      <h3>人事の現場から</h3>
+      <p>実際の判断の場で何が起きているかを、連載として書いています。サイトには書ききれない部分はこちらに。</p>
+      <a class="link-brass" href="#">note で読む <span class="arw">→</span></a>
+      <ul class="spec spec-dark">
+        <li><span class="k">形式</span><span class="v">全7回</span></li>
+        <li><span class="k">状態</span><span class="v">連載中</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="consult">
+      <p class="eyebrow">Consultation</p>
+      <h3>個別の相談について</h3>
+      <p>昇格が続けて見送られている、評価の理由が納得できない、転職すべきか判断がつかない。こうした状況は、一般論では答えが出ません。Threads の DM で受けています。</p>
+      <a class="link-brass" style="color:var(--brass-deep);border-bottom-color:rgba(156,123,28,.4)" href="#">DM で相談する <span class="arw">→</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="director">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h3>ハル所長について</h3>
+    <p>人事の現場で、採用・昇格・異動・評価の判断に関わってきました。匿名なのは、隠すためではなく、率直に書くためです。実際に見たことしか書きません。</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="mono">mylifejinseilab.com / career</p>
+    <p>© 人生ラボ</p>
+  </div>
+</footer>
+
+</body>
+</html>

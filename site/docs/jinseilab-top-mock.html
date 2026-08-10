@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>人生ラボ｜人生を、ちょっとずつ実験する。</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* 色は4つだけ。朱は「行動」専用。 */
+  --navy:#101C33;
+  --navy-soft:#1B2A45;
+  --brass:#C9A227;
+  --brass-deep:#9C7B1C;
+  --vermillion:#D8452B;
+  --paper:#EDF0F4;
+  --white:#FFFFFF;
+  --ink:#16202E;
+  --muted:#5A6980;
+  --line:#D3DAE3;
+
+  --serif:"Noto Serif JP",serif;
+  --sans:"Noto Sans JP",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+
+  --pad:20px;
+  --maxw:1080px;
+}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.85;
+  letter-spacing:.01em;
+}
+a{color:inherit}
+img{max-width:100%}
+
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+
+/* ── 研究ラベル：このサイトの署名要素 ───────────── */
+/* 分類 / 状態 / 補足 を必ずこの順で持つ。飾りではなく在庫の事実を書く。 */
+.spec{
+  display:flex;flex-wrap:wrap;gap:0 14px;
+  font-family:var(--mono);
+  font-size:10.5px;letter-spacing:.08em;
+  text-transform:uppercase;
+  margin:0;padding:0;list-style:none;
+}
+.spec li{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.spec .k{opacity:.55}
+.spec .v{font-weight:500}
+.spec-dark .k{color:#8FA2BE}
+.spec-dark .v{color:var(--brass)}
+.spec-light .k{color:var(--muted)}
+.spec-light .v{color:var(--brass-deep)}
+
+.eyebrow{
+  font-family:var(--mono);
+  font-size:11px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--brass-deep);margin:0 0 10px;
+}
+
+/* ── ヘッダー ───────────────────────────── */
+.site-head{
+  background:var(--navy);
+  border-bottom:1px solid rgba(201,162,39,.28);
+}
+.site-head .wrap{
+  display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:58px;
+}
+.logo{
+  font-family:var(--serif);font-weight:700;font-size:18px;
+  color:var(--white);text-decoration:none;letter-spacing:.06em;
+}
+.logo span{color:var(--brass)}
+.nav{display:none;gap:20px;font-size:12.5px}
+.nav a{color:#C4D0E2;text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.nav a:hover{color:var(--white);border-bottom-color:var(--brass)}
+
+/* ── 研究台（ヒーロー帯）───────────────────── */
+/* 一点だけの冒険：方眼＝研究ノートの地。ごく薄く。 */
+.bench{
+  position:relative;
+  background:var(--navy);
+  background-image:
+    linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px);
+  background-size:26px 26px;
+  padding:44px 0 52px;
+  overflow:hidden;
+}
+.bench::after{
+  content:"";position:absolute;inset:auto 0 0 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--brass),transparent);
+  opacity:.5;
+}
+.bench-lede{max-width:640px}
+.bench h1{
+  font-family:var(--serif);font-weight:600;
+  font-size:clamp(25px,7vw,40px);
+  line-height:1.45;letter-spacing:.02em;
+  color:var(--white);margin:0 0 14px;
+}
+.bench h1 em{font-style:normal;color:var(--brass)}
+.bench .ask{
+  font-family:var(--serif);font-size:15px;color:#B9C6DA;margin:0 0 30px;
+}
+
+/* ── ヒーロー2枚 ─────────────────────────── */
+.heroes{display:grid;gap:16px}
+
+.card-hero{
+  position:relative;
+  border-radius:3px;
+  padding:24px 20px 22px;
+  text-decoration:none;display:block;
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.card-hero:hover{transform:translateY(-3px)}
+.card-hero:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+
+/* USE：触る。朱を持つのはこの一枚だけ。 */
+.hero-use{
+  background:var(--white);
+  border:1px solid var(--line);
+  border-top:3px solid var(--vermillion);
+  box-shadow:0 1px 0 rgba(16,32,51,.06);
+}
+.hero-use:hover{box-shadow:0 10px 26px rgba(16,32,51,.18)}
+.hero-use .verb{color:var(--vermillion)}
+.hero-use h2{
+  font-family:var(--serif);font-weight:700;
+  font-size:22px;line-height:1.5;margin:6px 0 8px;color:var(--ink);
+}
+.hero-use p{margin:0 0 18px;color:var(--muted);font-size:13.5px;line-height:1.8}
+.btn{
+  display:inline-flex;align-items:center;gap:9px;
+  background:var(--vermillion);color:var(--white);
+  font-weight:700;font-size:14px;letter-spacing:.04em;
+  padding:13px 22px;border-radius:2px;
+}
+.btn .arw{font-family:var(--mono);font-size:12px}
+.card-hero:hover .btn{background:#C13A22}
+
+/* FOLLOW：追う。真鍮＝進行中。行動色は使わない。 */
+.hero-follow{
+  background:var(--navy-soft);
+  border:1px solid rgba(201,162,39,.34);
+}
+.hero-follow:hover{border-color:var(--brass)}
+.hero-follow .verb{color:var(--brass)}
+.hero-follow h2{
+  font-family:var(--serif);font-weight:600;
+  font-size:20px;line-height:1.55;margin:6px 0 8px;color:var(--white);
+}
+.hero-follow p{margin:0 0 16px;color:#AFBFD6;font-size:13.5px;line-height:1.85}
+.hero-follow .quiet{color:#8397B2;font-size:12.5px;display:block;margin-top:6px}
+.link-brass{
+  display:inline-flex;align-items:center;gap:9px;
+  color:var(--brass);font-weight:700;font-size:14px;letter-spacing:.04em;
+  padding-bottom:5px;border-bottom:1px solid rgba(201,162,39,.45);
+}
+.card-hero:hover .link-brass{border-bottom-color:var(--brass)}
+.link-brass .arw{font-family:var(--mono);font-size:12px}
+
+.verb{
+  font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.18em;text-transform:uppercase;display:block;
+}
+.card-hero .spec{margin-top:18px;padding-top:14px}
+.hero-use .spec{border-top:1px solid var(--line)}
+.hero-follow .spec{border-top:1px solid rgba(255,255,255,.12)}
+
+/* 進行中バッジ */
+.badge{
+  position:absolute;top:18px;right:18px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.12em;
+  color:var(--navy);background:var(--brass);
+  padding:3px 8px;border-radius:2px;font-weight:500;
+}
+
+/* ── セクション ──────────────────────────── */
+.section{padding:46px 0}
+.section-head{margin-bottom:22px}
+.section-head h3{
+  font-family:var(--serif);font-weight:600;font-size:19px;
+  margin:0;letter-spacing:.04em;
+}
+.section-head .sub{color:var(--muted);font-size:12.5px;margin:6px 0 0}
+
+/* 5研究所 */
+.labs{display:grid;gap:12px}
+.lab{
+  background:var(--white);border:1px solid var(--line);border-radius:3px;
+  padding:18px 18px 16px;text-decoration:none;display:block;
+  border-left:3px solid var(--brass-deep);
+  transition:border-color .18s ease,transform .18s ease;
+}
+.lab:hover{transform:translateX(2px);border-left-color:var(--vermillion)}
+.lab:focus-visible{outline:2px solid var(--brass-deep);outline-offset:3px}
+.lab h4{font-family:var(--serif);font-size:16px;margin:0 0 5px;font-weight:600}
+.lab p{margin:0 0 12px;color:var(--muted);font-size:12.5px;line-height:1.75}
+
+/* 最新の研究レポート */
+.reports{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.reports li{border-bottom:1px solid var(--line)}
+.reports a{
+  display:block;padding:16px 2px;text-decoration:none;
+  transition:padding-left .18s ease;
+}
+.reports a:hover{padding-left:8px}
+.reports a:focus-visible{outline:2px solid var(--brass-deep);outline-offset:-2px}
+.r-meta{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  color:var(--brass-deep);display:flex;gap:12px;margin-bottom:5px;
+}
+.r-meta .date{color:var(--muted)}
+.r-title{font-family:var(--serif);font-size:15.5px;line-height:1.65;font-weight:600;margin:0}
+
+/* 所長 */
+.director{
+  background:var(--navy);color:#C4D0E2;
+  padding:38px 0;margin-top:10px;
+}
+.director h3{
+  font-family:var(--serif);color:var(--white);font-size:18px;
+  margin:0 0 12px;font-weight:600;letter-spacing:.04em;
+}
+.director p{margin:0 0 10px;font-size:13.5px;line-height:1.9;max-width:620px}
+.director .rule{width:44px;height:2px;background:var(--brass);margin:0 0 16px}
+
+.foot{padding:26px 0 40px;font-size:11.5px;color:var(--muted)}
+.foot .mono{font-family:var(--mono);letter-spacing:.06em}
+
+/* ── レスポンシブ ────────────────────────── */
+@media (min-width:720px){
+  body{font-size:16px}
+  .nav{display:flex}
+  .bench{padding:64px 0 72px}
+  .heroes{grid-template-columns:1.05fr .95fr;gap:20px}
+  .card-hero{padding:30px 28px 26px}
+  .hero-use h2{font-size:25px}
+  .hero-follow h2{font-size:22px}
+  .labs{grid-template-columns:repeat(3,1fr)}
+  .section{padding:60px 0}
+}
+
+/* ── 品質の床 ──────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+}
+.rise{opacity:0;transform:translateY(10px);animation:rise .6s ease forwards}
+.rise-2{animation-delay:.09s}
+.rise-3{animation-delay:.18s}
+.rise-4{animation-delay:.27s}
+@keyframes rise{to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#">人生ラボ<span>.</span></a>
+    <nav class="nav">
+      <a href="#labs">研究所</a>
+      <a href="#reports">研究レポート</a>
+      <a href="#director">所長について</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ══ 研究台：在庫は2つ。だからヒーローも2つ。 ══ -->
+<section class="bench">
+  <div class="wrap">
+    <div class="bench-lede">
+      <p class="eyebrow rise">Jinsei Labo</p>
+      <h1 class="rise rise-2">人生を、<em>ちょっとずつ</em>実験する。</h1>
+      <p class="ask rise rise-3">今日は、何を研究しますか？</p>
+    </div>
+
+    <div class="heroes">
+
+      <!-- USE｜触る -->
+      <a class="card-hero hero-use rise rise-3" href="#">
+        <span class="verb">Use ｜ 触る</span>
+        <h2>見えない評価ギャップ診断</h2>
+        <p>「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しない。そのズレを可視化します。</p>
+        <span class="btn">3分で診断する <span class="arw">→</span></span>
+        <ul class="spec spec-light">
+          <li><span class="k">分類</span><span class="v">キャリア研究所</span></li>
+          <li><span class="k">状態</span><span class="v">公開中</span></li>
+          <li><span class="k">設問</span><span class="v">全12問</span></li>
+        </ul>
+      </a>
+
+      <!-- FOLLOW｜追う -->
+      <a class="card-hero hero-follow rise rise-4" href="#">
+        <span class="badge">研究中</span>
+        <span class="verb">Follow ｜ 追う</span>
+        <h2>所長の英語やり直し研究</h2>
+        <p>海外で英語を使って働く、その日に備えて。
+          <span class="quiet">まだ日付は決まっていない。でも、その日は来る。</span>
+        </p>
+        <span class="link-brass">この実験を追う <span class="arw">→</span></span>
+        <ul class="spec spec-dark">
+          <li><span class="k">分類</span><span class="v">英語研究所</span></li>
+          <li><span class="k">形式</span><span class="v">連載ログ</span></li>
+          <li><span class="k">記録</span><span class="v">Day 01</span></li>
+        </ul>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ 5研究所 ══ -->
+<section class="section" id="labs">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Laboratories</p>
+      <h3>5つの研究所</h3>
+      <p class="sub">仕事、お金、育児、AI、英語。生活のなかで実験できるものを、分けて置いています。</p>
+    </div>
+
+    <div class="labs">
+      <a class="lab" href="#">
+        <h4>キャリア研究所</h4>
+        <p>採用・昇格・異動・評価を、決める側から見るとどうなるか。</p>
+        <ul class="spec spec-light">
+          <li><span class="k">ツール</span><span class="v">1</span></li>
+          <li><span class="k">レポート</span><span class="v">26</span></li>
+        </ul>
+      </a>
+      <a class="lab" href="#">
+        <h4>英語研究所</h4>
+        <p>大人になってからの英語は、どこまで伸ばせるのか。実験中。</p>
+        <ul class="spec spec-light">
+          <li><span class="k">ツール</span><span class="v">準備中</span></li>
+          <li><span class="k">連載</span><span class="v">研究中</span></li>
+        </ul>
+      </a>
+      <a class="lab" href="#">
+        <h4>お金研究所</h4>
+        <p>住宅ローン、積立、老後。数字で確かめられることを確かめる。</p>
+        <ul class="spec spec-light">
+          <li><span class="k">ツール</span><span class="v">準備中</span></li>
+          <li><span class="k">レポート</span><span class="v">12</span></li>
+        </ul>
+      </a>
+      <a class="lab" href="#">
+        <h4>育児研究所</h4>
+        <p>うまくいったことも、いかなかったことも、そのまま記録する。</p>
+        <ul class="spec spec-light">
+          <li><span class="k">ツール</span><span class="v">準備中</span></li>
+          <li><span class="k">レポート</span><span class="v">15</span></li>
+        </ul>
+      </a>
+      <a class="lab" href="#">
+        <h4>AI研究所</h4>
+        <p>実際に使ってどうだったか。比較と実験を中心に。</p>
+        <ul class="spec spec-light">
+          <li><span class="k">ツール</span><span class="v">準備中</span></li>
+          <li><span class="k">レポート</span><span class="v">14</span></li>
+        </ul>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ 最新の研究レポート ══ -->
+<section class="section" id="reports" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Latest</p>
+      <h3>最新の研究レポート</h3>
+    </div>
+
+    <ul class="reports">
+      <li><a href="#">
+        <div class="r-meta"><span>キャリア研究所</span><span class="date">2026.08.07</span></div>
+        <p class="r-title">昇格と評価は、別の競争である</p>
+      </a></li>
+      <li><a href="#">
+        <div class="r-meta"><span>キャリア研究所</span><span class="date">2026.08.04</span></div>
+        <p class="r-title">社内での立ち回りは、なぜ必ず見抜かれるのか</p>
+      </a></li>
+      <li><a href="#">
+        <div class="r-meta"><span>英語研究所</span><span class="date">2026.08.02</span></div>
+        <p class="r-title">Day 01：現在地を測るところから始める</p>
+      </a></li>
+      <li><a href="#">
+        <div class="r-meta"><span>キャリア研究所</span><span class="date">2026.07.29</span></div>
+        <p class="r-title">評判は、自分が見えないところを通って伝わる</p>
+      </a></li>
+      <li><a href="#">
+        <div class="r-meta"><span>お金研究所</span><span class="date">2026.07.26</span></div>
+        <p class="r-title">繰上返済は、いつ効いていつ効かないのか</p>
+      </a></li>
+      <li><a href="#">
+        <div class="r-meta"><span>育児研究所</span><span class="date">2026.07.22</span></div>
+        <p class="r-title">朝のルーティンを3回変えて、結局こうなった</p>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══ 所長 ══ -->
+<section class="director" id="director">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h3>ハル所長について</h3>
+    <p>人事の現場で、採用・昇格・異動・評価の判断に関わってきました。うまくいく人の共通点よりも、「なぜこの人は通らなかったのか」を見てきた時間のほうが長い。</p>
+    <p>匿名なのは、隠すためではなく、率直に書くためです。実際に見たことしか書きません。</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="mono">mylifejinseilab.com</p>
+    <p>© 人生ラボ</p>
+  </div>
+</footer>
+
+</body>
+</html>

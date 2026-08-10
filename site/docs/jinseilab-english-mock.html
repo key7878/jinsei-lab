@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>英語研究所｜人生ラボ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Sans+JP:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#101C33; --navy-soft:#1B2A45;
+  --brass:#C9A227; --brass-deep:#9C7B1C;
+  --vermillion:#D8452B;
+  --paper:#EDF0F4; --white:#FFFFFF;
+  --ink:#16202E; --muted:#5A6980; --line:#D3DAE3;
+  --serif:"Noto Serif JP",serif;
+  --sans:"Noto Sans JP",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --pad:20px; --maxw:1080px;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+  font-size:15px;line-height:1.85;letter-spacing:.01em}
+a{color:inherit}
+.wrap{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 var(--pad)}
+
+.spec{display:flex;flex-wrap:wrap;gap:0 14px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.08em;text-transform:uppercase;margin:0;padding:0;list-style:none}
+.spec li{display:flex;gap:6px;align-items:center;white-space:nowrap}
+.spec .k{opacity:.55} .spec .v{font-weight:500}
+.spec-light .k{color:var(--muted)} .spec-light .v{color:var(--brass-deep)}
+.spec-dark .k{color:#8FA2BE} .spec-dark .v{color:var(--brass)}
+
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--brass-deep);margin:0 0 10px}
+.eyebrow-d{color:var(--brass)}
+
+.site-head{background:var(--navy);border-bottom:1px solid rgba(201,162,39,.28)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;
+  gap:16px;min-height:58px}
+.logo{font-family:var(--serif);font-weight:700;font-size:18px;color:#fff;
+  text-decoration:none;letter-spacing:.06em}
+.logo span{color:var(--brass)}
+.crumb{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#8FA2BE}
+
+/* lab head + 計器パネル */
+.labhead{position:relative;background:var(--navy);
+  background-image:linear-gradient(rgba(255,255,255,.032) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.032) 1px,transparent 1px);
+  background-size:26px 26px;padding:40px 0 46px}
+.labhead::after{content:"";position:absolute;inset:auto 0 0 0;height:1px;
+  background:linear-gradient(90deg,transparent,var(--brass),transparent);opacity:.5}
+.labhead h1{font-family:var(--serif);font-weight:600;font-size:clamp(24px,6.5vw,34px);
+  color:#fff;margin:0 0 12px;letter-spacing:.04em;line-height:1.45}
+.labhead .lede{color:#B9C6DA;margin:0;max-width:620px;font-size:14px}
+.labhead .quiet{display:block;color:#8397B2;font-size:13px;margin-top:6px}
+
+/* 所長の現在地：この研究所の署名 */
+.panel{margin-top:28px;border:1px solid rgba(201,162,39,.34);border-radius:3px;
+  background:var(--navy-soft);overflow:hidden}
+.panel-top{display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 18px;border-bottom:1px solid rgba(255,255,255,.1)}
+.panel-top .t{font-family:var(--serif);color:#fff;font-size:14.5px;font-weight:600;margin:0}
+.badge{font-family:var(--mono);font-size:10px;letter-spacing:.12em;color:var(--navy);
+  background:var(--brass);padding:3px 8px;border-radius:2px;font-weight:500;flex:none}
+.cells{display:grid;grid-template-columns:1fr 1fr}
+.cell{padding:16px 18px;border-top:1px solid rgba(255,255,255,.08);
+  border-right:1px solid rgba(255,255,255,.08)}
+.cell:nth-child(2n){border-right:none}
+.cell .k{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  text-transform:uppercase;color:#8FA2BE;display:block;margin-bottom:4px}
+.cell .v{font-family:var(--mono);font-size:21px;color:var(--brass);
+  font-weight:500;line-height:1.3;display:block}
+.cell .v small{font-size:11px;color:#B9C6DA;margin-left:3px;font-family:var(--sans)}
+.cell .txt{font-family:var(--sans);font-size:13.5px;color:#fff;line-height:1.6;display:block}
+
+.section{padding:46px 0}
+.section-head{margin-bottom:22px}
+.section-head h3{font-family:var(--serif);font-weight:600;font-size:19px;margin:0;letter-spacing:.04em}
+.section-head .sub{color:var(--muted);font-size:12.5px;margin:6px 0 0}
+
+/* 実験の弧 */
+.exp{background:var(--white);border:1px solid var(--line);border-radius:3px;padding:22px 20px}
+.exp h3{font-family:var(--serif);font-size:19px;margin:6px 0 8px;font-weight:600;line-height:1.5}
+.exp .hyp{font-size:13.5px;color:var(--muted);margin:0 0 20px}
+.arc{list-style:none;margin:0;padding:0;border-left:1px solid var(--line);margin-left:6px}
+.arc li{position:relative;padding:0 0 18px 20px}
+.arc li::before{content:"";position:absolute;left:-4.5px;top:7px;width:8px;height:8px;
+  border-radius:50%;background:var(--line)}
+.arc li.done::before{background:var(--brass-deep)}
+.arc li.now::before{background:var(--vermillion);box-shadow:0 0 0 4px rgba(216,69,43,.15)}
+.arc .st{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);display:block;margin-bottom:2px}
+.arc li.now .st{color:var(--vermillion)}
+.arc .d{font-size:13.5px;margin:0;line-height:1.7}
+.arc li.pending .d{color:#93A0B2}
+
+/* ログ */
+.logs{list-style:none;margin:0;padding:0;border-top:1px solid var(--line)}
+.logs li{border-bottom:1px solid var(--line)}
+.logs a{display:flex;gap:14px;align-items:baseline;padding:15px 2px;
+  text-decoration:none;transition:padding-left .18s ease}
+.logs a:hover{padding-left:8px}
+.logs a:focus-visible{outline:2px solid var(--brass-deep);outline-offset:-2px}
+.logs .day{font-family:var(--mono);font-size:11px;color:var(--brass-deep);
+  letter-spacing:.08em;flex:none;width:52px}
+.logs .ttl{font-family:var(--serif);font-size:15px;line-height:1.6;font-weight:600;margin:0}
+
+/* 使っているもの */
+.using{background:var(--white);border:1px solid var(--line);
+  border-left:3px solid var(--brass-deep);border-radius:3px;padding:22px 20px}
+.using h3{font-family:var(--serif);font-size:18px;margin:6px 0 8px;font-weight:600}
+.using > p{font-size:13.5px;color:var(--muted);margin:0 0 18px}
+.using ul{list-style:none;margin:0;padding:0}
+.using li{padding:14px 0;border-top:1px solid var(--line)}
+.using h5{font-family:var(--serif);font-size:14.5px;margin:0 0 3px;font-weight:600}
+.using .verdict{font-size:12.5px;color:var(--muted);margin:0;line-height:1.75}
+.using .tag{font-family:var(--mono);font-size:10px;letter-spacing:.1em;
+  color:var(--brass-deep);text-transform:uppercase}
+
+/* メール */
+.subscribe{background:var(--navy-soft);border:1px solid rgba(201,162,39,.34);
+  border-radius:3px;padding:26px 20px;color:#B9C6DA}
+.subscribe h3{font-family:var(--serif);color:#fff;font-size:18px;margin:6px 0 10px;font-weight:600}
+.subscribe p{font-size:13.5px;margin:0 0 18px;line-height:1.85}
+.field{display:grid;gap:10px}
+.field input{font-family:var(--sans);font-size:15px;padding:13px 14px;border-radius:2px;
+  border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.05);color:#fff;width:100%}
+.field input::placeholder{color:#7E90AB}
+.field input:focus{outline:2px solid var(--brass);outline-offset:1px}
+.btn{display:inline-flex;justify-content:center;align-items:center;gap:9px;
+  background:var(--vermillion);color:#fff;font-weight:700;font-size:14.5px;letter-spacing:.04em;
+  padding:14px 24px;border-radius:2px;text-decoration:none;border:none;cursor:pointer;
+  font-family:var(--sans);transition:background .18s ease}
+.btn:hover{background:#C13A22}
+.btn:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.note{font-size:11.5px;color:#7E90AB;margin:12px 0 0}
+
+/* ライブラリ */
+.tags{display:flex;flex-wrap:wrap;gap:8px}
+.tag-link{background:var(--white);border:1px solid var(--line);border-radius:2px;
+  padding:9px 14px;font-size:13px;text-decoration:none;transition:border-color .18s ease}
+.tag-link:hover{border-color:var(--brass-deep)}
+.tag-link:focus-visible{outline:2px solid var(--brass-deep);outline-offset:2px}
+
+.director{background:var(--navy);color:#C4D0E2;padding:34px 0}
+.director .rule{width:44px;height:2px;background:var(--brass);margin:0 0 16px}
+.director h3{font-family:var(--serif);color:#fff;font-size:17px;margin:0 0 10px;font-weight:600}
+.director p{margin:0 0 10px;font-size:13.5px;line-height:1.9;max-width:620px}
+.foot{padding:24px 0 40px;font-size:11.5px;color:var(--muted)}
+.foot .mono{font-family:var(--mono);letter-spacing:.06em}
+
+@media (min-width:720px){
+  body{font-size:16px}
+  .labhead{padding:56px 0 60px}
+  .cells{grid-template-columns:repeat(4,1fr)}
+  .cell{border-right:1px solid rgba(255,255,255,.08)}
+  .cell:nth-child(2n){border-right:1px solid rgba(255,255,255,.08)}
+  .cell:last-child{border-right:none}
+  .section{padding:58px 0}
+  .exp,.using,.subscribe{padding:32px 30px}
+  .field{grid-template-columns:1fr auto}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none !important;transition:none !important}}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="#">人生ラボ<span>.</span></a>
+    <span class="crumb">ENGLISH LAB</span>
+  </div>
+</header>
+
+<section class="labhead">
+  <div class="wrap">
+    <p class="eyebrow eyebrow-d">Laboratory 02</p>
+    <h1>英語研究所</h1>
+    <p class="lede">大人になってからの英語は、どこまで伸ばせるのか。海外で英語を使って働く、その日に備えて、実際に学びながら記録しています。
+      <span class="quiet">まだ日付は決まっていない。でも、その日は来る。</span>
+    </p>
+
+    <!-- 所長の現在地：完成した講師ではなく、途中経過を見せる -->
+    <div class="panel">
+      <div class="panel-top">
+        <p class="t">所長の現在地</p>
+        <span class="badge">研究中</span>
+      </div>
+      <div class="cells">
+        <div class="cell">
+          <span class="k">継続</span>
+          <span class="v">1<small>日目</small></span>
+        </div>
+        <div class="cell">
+          <span class="k">今週の学習</span>
+          <span class="v">0.5<small>時間</small></span>
+        </div>
+        <div class="cell">
+          <span class="k">今の課題</span>
+          <span class="txt">会議で発言できない</span>
+        </div>
+        <div class="cell">
+          <span class="k">試していること</span>
+          <span class="txt">AI英会話・毎朝15分</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Experiment 01</p>
+      <h3>進行中の実験</h3>
+      <p class="sub">仮説を立てて、開始時点を測って、途中も結果も出します。</p>
+    </div>
+
+    <div class="exp">
+      <h3>毎朝15分のAI英会話を100日続けたら、会議で発言できるようになるか</h3>
+      <p class="hyp">仮説：足りないのは語彙でも文法でもなく、口が動くまでの時間。反応速度だけを鍛えれば、会議での発言量は変わるはず。</p>
+
+      <ol class="arc">
+        <li class="done">
+          <span class="st">仮説</span>
+          <p class="d">課題は知識量ではなく反応速度だと考えた。</p>
+        </li>
+        <li class="done">
+          <span class="st">開始時点</span>
+          <p class="d">初日の記録：言いたいことが出てくるまで平均7秒。会議での自発的な発言は0回。</p>
+        </li>
+        <li class="now">
+          <span class="st">途中経過</span>
+          <p class="d">Day 01 ／ 100。毎朝の記録を更新しています。</p>
+        </li>
+        <li class="pending">
+          <span class="st">結果</span>
+          <p class="d">100日後に、同じ指標で測り直します。</p>
+        </li>
+        <li class="pending">
+          <span class="st">考察</span>
+          <p class="d">効いたこと、効かなかったこと、途中でやめたことまで書きます。</p>
+        </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Logs</p>
+      <h3>研究ログ</h3>
+      <p class="sub">できたことより、できなかったことを残します。</p>
+    </div>
+    <ul class="logs">
+      <li><a href="#"><span class="day">Day 01</span><p class="ttl">現在地を測るところから始める</p></a></li>
+      <li><a href="#"><span class="day">Day 00</span><p class="ttl">なぜ今さら英語をやり直すのか</p></a></li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="using">
+      <p class="eyebrow">In use</p>
+      <h3>実験に使っているもの</h3>
+      <p>おすすめを並べるページではありません。この実験で実際に使っていて、続いているもの・やめたものを、そのまま書きます。</p>
+      <ul>
+        <li>
+          <span class="tag">継続中 ／ Day 01 -</span>
+          <h5>AI英会話（毎朝15分）</h5>
+          <p class="verdict">反応速度を上げる目的で採用。使用感と効果は、途中経過のログで随時更新します。</p>
+        </li>
+        <li>
+          <span class="tag">検討中</span>
+          <h5>シャドーイング教材</h5>
+          <p class="verdict">まだ決めていません。決めた理由と、外した候補も書きます。</p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="subscribe">
+      <p class="eyebrow eyebrow-d">Follow</p>
+      <h3>この実験の続きを受け取る</h3>
+      <p>100日の途中経過と結果を、更新のたびにメールで送ります。うまくいかなかった週も、そのまま送ります。</p>
+      <div class="field">
+        <input type="email" placeholder="メールアドレス" aria-label="メールアドレス">
+        <button class="btn" type="button">続きを受け取る</button>
+      </div>
+      <p class="note">配信は実験の更新時のみ。いつでも解除できます。</p>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Library</p>
+      <h3>分野から探す</h3>
+    </div>
+    <div class="tags">
+      <a class="tag-link" href="#">スピーキング</a>
+      <a class="tag-link" href="#">リスニング</a>
+      <a class="tag-link" href="#">語彙</a>
+      <a class="tag-link" href="#">発音</a>
+      <a class="tag-link" href="#">ビジネス英語</a>
+      <a class="tag-link" href="#">AI英語学習</a>
+    </div>
+  </div>
+</section>
+
+<section class="director">
+  <div class="wrap">
+    <div class="rule"></div>
+    <h3>ハル所長について</h3>
+    <p>英語の専門家ではありません。仕事で必要になった社会人が、どこまで伸ばせるかを試している最中です。完成した状態ではなく、その過程を公開しています。</p>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="mono">mylifejinseilab.com / english</p>
+    <p>© 人生ラボ</p>
+  </div>
+</footer>
+
+</body>
+</html>
