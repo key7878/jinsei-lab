@@ -16,6 +16,7 @@ Claude Codeへの依頼テンプレート:
 import os
 import re
 import csv
+import hashlib
 import glob
 import yaml
 import markdown as md
@@ -904,6 +905,40 @@ def build_article_pages(articles_by_lab):
             print(f"generated article: labs/{lab}/{a['slug']}.html")
 
 
+def apply_css_cache_busting():
+    """style.cssのURLに内容ハッシュ(?v=xxxx)を付ける。
+
+    Cloudflare Pagesは style.css を `max-age=14400`(4時間)で配信する一方、
+    HTMLは `max-age=0` で毎回再検証される。この差があるため、ハッシュを
+    付けないままCSSを更新すると「新しいHTML + 古いCSS」の組み合わせが
+    最大4時間続き、訪問者にはレイアウトが崩れて見える(実際に発生した)。
+    CSSの中身が変わったときだけURLが変わるので、更新時は確実に再取得され、
+    変えていない間はキャッシュがそのまま効く。
+    """
+    css_path = os.path.join(ROOT, "style.css")
+    if not os.path.exists(css_path):
+        print("WARN: style.css が見つからないためキャッシュ対策を適用しません")
+        return None
+    with open(css_path, "rb") as f:
+        digest = hashlib.md5(f.read()).hexdigest()[:8]
+
+    targets = [
+        "ARTICLE_TEMPLATE", "ABOUT_TEMPLATE", "LAB_INDEX_TEMPLATE",
+        "BRAND_ARTICLE_TEMPLATE", "BRAND_INDEX_TEMPLATE", "INDEX_TEMPLATE",
+    ]
+    patched = 0
+    for name in targets:
+        tpl = globals()[name]
+        if 'style.css?v=' in tpl:
+            continue  # 二重適用を防ぐ
+        new_tpl = tpl.replace('style.css"', f'style.css?v={digest}"')
+        if new_tpl != tpl:
+            globals()[name] = new_tpl
+            patched += 1
+    print(f"applied css cache-busting: style.css?v={digest} ({patched} templates)")
+    return digest
+
+
 def load_english_log():
     """data/english_log.yaml を読み込む。無ければ None(=英語専用ブロックを出さない)。"""
     path = os.path.join(ROOT, "data", "english_log.yaml")
@@ -1274,6 +1309,7 @@ def build_sitemap(articles_by_lab, brand_articles):
 
 
 if __name__ == "__main__":
+    apply_css_cache_busting()
     articles_by_lab = load_articles()
     brand_articles = load_brand_articles()
     english_log = load_english_log()
