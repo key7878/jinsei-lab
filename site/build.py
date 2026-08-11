@@ -327,10 +327,10 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
     <a href="../index.html" class="back-link">← 研究所一覧に戻る</a>
     <p class="hero-eyebrow">{code} / {eyebrow}</p>
     <h1>{name}</h1>
-    <p>{lead}</p>{name_policy}{diagnostic_cta}
+    <p>{lead}</p>{name_policy}{diagnostic_cta}{lab_panel}
   </div>
 </section>
-{diag_flow_cta}
+{diag_flow_cta}{lab_feature}
 <div class="wrap">
   <div class="section-head">
     <h2>記事一覧</h2>
@@ -558,6 +558,82 @@ IDX_REPORT_ITEM = """      <li><a href="labs/{lab}/{slug}.html">
         <div class="idx-r-meta"><span class="idx-r-lab">{lab_name}</span><span class="idx-r-date">{date}</span></div>
         <p class="idx-r-title">{title}</p>
       </a></li>"""
+
+# ----- 英語研究所(学習ログ)用テンプレート -----
+# 数値は data/english_log.yaml の実データからのみ算出する。
+
+ELAB_PANEL = """
+    <div class="elab-panel">
+      <div class="elab-panel-top">
+        <p class="elab-panel-title">所長の現在地</p>
+        <span class="elab-badge">{current} → {target}</span>
+      </div>
+      <div class="elab-cells">
+        <div class="elab-cell">
+          <span class="k">記録した単語</span>
+          <span class="v">{words}<small>語</small></span>
+        </div>
+        <div class="elab-cell">
+          <span class="k">記録したフレーズ</span>
+          <span class="v">{phrases}<small>件</small></span>
+        </div>
+        <div class="elab-cell">
+          <span class="k">学習時間</span>
+          <span class="v">{hours}<small>時間</small></span>
+        </div>
+        <div class="elab-cell">
+          <span class="k">記録した日数</span>
+          <span class="v">{days}<small>日</small></span>
+        </div>
+      </div>
+    </div>"""
+
+ELAB_BAR = """        <div class="elab-bar-row">
+          <div class="elab-bar-head">
+            <span class="elab-bar-label">{label}</span>
+            <span class="elab-bar-num">{done} <span class="elab-bar-goal">/ {goal}</span></span>
+          </div>
+          <div class="elab-bar-track"><div class="elab-bar-fill" style="width: {pct}%"></div></div>
+          <p class="elab-bar-note">{note}</p>
+        </div>"""
+
+ELAB_ENTRY = """          <li class="elab-entry">
+            <div class="elab-entry-head">
+              <span class="elab-entry-type elab-type-{type}">{type_label}</span>
+              <span class="elab-entry-date">{date}</span>
+            </div>
+            <p class="elab-term">{term}</p>
+            <p class="elab-meaning">{meaning}</p>
+            <p class="elab-example">{example}</p>
+            <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>{situation}</p>
+          </li>"""
+
+ELAB_FEATURE = """
+<section class="elab-section">
+  <div class="wrap">
+    <div class="elab-section-head">
+      <p class="elab-eyebrow">Progress to C1</p>
+      <h2 class="elab-h2">C1までの距離</h2>
+      <p class="elab-sub">C1到達の目安とされる語彙3,000語・フレーズ3,000件・学習500〜800時間に対して、今どこにいるか。数字は記録した分だけ動きます。</p>
+    </div>
+    <div class="elab-bars">
+{bars}
+    </div>
+  </div>
+</section>
+
+<section class="elab-section elab-section-tight">
+  <div class="wrap">
+    <div class="elab-section-head">
+      <p class="elab-eyebrow">Daily log</p>
+      <h2 class="elab-h2">拾った単語・フレーズ</h2>
+      <p class="elab-sub">その日に学んだ表現と、それを「使いたかったのに出てこなかった場面」を並べています。覚えた単語より、詰まった場面のほうが記録として価値があると考えています。</p>
+    </div>
+{log_body}
+  </div>
+</section>"""
+
+ELAB_EMPTY = """    <p class="elab-empty">記録はこれから始まります。学んだ単語・フレーズと、それを使いたかった場面を、日ごとにここへ積み上げていきます。</p>"""
 
 BRAND_ARTICLE_CARD = """    <a href="brand/{slug}.html" class="article-card">
       <p class="cat">{category}</p>
@@ -828,7 +904,90 @@ def build_article_pages(articles_by_lab):
             print(f"generated article: labs/{lab}/{a['slug']}.html")
 
 
-def build_lab_indexes(articles_by_lab):
+def load_english_log():
+    """data/english_log.yaml を読み込む。無ければ None(=英語専用ブロックを出さない)。"""
+    path = os.path.join(ROOT, "data", "english_log.yaml")
+    if not os.path.exists(path):
+        print("INFO: data/english_log.yaml が無いため英語研究所の学習ログは生成しません")
+        return None
+    with open(path, "r", encoding="utf-8") as f:
+        data = yaml.safe_load(f) or {}
+    data.setdefault("entries", [])
+    if data["entries"] is None:
+        data["entries"] = []
+    return data
+
+
+def build_english_blocks(log):
+    """英語研究所の「現在地パネル」と「C1進捗＋語彙ログ」HTMLを組み立てる。
+    件数・日数はすべて entries の実データから数える(推定値は出さない)。"""
+    if log is None:
+        return "", ""
+
+    entries = list(log.get("entries") or [])
+    for e in entries:
+        e.setdefault("type", "word")
+    entries.sort(key=lambda e: str(e.get("date", "")), reverse=True)
+
+    words = sum(1 for e in entries if e.get("type") == "word")
+    phrases = sum(1 for e in entries if e.get("type") == "phrase")
+    hours = log.get("study_hours", 0) or 0
+    days = len({str(e.get("date", "")) for e in entries if e.get("date")})
+
+    level = log.get("level", {}) or {}
+    targets = log.get("targets", {}) or {}
+    t_words = targets.get("words", 3000)
+    t_phrases = targets.get("phrases", 3000)
+    h_min = targets.get("hours_min", 500)
+    h_max = targets.get("hours_max", 800)
+
+    panel = ELAB_PANEL.format(
+        current=level.get("current", "B2"), target=level.get("target", "C1"),
+        words=f"{words:,}", phrases=f"{phrases:,}", hours=f"{hours:,}", days=days,
+    )
+
+    def pct(done, goal):
+        return 0 if not goal else min(100, round(done / goal * 100, 1))
+
+    bars = "\n".join([
+        ELAB_BAR.format(
+            label="語彙", done=f"{words:,}", goal=f"{t_words:,}語",
+            pct=pct(words, t_words),
+            note=f"残り{max(0, t_words - words):,}語。",
+        ),
+        ELAB_BAR.format(
+            label="フレーズ", done=f"{phrases:,}", goal=f"{t_phrases:,}件",
+            pct=pct(phrases, t_phrases),
+            note=f"残り{max(0, t_phrases - phrases):,}件。",
+        ),
+        ELAB_BAR.format(
+            label="学習時間", done=f"{hours:,}", goal=f"{h_max:,}時間",
+            pct=pct(hours, h_max),
+            note=f"C1到達の目安は{h_min:,}〜{h_max:,}時間。バーは上限の{h_max:,}時間を100%として表示しています。",
+        ),
+    ])
+
+    if entries:
+        items = "\n".join(
+            ELAB_ENTRY.format(
+                type=e.get("type", "word"),
+                type_label="フレーズ" if e.get("type") == "phrase" else "単語",
+                date=e.get("date", ""), term=e.get("term", ""),
+                meaning=e.get("meaning", ""), example=e.get("example", ""),
+                situation=e.get("situation", ""),
+            )
+            for e in entries
+        )
+        log_body = f'    <ul class="elab-entries">\n{items}\n    </ul>'
+    else:
+        log_body = ELAB_EMPTY
+
+    feature = ELAB_FEATURE.format(bars=bars, log_body=log_body)
+    return panel, feature
+
+
+def build_lab_indexes(articles_by_lab, english_log=None):
+    english_panel, english_feature = build_english_blocks(english_log)
     for lab, info in LABS.items():
         articles = articles_by_lab.get(lab, [])
         if articles:
@@ -873,6 +1032,8 @@ def build_lab_indexes(articles_by_lab):
             note_series_cta=info.get("note_series_cta", ""),
             consult_cta=info.get("consult_cta", ""),
             director_cta=info.get("director_cta", ""),
+            lab_panel=english_panel if lab == "english" else "",
+            lab_feature=english_feature if lab == "english" else "",
             article_section=article_section, count_label=count_label,
         )
         out_path = os.path.join(LABS_DIR, f"{lab}.html")
@@ -1115,8 +1276,9 @@ def build_sitemap(articles_by_lab, brand_articles):
 if __name__ == "__main__":
     articles_by_lab = load_articles()
     brand_articles = load_brand_articles()
+    english_log = load_english_log()
     build_article_pages(articles_by_lab)
-    build_lab_indexes(articles_by_lab)
+    build_lab_indexes(articles_by_lab, english_log)
     build_brand_pages(brand_articles)
     build_brand_index(brand_articles)
     build_about_page()
