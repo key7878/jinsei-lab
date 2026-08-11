@@ -1191,3 +1191,418 @@ img { max-width: 100%; display: block; }
   .clab-series { padding: 34px 32px; }
   .clab-consult { padding: 30px 28px; }
 }
+
+/* ==========================================================================
+   トップページ(index.html) 専用スタイル (.idx- 接頭辞)
+   回遊設計: 研究所ブロックに実記事タイトルを直接並べ、着地時点の
+   クリック可能な内部リンク数を増やす。
+   .site-header / .site-footer / .entry-{accent} は変更しない。
+   ========================================================================== */
+
+/* ----- ②研究台(navyヒーロー) ----- */
+.idx-bench {
+  position: relative;
+  background: #101C33;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+  background-size: 26px 26px;
+  padding: 52px 0 56px;
+  overflow: hidden;
+}
+
+.idx-bench::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A227, transparent);
+  opacity: 0.5;
+}
+
+.idx-bench-grid {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 40px;
+}
+
+.idx-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #C9A227;
+  margin: 0 0 20px;
+  opacity: 0.9;
+}
+
+.idx-bench h1 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  color: #fff;
+  margin: 0 0 24px;
+}
+
+.idx-bench-lede {
+  max-width: var(--measure);
+  color: #B9C6DA;
+  font-size: 1rem;
+  margin: 0;
+}
+
+.idx-bench-visual { width: 200px; flex-shrink: 0; }
+.idx-bench-visual svg { width: 100%; height: auto; }
+
+/* ----- ヒーローカード(USE) ----- */
+.idx-heroes {
+  display: grid;
+  gap: 16px;
+  margin-top: 36px;
+}
+
+.idx-hero-use {
+  display: block;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid #D8452B;
+  border-radius: 3px;
+  padding: 26px 22px 24px;
+  text-decoration: none;
+  color: var(--ink);
+  box-shadow: 0 1px 0 rgba(16, 32, 51, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.idx-hero-use:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 26px rgba(16, 32, 51, 0.18);
+}
+
+.idx-verb {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D8452B;
+  display: block;
+}
+
+.idx-hero-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.5;
+  margin: 8px 0 10px;
+}
+
+.idx-hero-text {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+  line-height: 1.8;
+  max-width: 60ch;
+}
+
+.idx-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #D8452B;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding: 13px 22px;
+  border-radius: 2px;
+  transition: background 0.18s ease;
+}
+
+.idx-hero-use:hover .idx-btn { background: #C13A22; }
+.idx-arw { font-family: var(--font-mono); font-size: 12px; }
+
+/* ----- 研究ラベル(spec) ----- */
+.idx-spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 14px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.idx-spec li { display: flex; gap: 6px; align-items: center; white-space: nowrap; }
+.idx-spec .k { opacity: 0.55; color: var(--ink-soft); }
+.idx-spec .v { font-weight: 500; color: #9C7B1C; }
+
+.idx-hero-use .idx-spec {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* ----- セクション共通 ----- */
+.idx-section { padding: 56px 0 0; }
+.idx-section-tight { padding-top: 8px; }
+.idx-section-head { margin-bottom: 24px; }
+
+.idx-eyebrow-light {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #9C7B1C;
+  margin: 0 0 10px;
+}
+
+.idx-h2 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.idx-sub {
+  color: var(--ink-soft);
+  font-size: 0.86rem;
+  margin: 8px 0 0;
+  max-width: var(--measure);
+}
+
+/* ----- ③5研究所(記事タイトル入り) ----- */
+.idx-labs {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+.idx-lab {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent, var(--line-strong));
+  border-radius: var(--radius-md);
+  padding: 22px 20px 18px;
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.25s ease;
+}
+
+.idx-lab:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(43, 38, 32, 0.06);
+}
+
+.idx-lab-code {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  color: var(--accent, var(--ink-soft));
+  opacity: 0.85;
+}
+
+.idx-lab-name {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin: 6px 0 8px;
+}
+
+.idx-lab-desc {
+  margin: 0 0 12px;
+  color: var(--ink-soft);
+  font-size: 0.85rem;
+  line-height: 1.75;
+}
+
+.idx-lab-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.idx-lab-tags span {
+  font-size: 0.7rem;
+  color: var(--accent, var(--ink-soft));
+  background: color-mix(in srgb, var(--accent, var(--ink)) 10%, transparent);
+  padding: 3px 11px;
+  border-radius: 999px;
+}
+
+.idx-lab-articles {
+  list-style: none;
+  margin: 14px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--line);
+  flex: 1;
+}
+
+.idx-lab-articles li { border-bottom: 1px solid var(--line); }
+.idx-lab-articles li:last-child { border-bottom: none; }
+
+.idx-lab-articles a {
+  display: block;
+  padding: 11px 2px;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ink);
+  transition: color 0.18s ease, padding-left 0.18s ease;
+}
+
+.idx-lab-articles a:hover {
+  color: var(--accent, var(--ink));
+  padding-left: 6px;
+}
+
+.idx-lab-empty {
+  display: block;
+  padding: 11px 2px;
+  font-size: 0.84rem;
+  color: var(--ink-soft);
+  opacity: 0.8;
+}
+
+.idx-lab-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
+  color: var(--accent, var(--ink-soft));
+  transition: gap 0.18s ease;
+}
+
+.idx-lab-more:hover { gap: 12px; }
+
+/* ----- ④新着記事(リスト形式) ----- */
+.idx-reports {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid var(--line);
+}
+
+.idx-reports li { border-bottom: 1px solid var(--line); }
+
+.idx-reports a {
+  display: block;
+  padding: 16px 2px;
+  transition: padding-left 0.18s ease;
+}
+
+.idx-reports a:hover { padding-left: 8px; }
+
+.idx-r-meta {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  display: flex;
+  gap: 12px;
+  margin-bottom: 5px;
+}
+
+.idx-r-lab { color: #9C7B1C; }
+.idx-r-date { color: var(--ink-soft); opacity: 0.8; }
+
+.idx-r-title {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.65;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* ----- ⑤この場所について(navy) ----- */
+.idx-manifesto {
+  background: #101C33;
+  color: #C4D0E2;
+  padding: 48px 0;
+  margin-top: 64px;
+}
+
+.idx-rule { width: 44px; height: 2px; background: #C9A227; margin: 0 0 20px; }
+
+.idx-manifesto h2 {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 1.35rem;
+  margin: 0 0 18px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
+.idx-manifesto p {
+  margin: 0 0 14px;
+  font-size: 0.9rem;
+  line-height: 1.95;
+  max-width: var(--measure);
+}
+
+.idx-manifesto p:last-child { margin-bottom: 0; }
+
+.idx-manifesto a {
+  color: #C9A227;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.4);
+  transition: border-color 0.2s ease;
+}
+
+.idx-manifesto a:hover { border-bottom-color: #C9A227; }
+
+@media (min-width: 720px) {
+  .idx-bench { padding: 68px 0 64px; }
+  .idx-hero-use { padding: 32px 30px 28px; }
+  .idx-hero-title { font-size: 25px; }
+  .idx-labs { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .idx-section { padding: 68px 0 0; }
+  .idx-manifesto { padding: 60px 0; }
+}
+
+@media (max-width: 720px) {
+  .idx-bench-grid { grid-template-columns: 1fr; gap: 28px; }
+  .idx-bench-visual { width: 140px; margin: 0 auto; }
+}
+
+/* 狭い画面では装飾SVGを省き、診断ツールのカードを先に見せる。
+   SVGは aria-hidden の装飾要素なので、省いても情報は失われない。 */
+@media (max-width: 600px) {
+  .idx-bench { padding: 36px 0 40px; }
+  .idx-bench-grid { gap: 0; }
+  .idx-bench-visual { display: none; }
+  .idx-heroes { margin-top: 28px; }
+}
+
+/* ----- トップページのナビ(項目数が多いため折り返しを許可) -----
+   .idx-nav / .idx-header は index.html だけに付与している。
+   共通の .site-header / .site-nav 側のルールは変更しない。 */
+.idx-nav { flex-wrap: wrap; }
+.idx-nav a { white-space: nowrap; }
+
+@media (max-width: 720px) {
+  .idx-header .wrap {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+  /* sticky headerが画面を圧迫しないよう、モバイルでは英字サブラベルを省く */
+  .idx-header .wordmark small { display: none; }
+  .idx-nav {
+    gap: 2px 14px;
+    font-size: 0.74rem;
+  }
+  .idx-nav a { padding: 1px 0; }
+}

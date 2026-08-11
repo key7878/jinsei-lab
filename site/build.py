@@ -516,12 +516,48 @@ BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-NEW_ARTICLE_CARD = """    <a href="labs/{lab}/{slug}.html" class="new-article-card entry-{accent}">
-      {badge}
-      <p class="new-article-lab">{lab_name}</p>
-      <h3>{title}</h3>
-      <p class="new-article-date">{date}</p>
-    </a>"""
+# ----- トップページ(index.html)用テンプレート -----
+# 回遊設計: 研究所カードに実記事タイトルを直接載せ、着地時点でクリック可能な
+# 記事リンクを増やす。数値は全て content/{lab}/*.md の実数から算出する
+# (仮の数値・架空の指標は出さない)。
+
+# 研究所カードの説明文・タグは、旧 catalog-entry の文言をそのまま維持する。
+INDEX_LAB_META = {
+    "career":    {"desc": "転職、昇進、異動、キャリアの分岐点で立ち止まったときに。意思決定と自己理解のための知見を集める。",
+                  "tags": ["転職", "1on1", "異動支援"], "tool": "1"},
+    "ai":        {"desc": "生活と仕事にAIをどう組み込むか。ツールの選び方から使いこなし方まで、実験結果を共有する。",
+                  "tags": ["ツール比較", "プロンプト", "自動化"], "tool": "準備中"},
+    "childcare": {"desc": "正解のない子育てを、記録と検証で少しずつ楽にする。年齢別の悩みと工夫を蓄積する。",
+                  "tags": ["年齢別", "チェックリスト", "共働き"], "tool": "準備中"},
+    "english":   {"desc": "大人になってからの英語学習を、根性論ではなく仕組みで続ける。学習法とAI活用の実験記録。",
+                  "tags": ["学習法", "継続", "AI活用"], "tool": "準備中"},
+    "money":     {"desc": "家計、住宅ローン、資産形成。感情論を排して、数字とライフプランで判断するための材料集め。",
+                  "tags": ["家計", "住宅ローン", "資産形成"], "tool": "準備中"},
+}
+
+IDX_LAB_ARTICLE = """          <li><a href="labs/{lab}/{slug}.html">{title}</a></li>"""
+
+IDX_LAB_BLOCK = """      <div class="idx-lab entry-{accent}">
+        <div class="idx-lab-head">
+          <span class="idx-lab-code">{code}</span>
+          <h3 class="idx-lab-name">{name}</h3>
+          <p class="idx-lab-desc">{desc}</p>
+          <div class="idx-lab-tags">{tags}</div>
+          <ul class="idx-spec">
+            <li><span class="k">ツール</span><span class="v">{tool}</span></li>
+            <li><span class="k">レポート</span><span class="v">{count}</span></li>
+          </ul>
+        </div>
+        <ul class="idx-lab-articles">
+{articles}
+        </ul>
+        <a class="idx-lab-more" href="labs/{lab}.html">{name}の記事一覧（{count}件） <span class="idx-arw">→</span></a>
+      </div>"""
+
+IDX_REPORT_ITEM = """      <li><a href="labs/{lab}/{slug}.html">
+        <div class="idx-r-meta"><span class="idx-r-lab">{lab_name}</span><span class="idx-r-date">{date}</span></div>
+        <p class="idx-r-title">{title}</p>
+      </a></li>"""
 
 BRAND_ARTICLE_CARD = """    <a href="brand/{slug}.html" class="article-card">
       <p class="cat">{category}</p>
@@ -547,10 +583,11 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 </head>
 <body>
 
-<header class="site-header">
+<header class="site-header idx-header">
   <div class="wrap">
     <div class="wordmark">人生ラボ<small>LIFE RESEARCH LAB</small></div>
-    <nav class="site-nav">
+    <nav class="site-nav idx-nav">
+      <a href="labs/career-diagnosis">診断ツール</a>
       <a href="#labs">研究所</a>
       <a href="#new">新着記事</a>
       <a href="#manifesto">この場所について</a>
@@ -560,14 +597,14 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
   </div>
 </header>
 
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div class="hero-text">
-      <p class="hero-eyebrow">Est. 2026 / 5 Laboratories</p>
+<section class="idx-bench">
+  <div class="wrap idx-bench-grid">
+    <div class="idx-bench-text">
+      <p class="idx-eyebrow">Est. 2026 / 5 Laboratories</p>
       <h1>人生は、<br>実験してもいい。</h1>
-      <p>人生ラボは、キャリア・AI・育児・英語・お金という5つの研究所から成る、人生をより良くするための実験場です。答えを押しつけるのではなく、試して、記録して、次に活かす。そんな研究のプロセスを、日々の暮らしに。</p>
+      <p class="idx-bench-lede">人生ラボは、キャリア・AI・育児・英語・お金という5つの研究所から成る、人生をより良くするための実験場です。答えを押しつけるのではなく、試して、記録して、次に活かす。そんな研究のプロセスを、日々の暮らしに。</p>
     </div>
-    <div class="hero-visual" aria-hidden="true">
+    <div class="idx-bench-visual" aria-hidden="true">
       <svg viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg">
         <line class="hv-line" x1="130" y1="130" x2="130" y2="26"  stroke="#3E7A63" style="animation-delay:0.1s"/>
         <line class="hv-line" x1="130" y1="130" x2="228" y2="90"  stroke="#4C5FB0" style="animation-delay:0.25s"/>
@@ -575,7 +612,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
         <line class="hv-line" x1="130" y1="130" x2="64"  y2="212" stroke="#3C9088" style="animation-delay:0.55s"/>
         <line class="hv-line" x1="130" y1="130" x2="32"  y2="90"  stroke="#A8546A" style="animation-delay:0.7s"/>
 
-        <circle class="hv-hub" cx="130" cy="130" r="7" fill="#2B2620"/>
+        <circle class="hv-hub" cx="130" cy="130" r="7" fill="#EDF0F4"/>
 
         <circle class="hv-node" cx="130" cy="26"  r="13" fill="#3E7A63" style="animation-delay:1.0s"/>
         <circle class="hv-node" cx="228" cy="90"  r="13" fill="#4C5FB0" style="animation-delay:1.3s"/>
@@ -585,81 +622,57 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
       </svg>
     </div>
   </div>
-</section>
 
-<section id="labs" class="wrap">
-  <div class="section-head">
-    <h2>研究所一覧</h2>
-    <span class="count">5 LABS / ACTIVE</span>
-  </div>
-
-  <div class="catalog">
-    <a href="labs/career.html" class="catalog-entry entry-career">
-      <span class="entry-code">LAB.01</span>
-      <div class="entry-body">
-        <h3>キャリア研究所</h3>
-        <p>転職、昇進、異動、キャリアの分岐点で立ち止まったときに。意思決定と自己理解のための知見を集める。</p>
-        <div class="entry-tags"><span>転職</span><span>1on1</span><span>異動支援</span></div>
-      </div>
-      <span class="entry-arrow">→</span>
-    </a>
-
-    <a href="labs/ai.html" class="catalog-entry entry-ai">
-      <span class="entry-code">LAB.02</span>
-      <div class="entry-body">
-        <h3>AI研究所</h3>
-        <p>生活と仕事にAIをどう組み込むか。ツールの選び方から使いこなし方まで、実験結果を共有する。</p>
-        <div class="entry-tags"><span>ツール比較</span><span>プロンプト</span><span>自動化</span></div>
-      </div>
-      <span class="entry-arrow">→</span>
-    </a>
-
-    <a href="labs/childcare.html" class="catalog-entry entry-childcare">
-      <span class="entry-code">LAB.03</span>
-      <div class="entry-body">
-        <h3>育児研究所</h3>
-        <p>正解のない子育てを、記録と検証で少しずつ楽にする。年齢別の悩みと工夫を蓄積する。</p>
-        <div class="entry-tags"><span>年齢別</span><span>チェックリスト</span><span>共働き</span></div>
-      </div>
-      <span class="entry-arrow">→</span>
-    </a>
-
-    <a href="labs/english.html" class="catalog-entry entry-english">
-      <span class="entry-code">LAB.04</span>
-      <div class="entry-body">
-        <h3>英語研究所</h3>
-        <p>大人になってからの英語学習を、根性論ではなく仕組みで続ける。学習法とAI活用の実験記録。</p>
-        <div class="entry-tags"><span>学習法</span><span>継続</span><span>AI活用</span></div>
-      </div>
-      <span class="entry-arrow">→</span>
-    </a>
-
-    <a href="labs/money.html" class="catalog-entry entry-money">
-      <span class="entry-code">LAB.05</span>
-      <div class="entry-body">
-        <h3>お金研究所</h3>
-        <p>家計、住宅ローン、資産形成。感情論を排して、数字とライフプランで判断するための材料集め。</p>
-        <div class="entry-tags"><span>家計</span><span>住宅ローン</span><span>資産形成</span></div>
-      </div>
-      <span class="entry-arrow">→</span>
-    </a>
+  <div class="wrap">
+    <div class="idx-heroes">
+      <a class="idx-hero-use" href="labs/career-diagnosis">
+        <span class="idx-verb">Use ｜ 触る</span>
+        <h2 class="idx-hero-title">見えない評価ギャップ診断</h2>
+        <p class="idx-hero-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
+        <span class="idx-btn">3分で診断する <span class="idx-arw">→</span></span>
+        <ul class="idx-spec idx-spec-light">
+          <li><span class="k">分類</span><span class="v">キャリア研究所</span></li>
+          <li><span class="k">状態</span><span class="v">公開中</span></li>
+          <li><span class="k">設問</span><span class="v">全12問</span></li>
+          <li><span class="k">登録</span><span class="v">不要</span></li>
+        </ul>
+      </a>
+    </div>
   </div>
 </section>
 
-<section id="new" class="wrap">
-  <div class="section-head">
-    <h2>新着記事</h2>
-    <span class="count">LATEST {new_count}</span>
-  </div>
+<section id="labs" class="idx-section">
+  <div class="wrap">
+    <div class="idx-section-head">
+      <p class="idx-eyebrow-light">Laboratories</p>
+      <h2 class="idx-h2">5つの研究所</h2>
+      <p class="idx-sub">仕事、お金、育児、AI、英語。生活のなかで実験できるものを、分けて置いています。</p>
+    </div>
 
-  <div class="new-articles-grid">
+    <div class="idx-labs">
+{lab_blocks}
+    </div>
+  </div>
+</section>
+
+<section id="new" class="idx-section idx-section-tight">
+  <div class="wrap">
+    <div class="idx-section-head">
+      <p class="idx-eyebrow-light">Latest</p>
+      <h2 class="idx-h2">新着記事</h2>
+      <p class="idx-sub">5つの研究所から、直近に公開した{new_count}件です。</p>
+    </div>
+
+    <ul class="idx-reports">
 {new_articles}
+    </ul>
   </div>
 </section>
 
-<section id="manifesto" class="wrap manifesto">
-  <h2>「答え」ではなく、<br>「実験」を届ける。</h2>
-  <div class="manifesto-body">
+<section id="manifesto" class="idx-manifesto">
+  <div class="wrap">
+    <div class="idx-rule"></div>
+    <h2>「答え」ではなく、「実験」を届ける。</h2>
     <p>人生ラボは、断言しません。キャリアも、育児も、お金の判断も、正解は人によって違うからです。私たちがやるのは、実際に試し、記録し、うまくいったこと・いかなかったことを研究所ごとに蓄積していくこと。</p>
     <p>それぞれの研究所は独立して育ちますが、根っこは1つ。「人生をより良くする」という問いに対して、AIと一緒に、地道に実験を重ねる場所であることです。その根っこにある考え方は、<a href="brand.html">7つの鍵</a>としてまとめています。運営しているのは、<a href="about.html">こんな人</a>です。</p>
   </div>
@@ -911,7 +924,7 @@ def build_brand_index(brand_articles):
     print("updated index: brand.html")
 
 
-def build_index_page(articles_by_lab, n=6):
+def build_index_page(articles_by_lab, n=8, per_lab=3):
     # 全研究所の記事を横断し、新しい順にn件取得
     flat = []
     for lab, articles in articles_by_lab.items():
@@ -923,21 +936,43 @@ def build_index_page(articles_by_lab, n=6):
 
     if latest:
         cards = "\n".join(
-            NEW_ARTICLE_CARD.format(
-                lab=lab, slug=a["slug"], accent=info["accent"],
-                lab_name=info["name"], title=a["title"], date=a.get("date", ""),
-                badge='<span class="new-badge">NEW</span>' if idx == 0 else "",
+            IDX_REPORT_ITEM.format(
+                lab=lab, slug=a["slug"], lab_name=info["name"],
+                title=a["title"], date=a.get("date", ""),
             )
-            for idx, (_, lab, info, a) in enumerate(latest)
+            for _, lab, info, a in latest
         )
     else:
-        cards = '    <p class="placeholder-note" style="grid-column: 1/-1;">まだ記事がありません。</p>'
+        cards = '      <li><p class="placeholder-note">まだ記事がありません。</p></li>'
 
-    html = INDEX_TEMPLATE.format(new_articles=cards, new_count=len(latest))
+    # 研究所ブロック: 各研究所の最新記事をトップページに直接出し、回遊の入口を増やす
+    lab_blocks = []
+    for lab, info in LABS.items():
+        articles = articles_by_lab.get(lab, [])
+        meta = INDEX_LAB_META[lab]
+        if articles:
+            items = "\n".join(
+                IDX_LAB_ARTICLE.format(lab=lab, slug=a["slug"], title=a["title"])
+                for a in articles[:per_lab]
+            )
+        else:
+            items = '          <li><span class="idx-lab-empty">記事は準備中です</span></li>'
+        lab_blocks.append(IDX_LAB_BLOCK.format(
+            lab=lab, accent=info["accent"], code=info["code"], name=info["name"],
+            desc=meta["desc"],
+            tags="".join(f"<span>{t}</span>" for t in meta["tags"]),
+            tool=meta["tool"], count=len(articles), articles=items,
+        ))
+
+    html = INDEX_TEMPLATE.format(
+        new_articles=cards, new_count=len(latest),
+        lab_blocks="\n".join(lab_blocks),
+    )
     out_path = os.path.join(ROOT, "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
-    print(f"updated: index.html (新着記事 {len(latest)}件)")
+    total_links = len(latest) + sum(min(len(v), per_lab) for v in articles_by_lab.values())
+    print(f"updated: index.html (新着{len(latest)}件 + 研究所別{per_lab}件ずつ = 記事リンク{total_links}本)")
 
 
 def build_about_page():
