@@ -908,3 +908,286 @@ img { max-width: 100%; display: block; }
 
   .site-footer .wrap { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
+
+/* ==========================================================================
+   career研究所 専用スタイル (.clab- 接頭辞)
+   .lab-header.entry-career のみをnavy化(他4研究所の.lab-headerは無変化)。
+   ③〜⑦の新規ブロックは既存の紙色ページ地の上に配置し、
+   モック(docs/jinseilab-career-mock.html)のnavy/brass/vermillionを
+   アクセントとして使う。
+   ========================================================================== */
+
+.lab-header.entry-career {
+  background: #101C33;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.032) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.032) 1px, transparent 1px);
+  background-size: 26px 26px;
+  position: relative;
+}
+
+.lab-header.entry-career::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #C9A227, transparent);
+  opacity: 0.5;
+}
+
+.lab-header.entry-career .back-link { color: #8FA2BE; }
+.lab-header.entry-career .back-link:hover { color: #fff; }
+.lab-header.entry-career .hero-eyebrow { color: #C9A227; opacity: 0.9; }
+.lab-header.entry-career h1 { color: #fff; }
+.lab-header.entry-career p { color: #B9C6DA; }
+
+/* ----- ②診断ツール: navyヒーロー内の白カード ----- */
+.clab-tool {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-top: 3px solid #D8452B;
+  border-radius: 3px;
+  padding: 26px 20px 24px;
+  margin-top: 28px;
+  box-shadow: 0 10px 30px rgba(16, 32, 51, 0.22);
+  color: var(--ink);
+}
+
+.clab-tool-verb {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #D8452B;
+  display: block;
+}
+
+.clab-tool-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9C7B1C;
+  margin: 8px 0 0;
+}
+
+.clab-tool-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 23px;
+  line-height: 1.5;
+  margin: 6px 0 10px;
+}
+
+.clab-tool-text {
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+  font-size: 13.5px;
+}
+
+.clab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  background: #D8452B;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14.5px;
+  letter-spacing: 0.04em;
+  padding: 14px 24px;
+  border-radius: 2px;
+  text-decoration: none;
+  transition: background 0.18s ease;
+}
+
+.clab-btn:hover { background: #C13A22; }
+.clab-arw { font-family: var(--font-mono); font-size: 12px; }
+
+/* ----- ③〜⑦ 共通セクション ----- */
+.clab-section { padding: 46px 0 0; }
+.clab-section-tight { padding-top: 0; }
+
+.clab-section-head { margin-bottom: 22px; }
+
+.clab-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9C7B1C;
+  margin: 0 0 10px;
+}
+
+.clab-eyebrow-d { color: #C9A227; }
+
+.clab-h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 19px;
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.clab-link-brass {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #9C7B1C;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(156, 123, 28, 0.4);
+}
+
+.clab-link-brass:hover { border-bottom-color: #9C7B1C; }
+
+/* ----- ③診断のあとに起きること ----- */
+.clab-flow {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.clab-flow li {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  padding: 16px 18px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.clab-flow-n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #9C7B1C;
+  letter-spacing: 0.08em;
+  padding-top: 3px;
+  flex: none;
+}
+
+.clab-flow h3 {
+  margin: 0 0 4px;
+  font-size: 14.5px;
+  font-family: var(--font-display);
+  font-weight: 600;
+}
+
+.clab-flow p {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+/* ----- ④研究レポート(採用・面接 / その他) ----- */
+.clab-report-groups { margin: 40px 0; }
+
+.clab-report-group { margin-bottom: 26px; }
+
+.clab-group-h {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9C7B1C;
+  margin: 0 0 4px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 500;
+}
+
+.clab-reports { list-style: none; margin: 0; padding: 0; }
+.clab-reports li { border-bottom: 1px solid var(--line); }
+
+.clab-reports a {
+  display: block;
+  padding: 14px 2px;
+  text-decoration: none;
+  transition: padding-left 0.18s ease;
+}
+
+.clab-reports a:hover { padding-left: 8px; }
+
+.clab-r-title {
+  font-family: var(--font-display);
+  font-size: 15px;
+  line-height: 1.65;
+  font-weight: 600;
+  margin: 0;
+  color: var(--ink);
+}
+
+.clab-r-date {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+}
+
+/* ----- ⑤note連載 ----- */
+.clab-series {
+  background: #1B2A45;
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  border-radius: 3px;
+  padding: 26px 20px;
+  color: #B9C6DA;
+}
+
+.clab-series-h {
+  font-family: var(--font-display);
+  color: #fff;
+  font-size: 19px;
+  margin: 6px 0 10px;
+  font-weight: 600;
+}
+
+.clab-series-p { font-size: 13.5px; margin: 0 0 16px; line-height: 1.85; }
+
+.clab-series .clab-link-brass { color: #C9A227; border-bottom-color: rgba(201, 162, 39, 0.45); }
+.clab-series .clab-link-brass:hover { border-bottom-color: #C9A227; }
+
+/* ----- ⑥個別相談 ----- */
+.clab-consult {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-left: 3px solid #9C7B1C;
+  border-radius: 3px;
+  padding: 24px 20px;
+}
+
+.clab-consult-h {
+  font-family: var(--font-display);
+  font-size: 18px;
+  margin: 6px 0 10px;
+  font-weight: 600;
+}
+
+.clab-consult-p { font-size: 13.5px; color: var(--ink-soft); margin: 0 0 16px; }
+
+/* ----- ⑦所長について(about.htmlへの導線のみ) ----- */
+.clab-director-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.clab-director-link:hover { color: var(--ink); }
+
+@media (min-width: 720px) {
+  .clab-tool { padding: 34px 32px 30px; }
+  .clab-tool-title { font-size: 27px; }
+  .clab-flow { grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .clab-flow li { flex-direction: column; gap: 8px; }
+  .clab-series { padding: 34px 32px; }
+  .clab-consult { padding: 30px 28px; }
+}

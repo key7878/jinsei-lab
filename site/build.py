@@ -31,22 +31,73 @@ LABS = {
                "lead": "現役の人事として、これまでキャリア相談2,000件超、採用面接1,000件超に携わってきました。昇格、異動、退職の意思決定の現場にも数多く立ち会ってきた経験から、キャリアの分岐点で使える意思決定と自己理解の知見を届ける研究所です。",
                "name_policy": '\n    <p class="lab-name-policy">現役の人事だからこそ、実名は明かせません。勤務先や当事者が特定されれば、ここで書けることの多くは書けなくなってしまうからです。だからこそ、利害関係を気にせず、人事目線の本音をそのまま届けられる場所にしたいと考えています。</p>',
                "consult_cta": '''
-
-  <div class="entry-career">
-    <div class="cta-box">
-      <p class="cta-label">無料相談</p>
-      <p class="cta-text">今のモヤモヤ、まずは気軽に聞かせてください。転職、昇格、異動、退職。人事目線での壁打ち相手として、Threads DMで相談を受け付けています。</p>
-      <a href="https://www.threads.net/@mylifejinseilab" class="cta-button" target="_blank" rel="noopener">Threadsで相談してみる</a>
+<section class="clab-section clab-section-tight">
+  <div class="wrap">
+    <div class="clab-consult">
+      <p class="clab-eyebrow">Consultation</p>
+      <h2 class="clab-consult-h">個別の相談について</h2>
+      <p class="clab-consult-p">今のモヤモヤ、まずは気軽に聞かせてください。転職、昇格、異動、退職。人事目線での壁打ち相手として、Threads DMで相談を受け付けています。</p>
+      <a href="https://www.threads.net/@mylifejinseilab" class="clab-link-brass" target="_blank" rel="noopener">Threadsで相談してみる <span class="clab-arw">→</span></a>
     </div>
-  </div>''',
+  </div>
+</section>''',
                "diagnostic_cta": '''
-  <div class="entry-career">
-    <div class="cta-box">
-      <p class="cta-label">所長の研究ツール</p>
-      <p class="cta-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
-      <a href="/labs/career-diagnosis" class="cta-button">3分で診断する</a>
+    <div class="clab-tool">
+      <span class="clab-tool-verb">Use ｜ 触る</span>
+      <p class="clab-tool-label">所長の研究ツール</p>
+      <h2 class="clab-tool-title">見えない評価ギャップ診断</h2>
+      <p class="clab-tool-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
+      <a href="/labs/career-diagnosis" class="clab-btn">3分で診断する <span class="clab-arw">→</span></a>
+    </div>''',
+               "diag_flow_cta": '''
+<section class="clab-section">
+  <div class="wrap">
+    <div class="clab-section-head">
+      <p class="clab-eyebrow">After the test</p>
+      <h2 class="clab-h2">診断のあとに起きること</h2>
     </div>
-  </div>'''},
+    <ol class="clab-flow">
+      <li>
+        <span class="clab-flow-n">01</span>
+        <div>
+          <h3>その場で結果が出る</h3>
+          <p>メール登録なしで、ズレの出ている領域とその理由まで表示します。</p>
+        </div>
+      </li>
+      <li>
+        <span class="clab-flow-n">02</span>
+        <div>
+          <h3>詳細版を受け取る</h3>
+          <p>領域ごとの改善の順序と、実際の判断でよく見られた事例をメールで送ります。</p>
+        </div>
+      </li>
+      <li>
+        <span class="clab-flow-n">03</span>
+        <div>
+          <h3>個別に相談する</h3>
+          <p>12問で出ない部分は、その人の状況を聞かないと分かりません。DMで受けています。</p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>''',
+               "note_series_cta": '''
+<section class="clab-section clab-section-tight">
+  <div class="wrap">
+    <div class="clab-series">
+      <p class="clab-eyebrow clab-eyebrow-d">Series</p>
+      <h2 class="clab-series-h">人事の現場から</h2>
+      <p class="clab-series-p">実際の判断の場で何が起きているかを、連載として書いています。サイトには書ききれない部分はこちらに。</p>
+      <a class="clab-link-brass" href="https://note.com/key7life" target="_blank" rel="noopener">note で読む <span class="clab-arw">→</span></a>
+    </div>
+  </div>
+</section>''',
+               "director_cta": '''
+<section class="clab-section clab-section-tight">
+  <div class="wrap">
+    <a href="../about.html" class="clab-director-link">所長について <span class="clab-arw">→</span> 詳しくはこちら</a>
+  </div>
+</section>'''},
     "ai": {"code": "LAB.02", "accent": "ai", "name": "AI研究所",
            "eyebrow": "AI / TOOLS & AUTOMATION",
            "lead": "生活と仕事にAIをどう組み込むか。ツールの選び方から使いこなし方まで、実際に試した結果を共有する研究所です。"},
@@ -279,19 +330,16 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
     <p>{lead}</p>{name_policy}{diagnostic_cta}
   </div>
 </section>
-
+{diag_flow_cta}
 <div class="wrap">
   <div class="section-head">
     <h2>記事一覧</h2>
     <span class="count">{count_label}</span>
   </div>
 
-  <div class="article-grid entry-{accent}">
-{articles}
-  </div>
-  {placeholder}{consult_cta}
+  {article_section}
 </div>
-
+{note_series_cta}{consult_cta}{director_cta}
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>
@@ -308,6 +356,29 @@ ARTICLE_CARD = """    <a href="{lab}/{slug}.html" class="article-card">
       <h3>{title}</h3>
       <p>{description}</p>
     </a>"""
+
+# career研究所のみ「研究レポート」を2群(採用・面接 / その他)に分けて表示する。
+# 運営者確定分のみ(2026-08-11時点)。新規記事追加時はここに追記が必要。
+CAREER_HIRING_INTERVIEW_SLUGS = {
+    "interview-rejection-common-habit",
+    "interview-reverse-questions",
+    "nursing-care-job-interview-motivation",
+    "resignation-reason-how-to-explain-interview",
+    "remote-job-interview-what-is-actually-asked",
+    "reference-check-what-to-expect",
+    "resume-screening-basics",
+    "consulting-firm-transfer-preparation",
+    "salary-negotiation-interviewer-perspective",
+}
+
+CLAB_REPORT_ITEM = """      <li><a href="{lab}/{slug}.html"><span class="clab-r-date">{date}</span><p class="clab-r-title">{title}</p></a></li>"""
+
+CLAB_REPORT_GROUP = """    <div class="clab-report-group">
+      <h3 class="clab-group-h">{group_name}</h3>
+      <ul class="clab-reports">
+{items}
+      </ul>
+    </div>"""
 
 # ----- 7つの鍵(ブランド記事)用テンプレート -----
 # brand/{slug}.html は root から1階層下(labs/{lab}.html と同じ深さ)
@@ -748,18 +819,36 @@ def build_lab_indexes(articles_by_lab):
     for lab, info in LABS.items():
         articles = articles_by_lab.get(lab, [])
         if articles:
-            cards = "\n".join(
-                ARTICLE_CARD.format(
-                    lab=lab, slug=a["slug"], category=a.get("category", ""),
-                    title=a["title"], description=a.get("description", "")
+            if lab == "career":
+                hiring = [a for a in articles if a["slug"] in CAREER_HIRING_INTERVIEW_SLUGS]
+                other = [a for a in articles if a["slug"] not in CAREER_HIRING_INTERVIEW_SLUGS]
+                groups = []
+                if hiring:
+                    items = "\n".join(
+                        CLAB_REPORT_ITEM.format(lab=lab, slug=a["slug"], date=a.get("date", ""), title=a["title"])
+                        for a in hiring
+                    )
+                    groups.append(CLAB_REPORT_GROUP.format(group_name="採用・面接", items=items))
+                if other:
+                    items = "\n".join(
+                        CLAB_REPORT_ITEM.format(lab=lab, slug=a["slug"], date=a.get("date", ""), title=a["title"])
+                        for a in other
+                    )
+                    groups.append(CLAB_REPORT_GROUP.format(group_name="その他", items=items))
+                article_section = '  <div class="clab-report-groups">\n' + "\n".join(groups) + "\n  </div>"
+            else:
+                cards = "\n".join(
+                    ARTICLE_CARD.format(
+                        lab=lab, slug=a["slug"], category=a.get("category", ""),
+                        title=a["title"], description=a.get("description", "")
+                    )
+                    for a in articles
                 )
-                for a in articles
-            )
-            placeholder = ""
+                article_section = f'<div class="article-grid entry-{info["accent"]}">\n{cards}\n  </div>\n  '
             count_label = f"{len(articles)} ARTICLES"
         else:
-            cards = ""
-            placeholder = '<p class="placeholder-note">この研究所は準備中です。記事は順次公開されます。</p>'
+            empty_note = '<p class="placeholder-note">この研究所は準備中です。記事は順次公開されます。</p>'
+            article_section = f'<div class="article-grid entry-{info["accent"]}">\n\n  </div>\n  {empty_note}'
             count_label = "PREPARING"
 
         html = LAB_INDEX_TEMPLATE.format(
@@ -767,8 +856,11 @@ def build_lab_indexes(articles_by_lab):
             eyebrow=info["eyebrow"], lead=info["lead"],
             name_policy=info.get("name_policy", ""),
             diagnostic_cta=info.get("diagnostic_cta", ""),
+            diag_flow_cta=info.get("diag_flow_cta", ""),
+            note_series_cta=info.get("note_series_cta", ""),
             consult_cta=info.get("consult_cta", ""),
-            articles=cards, placeholder=placeholder, count_label=count_label,
+            director_cta=info.get("director_cta", ""),
+            article_section=article_section, count_label=count_label,
         )
         out_path = os.path.join(LABS_DIR, f"{lab}.html")
         with open(out_path, "w", encoding="utf-8") as f:
