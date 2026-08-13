@@ -39,9 +39,11 @@ entries:
     term: "have some time to oneself"
     meaning: "一人の時間を持つ／自分だけの時間を過ごす"
     example: "My wife finally had some time to herself for the first time since our daughter was born."
+    situation: "妻に一人の時間ができたことを伝えたかったが、「一人の時間」にあたる表現が出てこなかった"
 
   - date: 2026-08-14
     type: word
     term: "sleep-deprived"
     meaning: "睡眠不足の／寝不足が続いている状態の"
     example: "She's still sleep-deprived."
+    situation: "「依然としてまだあまり眠れていない」という状態を伝えたかった"
