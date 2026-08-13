@@ -33,4 +33,15 @@ targets:
 # 学習時間の実績(時間)。計測できないので運営者が手動で更新する。
 study_hours: 0
 
-entries: []
+entries:
+  - date: 2026-08-14
+    type: phrase
+    term: "have some time to oneself"
+    meaning: "一人の時間を持つ／自分だけの時間を過ごす"
+    example: "My wife finally had some time to herself for the first time since our daughter was born."
+
+  - date: 2026-08-14
+    type: word
+    term: "sleep-deprived"
+    meaning: "睡眠不足の／寝不足が続いている状態の"
+    example: "She's still sleep-deprived."

@@ -605,9 +605,11 @@ ELAB_ENTRY = """          <li class="elab-entry">
             </div>
             <p class="elab-term">{term}</p>
             <p class="elab-meaning">{meaning}</p>
-            <p class="elab-example">{example}</p>
-            <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>{situation}</p>
+            <p class="elab-example">{example}</p>{situation}
           </li>"""
+
+ELAB_SITUATION = """
+            <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>{situation}</p>"""
 
 ELAB_FEATURE = """
 <section class="elab-section">
@@ -1009,7 +1011,11 @@ def build_english_blocks(log):
                 type_label="フレーズ" if e.get("type") == "phrase" else "単語",
                 date=e.get("date", ""), term=e.get("term", ""),
                 meaning=e.get("meaning", ""), example=e.get("example", ""),
-                situation=e.get("situation", ""),
+                # 「使いたかった場面」は未記入なら枠ごと出さない(空のラベルを残さない)
+                situation=(
+                    ELAB_SITUATION.format(situation=e["situation"])
+                    if e.get("situation") else ""
+                ),
             )
             for e in entries
         )
