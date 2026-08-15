@@ -133,6 +133,14 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
+<link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../../apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../../style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
@@ -266,6 +274,17 @@ ABOUT_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>所長紹介 ― 人生ラボ</title>
 <meta name="description" content="{description}">
+<meta property="og:title" content="所長紹介 ｜ 人生ラボ">
+<meta property="og:description" content="{description}">
+<meta property="og:type" content="profile">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
@@ -319,6 +338,17 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{name} ― 人生ラボ</title>
 <meta name="description" content="{lead}">
+<meta property="og:title" content="{name} ｜ 人生ラボ">
+<meta property="og:description" content="{lead}">
+<meta property="og:type" content="website">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
@@ -409,6 +439,17 @@ BRAND_ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title} ― 7つの鍵 ｜ 人生ラボ</title>
 <meta name="description" content="{description}">
+<meta property="og:title" content="{title}">
+<meta property="og:description" content="{description}">
+<meta property="og:type" content="article">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
@@ -469,6 +510,17 @@ BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>7つの鍵 ― 人生ラボ</title>
 <meta name="description" content="{lead}">
+<meta property="og:title" content="7つの鍵 ｜ 人生ラボ">
+<meta property="og:description" content="{lead}">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
@@ -785,6 +837,18 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>人生ラボ ― 人生を研究する、AIライフプラットフォーム</title>
 <meta name="description" content="キャリア・AI・育児・英語・お金。5つの研究所で、人生の実験と発見を積み重ねる。">
+<meta property="og:title" content="人生ラボ ― 人生を研究する、AIライフプラットフォーム">
+<meta property="og:description" content="キャリア・AI・育児・英語・お金。5つの研究所で、人生の実験と発見を積み重ねる。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://mylifejinseilab.com/">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:site_name" content="人生ラボ">
+<meta property="og:locale" content="ja_JP">
+<meta property="og:image" content="https://mylifejinseilab.com/assets/images/og-default.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="style.css">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
