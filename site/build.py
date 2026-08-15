@@ -17,6 +17,7 @@ import os
 import re
 import csv
 import hashlib
+import html as html_mod
 import glob
 import yaml
 import markdown as md
@@ -615,7 +616,7 @@ ELAB_BAR = """        <div class="elab-bar-row">
           <p class="elab-bar-note">{note}</p>
         </div>"""
 
-ELAB_ENTRY = """          <li class="elab-entry">
+ELAB_ENTRY = """          <li class="elab-entry" data-type="{type}" data-date="{date}" data-term="{term_key}" data-search="{search_key}">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-{type}">{type_label}</span>
               <span class="elab-entry-date">{date}</span>
@@ -649,9 +650,111 @@ ELAB_FEATURE = """
       <h2 class="elab-h2">拾った単語・フレーズ</h2>
       <p class="elab-sub">その日に学んだ表現と、それを「使いたかったのに出てこなかった場面」を並べています。覚えた単語より、詰まった場面のほうが記録として価値があると考えています。</p>
     </div>
+{controls}
 {log_body}
   </div>
-</section>"""
+</section>
+{script}"""
+
+ELAB_CONTROLS = """    <div class="elab-tools">
+      <div class="elab-search-wrap">
+        <input type="search" id="elabSearch" class="elab-search" placeholder="単語・意味・例文・場面から探す" aria-label="単語・フレーズを検索">
+      </div>
+      <div class="elab-filters">
+        <div class="elab-seg" role="group" aria-label="種別で絞り込む">
+          <button type="button" class="elab-seg-btn is-on" data-filter="all">すべて</button>
+          <button type="button" class="elab-seg-btn" data-filter="word">単語</button>
+          <button type="button" class="elab-seg-btn" data-filter="phrase">フレーズ</button>
+        </div>
+        <select id="elabSort" class="elab-sort" aria-label="並び替え">
+          <option value="new">新しい順</option>
+          <option value="old">古い順</option>
+          <option value="az">アルファベット順</option>
+        </select>
+      </div>
+      <p class="elab-count" id="elabCount"></p>
+    </div>"""
+
+# 検索・絞り込み・並び替え・段階表示。件数が増えても目的の1件に辿り着けるようにする。
+# 並び順の変更は保存しない(リロードで新しい順に戻る)。
+ELAB_SCRIPT = """<script>
+(function () {
+  var list = document.getElementById('elabEntries');
+  if (!list) return;
+  var search = document.getElementById('elabSearch');
+  var sortSel = document.getElementById('elabSort');
+  var countEl = document.getElementById('elabCount');
+  var moreBtn = document.getElementById('elabMore');
+  var segBtns = Array.prototype.slice.call(document.querySelectorAll('.elab-seg-btn'));
+  var all = Array.prototype.slice.call(list.children);
+  var STEP = 24;
+  var shown = STEP;
+  var typeFilter = 'all';
+
+  function matched() {
+    var q = (search.value || '').trim().toLowerCase();
+    return all.filter(function (el) {
+      if (typeFilter !== 'all' && el.dataset.type !== typeFilter) return false;
+      if (!q) return true;
+      return el.dataset.search.indexOf(q) !== -1;
+    });
+  }
+
+  function sorted(items) {
+    var mode = sortSel.value;
+    var arr = items.slice();
+    if (mode === 'az') {
+      arr.sort(function (a, b) { return a.dataset.term.localeCompare(b.dataset.term); });
+    } else {
+      arr.sort(function (a, b) {
+        if (a.dataset.date === b.dataset.date) return 0;
+        return a.dataset.date < b.dataset.date ? -1 : 1;
+      });
+      if (mode === 'new') arr.reverse();
+    }
+    return arr;
+  }
+
+  function render() {
+    var items = sorted(matched());
+    all.forEach(function (el) { el.hidden = true; });
+    items.slice(0, shown).forEach(function (el) {
+      el.hidden = false;
+      list.appendChild(el);  // 並び替えを実DOMに反映
+    });
+    countEl.textContent = items.length === all.length
+      ? all.length + '件'
+      : items.length + '件 / 全' + all.length + '件';
+    if (moreBtn) {
+      var rest = items.length - shown;
+      moreBtn.hidden = rest <= 0;
+      moreBtn.textContent = 'もっと見る（残り' + (rest > 0 ? rest : 0) + '件）';
+    }
+    if (items.length === 0) {
+      list.setAttribute('data-empty', '該当する記録はありません');
+    } else {
+      list.removeAttribute('data-empty');
+    }
+  }
+
+  search.addEventListener('input', function () { shown = STEP; render(); });
+  sortSel.addEventListener('change', function () { shown = STEP; render(); });
+  segBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      segBtns.forEach(function (b) { b.classList.remove('is-on'); });
+      btn.classList.add('is-on');
+      typeFilter = btn.dataset.filter;
+      shown = STEP;
+      render();
+    });
+  });
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function () { shown += STEP; render(); });
+  }
+
+  render();
+})();
+</script>"""
 
 ELAB_EMPTY = """    <p class="elab-empty">記録はこれから始まります。学んだ単語・フレーズと、それを使いたかった場面を、日ごとにここへ積み上げていきます。</p>"""
 
@@ -1084,12 +1187,19 @@ def build_english_blocks(log):
         ),
     ])
 
+    def _attr(v):
+        return html_mod.escape(str(v), quote=True)
+
     if entries:
         items = "\n".join(
             ELAB_ENTRY.format(
                 type=e.get("type", "word"),
                 type_label="フレーズ" if e.get("type") == "phrase" else "単語",
                 date=e.get("date", ""), term=e.get("term", ""),
+                term_key=_attr(str(e.get("term", "")).lower()),
+                # 検索対象: 単語・意味・例文・場面をまとめて小文字化しておく
+                search_key=_attr(" ".join(str(e.get(k, "")) for k in
+                                          ("term", "meaning", "example", "situation")).lower()),
                 meaning=e.get("meaning", ""), example=e.get("example", ""),
                 # 「使いたかった場面」は未記入なら枠ごと出さない(空のラベルを残さない)
                 situation=(
@@ -1099,11 +1209,15 @@ def build_english_blocks(log):
             )
             for e in entries
         )
-        log_body = f'    <ul class="elab-entries">\n{items}\n    </ul>'
+        log_body = (f'    <ul class="elab-entries" id="elabEntries">\n{items}\n    </ul>\n'
+                    '    <button type="button" class="elab-more" id="elabMore" hidden></button>')
+        controls, script = ELAB_CONTROLS, ELAB_SCRIPT
     else:
         log_body = ELAB_EMPTY
+        controls, script = "", ""
 
-    feature = ELAB_FEATURE.format(bars=bars, log_body=log_body)
+    feature = ELAB_FEATURE.format(bars=bars, log_body=log_body,
+                                  controls=controls, script=script)
     return panel, feature
 
 

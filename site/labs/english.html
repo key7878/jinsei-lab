@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>英語研究所 ― 人生ラボ</title>
 <meta name="description" content="大人になってからの英語学習を、根性論ではなく仕組みで続けるための研究所です。学習法とAI活用の実験記録を蓄積します。">
-<link rel="stylesheet" href="../style.css?v=fdae0eea">
+<link rel="stylesheet" href="../style.css?v=95e2a783">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -102,8 +102,26 @@
       <h2 class="elab-h2">拾った単語・フレーズ</h2>
       <p class="elab-sub">その日に学んだ表現と、それを「使いたかったのに出てこなかった場面」を並べています。覚えた単語より、詰まった場面のほうが記録として価値があると考えています。</p>
     </div>
-    <ul class="elab-entries">
-          <li class="elab-entry">
+    <div class="elab-tools">
+      <div class="elab-search-wrap">
+        <input type="search" id="elabSearch" class="elab-search" placeholder="単語・意味・例文・場面から探す" aria-label="単語・フレーズを検索">
+      </div>
+      <div class="elab-filters">
+        <div class="elab-seg" role="group" aria-label="種別で絞り込む">
+          <button type="button" class="elab-seg-btn is-on" data-filter="all">すべて</button>
+          <button type="button" class="elab-seg-btn" data-filter="word">単語</button>
+          <button type="button" class="elab-seg-btn" data-filter="phrase">フレーズ</button>
+        </div>
+        <select id="elabSort" class="elab-sort" aria-label="並び替え">
+          <option value="new">新しい順</option>
+          <option value="old">古い順</option>
+          <option value="az">アルファベット順</option>
+        </select>
+      </div>
+      <p class="elab-count" id="elabCount"></p>
+    </div>
+    <ul class="elab-entries" id="elabEntries">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-15" data-term="prefer a to b" data-search="prefer a to b bよりaを好む／bよりaのほうを選ぶ i prefer work-life integration to work-life balance. 仕事と生活のあり方について、自分の考えを説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -113,7 +131,7 @@
             <p class="elab-example">I prefer work-life integration to work-life balance.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>仕事と生活のあり方について、自分の考えを説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="word" data-date="2026-08-15" data-term="treatment" data-search="treatment 治療 they want to stay there not only for work but also for treatment. ある人が仕事だけでなく治療上の理由でも現地に残りたい状況を説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-word">単語</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -123,7 +141,7 @@
             <p class="elab-example">They want to stay there not only for work but also for treatment.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>ある人が仕事だけでなく治療上の理由でも現地に残りたい状況を説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-15" data-term="not only a but also b" data-search="not only a but also b aだけでなくbも they want to stay there not only for work but also for treatment. ある人が現地に残りたい理由が複数あることを説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -133,7 +151,7 @@
             <p class="elab-example">They want to stay there not only for work but also for treatment.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>ある人が現地に残りたい理由が複数あることを説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="word" data-date="2026-08-15" data-term="reveal" data-search="reveal 明らかにする／明かす i don&#x27;t want to reveal their gender, so i just use they. ある人について、性別を特定せずに説明したい場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-word">単語</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -143,7 +161,7 @@
             <p class="elab-example">I don't want to reveal their gender, so I just use they.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>ある人について、性別を特定せずに説明したい場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-15" data-term="be diagnosed with cancer" data-search="be diagnosed with cancer がんと診断される they were diagnosed with cancer. ある人の治療に関する事情を説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -153,7 +171,7 @@
             <p class="elab-example">They were diagnosed with cancer.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>ある人の治療に関する事情を説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-15" data-term="membership-based employment" data-search="membership-based employment メンバーシップ型雇用 basically, the japanese employment system is based on a membership-based model. 雇用制度の特徴について説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -163,7 +181,7 @@
             <p class="elab-example">Basically, the Japanese employment system is based on a membership-based model.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>雇用制度の特徴について説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-15" data-term="rather than" data-search="rather than ～ではなく／～よりむしろ i prefer the idea of work-life integration rather than work-life balance. 仕事と生活について、二つの考え方を比較して自分の考えを説明する場面">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-15</span>
@@ -173,7 +191,7 @@
             <p class="elab-example">I prefer the idea of work-life integration rather than work-life balance.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>仕事と生活について、二つの考え方を比較して自分の考えを説明する場面</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="phrase" data-date="2026-08-14" data-term="have some time to oneself" data-search="have some time to oneself 一人の時間を持つ／自分だけの時間を過ごす my wife finally had some time to herself for the first time since our daughter was born. 妻に一人の時間ができたことを伝えたかったが、「一人の時間」にあたる表現が出てこなかった">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-phrase">フレーズ</span>
               <span class="elab-entry-date">2026-08-14</span>
@@ -183,7 +201,7 @@
             <p class="elab-example">My wife finally had some time to herself for the first time since our daughter was born.</p>
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>妻に一人の時間ができたことを伝えたかったが、「一人の時間」にあたる表現が出てこなかった</p>
           </li>
-          <li class="elab-entry">
+          <li class="elab-entry" data-type="word" data-date="2026-08-14" data-term="sleep-deprived" data-search="sleep-deprived 睡眠不足の／寝不足が続いている状態の she&#x27;s still sleep-deprived. 「依然としてまだあまり眠れていない」という状態を伝えたかった">
             <div class="elab-entry-head">
               <span class="elab-entry-type elab-type-word">単語</span>
               <span class="elab-entry-date">2026-08-14</span>
@@ -194,8 +212,87 @@
             <p class="elab-situation"><span class="elab-situation-k">使いたかった場面</span>「依然としてまだあまり眠れていない」という状態を伝えたかった</p>
           </li>
     </ul>
+    <button type="button" class="elab-more" id="elabMore" hidden></button>
   </div>
 </section>
+<script>
+(function () {
+  var list = document.getElementById('elabEntries');
+  if (!list) return;
+  var search = document.getElementById('elabSearch');
+  var sortSel = document.getElementById('elabSort');
+  var countEl = document.getElementById('elabCount');
+  var moreBtn = document.getElementById('elabMore');
+  var segBtns = Array.prototype.slice.call(document.querySelectorAll('.elab-seg-btn'));
+  var all = Array.prototype.slice.call(list.children);
+  var STEP = 24;
+  var shown = STEP;
+  var typeFilter = 'all';
+
+  function matched() {
+    var q = (search.value || '').trim().toLowerCase();
+    return all.filter(function (el) {
+      if (typeFilter !== 'all' && el.dataset.type !== typeFilter) return false;
+      if (!q) return true;
+      return el.dataset.search.indexOf(q) !== -1;
+    });
+  }
+
+  function sorted(items) {
+    var mode = sortSel.value;
+    var arr = items.slice();
+    if (mode === 'az') {
+      arr.sort(function (a, b) { return a.dataset.term.localeCompare(b.dataset.term); });
+    } else {
+      arr.sort(function (a, b) {
+        if (a.dataset.date === b.dataset.date) return 0;
+        return a.dataset.date < b.dataset.date ? -1 : 1;
+      });
+      if (mode === 'new') arr.reverse();
+    }
+    return arr;
+  }
+
+  function render() {
+    var items = sorted(matched());
+    all.forEach(function (el) { el.hidden = true; });
+    items.slice(0, shown).forEach(function (el) {
+      el.hidden = false;
+      list.appendChild(el);  // 並び替えを実DOMに反映
+    });
+    countEl.textContent = items.length === all.length
+      ? all.length + '件'
+      : items.length + '件 / 全' + all.length + '件';
+    if (moreBtn) {
+      var rest = items.length - shown;
+      moreBtn.hidden = rest <= 0;
+      moreBtn.textContent = 'もっと見る（残り' + (rest > 0 ? rest : 0) + '件）';
+    }
+    if (items.length === 0) {
+      list.setAttribute('data-empty', '該当する記録はありません');
+    } else {
+      list.removeAttribute('data-empty');
+    }
+  }
+
+  search.addEventListener('input', function () { shown = STEP; render(); });
+  sortSel.addEventListener('change', function () { shown = STEP; render(); });
+  segBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      segBtns.forEach(function (b) { b.classList.remove('is-on'); });
+      btn.classList.add('is-on');
+      typeFilter = btn.dataset.filter;
+      shown = STEP;
+      render();
+    });
+  });
+  if (moreBtn) {
+    moreBtn.addEventListener('click', function () { shown += STEP; render(); });
+  }
+
+  render();
+})();
+</script>
 <div class="wrap">
   <div class="section-head">
     <h2>記事一覧</h2>

@@ -1856,6 +1856,119 @@ img { max-width: 100%; display: block; }
   line-height: 1.7;
 }
 
+/* ----- 検索・絞り込み・並び替え ----- */
+.elab-tools {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.elab-search {
+  width: 100%;
+  padding: 13px 16px;
+  font-family: var(--font-body);
+  font-size: 0.94rem;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-sm);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.elab-search::placeholder { color: var(--ink-soft); opacity: 0.75; }
+
+.elab-search:focus-visible {
+  outline: 2px solid var(--lab-english);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+.elab-filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.elab-seg {
+  display: inline-flex;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--paper-raised);
+}
+
+.elab-seg-btn {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  background: transparent;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+
+.elab-seg-btn:hover { color: var(--ink); }
+
+.elab-seg-btn.is-on {
+  background: var(--lab-english);
+  color: #fff;
+  font-weight: 500;
+}
+
+.elab-sort {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink);
+  background: var(--paper-raised);
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+
+.elab-count {
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  margin: 0;
+  opacity: 0.85;
+}
+
+.elab-more {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 14px;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--lab-english);
+  background: var(--paper-raised);
+  border: 1px solid color-mix(in srgb, var(--lab-english) 40%, var(--line-strong));
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.18s ease;
+}
+
+.elab-more:hover { background: color-mix(in srgb, var(--lab-english) 8%, var(--paper-raised)); }
+
+/* 検索結果が0件のとき、リスト自身にメッセージを出す */
+.elab-entries[data-empty]::after {
+  content: attr(data-empty);
+  display: block;
+  grid-column: 1 / -1;
+  padding: 36px 24px;
+  text-align: center;
+  font-size: 0.86rem;
+  color: var(--ink-soft);
+  border: 1px dashed var(--line-strong);
+  border-radius: var(--radius-md);
+}
+
 /* ----- 拾った単語・フレーズ ----- */
 .elab-entries {
   list-style: none;
