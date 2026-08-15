@@ -47,3 +47,52 @@ entries:
     meaning: "睡眠不足の／寝不足が続いている状態の"
     example: "She's still sleep-deprived."
     situation: "「依然としてまだあまり眠れていない」という状態を伝えたかった"
+
+  - date: 2026-08-15
+    type: phrase
+    term: "prefer A to B"
+    meaning: "BよりAを好む／BよりAのほうを選ぶ"
+    example: "I prefer work-life integration to work-life balance."
+    situation: "仕事と生活のあり方について、自分の考えを説明する場面"
+
+  - date: 2026-08-15
+    type: word
+    term: "treatment"
+    meaning: "治療"
+    example: "They want to stay there not only for work but also for treatment."
+    situation: "ある人が仕事だけでなく治療上の理由でも現地に残りたい状況を説明する場面"
+
+  - date: 2026-08-15
+    type: phrase
+    term: "not only A but also B"
+    meaning: "AだけでなくBも"
+    example: "They want to stay there not only for work but also for treatment."
+    situation: "ある人が現地に残りたい理由が複数あることを説明する場面"
+
+  - date: 2026-08-15
+    type: word
+    term: "reveal"
+    meaning: "明らかにする／明かす"
+    example: "I don't want to reveal their gender, so I just use they."
+    situation: "ある人について、性別を特定せずに説明したい場面"
+
+  - date: 2026-08-15
+    type: phrase
+    term: "be diagnosed with cancer"
+    meaning: "がんと診断される"
+    example: "They were diagnosed with cancer."
+    situation: "ある人の治療に関する事情を説明する場面"
+
+  - date: 2026-08-15
+    type: phrase
+    term: "membership-based employment"
+    meaning: "メンバーシップ型雇用"
+    example: "Basically, the Japanese employment system is based on a membership-based model."
+    situation: "雇用制度の特徴について説明する場面"
+
+  - date: 2026-08-15
+    type: phrase
+    term: "rather than"
+    meaning: "～ではなく／～よりむしろ"
+    example: "I prefer the idea of work-life integration rather than work-life balance."
+    situation: "仕事と生活について、二つの考え方を比較して自分の考えを説明する場面"
