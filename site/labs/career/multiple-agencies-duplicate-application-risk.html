@@ -8,7 +8,7 @@
 <meta property="og:title" content="転職支援サービス、複数使うのが良いが、選び方を間違えると詰む理由">
 <meta property="og:description" content="転職支援サービスの複数登録は定石とされるが、組み合わせを間違えると同じ求人への重複応募が起き、選考の土俵にすら乗れなくなることがある。詰まないための管理の考え方を整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -83,19 +83,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>キャリア研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="nursing-care-job-interview-motivation.html" class="related-card">
-      <p class="cat">転職・介護業界</p>
-      <h3>介護職の志望動機、未経験でも面接で評価されるポイント</h3>
+    <a href="multiple-recruiting-agencies.html" class="related-card entry-career" data-ga="related_article">
+      <p class="cat">転職エージェント</p>
+      <h3>転職エージェント、複数使うべきかどうかの判断</h3>
     </a>
-    <a href="resignation-reason-how-to-explain-interview.html" class="related-card">
-      <p class="cat">転職・面接対策</p>
-      <h3>退職理由の伝え方、面接でネガティブに聞こえないポイント</h3>
+    <a href="it-engineer-agent-mismatch-how-to-choose.html" class="related-card entry-career" data-ga="related_article">
+      <p class="cat">転職エージェント選び</p>
+      <h3>ITエンジニアの転職、エージェント選びで結果が変わる理由</h3>
     </a>
-    <a href="interview-rejection-common-habit.html" class="related-card">
+    <a href="interview-rejection-common-habit.html" class="related-card entry-career" data-ga="related_article">
       <p class="cat">面接対策</p>
       <h3>面接で落ちる人に共通する、たった1つの癖</h3>
+    </a>
+    <a href="summer-bonus-transfer-timing.html" class="related-card entry-career" data-ga="related_article">
+      <p class="cat">転職タイミング</p>
+      <h3>夏のボーナス後に転職を考えるなら、動くべきタイミングの見極め方</h3>
     </a>
   </div>
 </section>
@@ -113,6 +117,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

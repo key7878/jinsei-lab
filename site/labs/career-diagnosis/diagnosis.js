@@ -210,6 +210,9 @@
   }
 
   function selectChoice(index, choiceIndex) {
+    if (index === 0 && state.answers[0] === null && typeof gtag === "function") {
+      gtag("event", "diagnosis_start");  // 1問目に答えた時点を開始とみなす
+    }
     state.answers[index] = choiceIndex;
     if (index < QUESTIONS.length - 1) {
       state.currentIndex = index + 1;
@@ -317,6 +320,14 @@
     quizCard.hidden = true;
     resultCard.hidden = false;
 
+    // 12問を最後まで進めた人の数と、出た型をGA4に送る
+    if (typeof gtag === "function") {
+      gtag("event", "diagnosis_complete", {
+        result_type: scores.primary,
+        is_composite: scores.isComposite,
+      });
+    }
+
     var form = document.getElementById("emailForm");
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -343,6 +354,9 @@
     })
       .then(function () {
         // no-corsのためレスポンス内容は読めない。例外が出なければ送信成功とみなす。
+        if (typeof gtag === "function") {
+          gtag("event", "diagnosis_email_submit", { result_type: typeAxis });
+        }
         statusEl.textContent = "登録しました。詳細版を送ります。";
         statusEl.className = "diag-email-status ok";
         submitBtn.textContent = "登録済み";

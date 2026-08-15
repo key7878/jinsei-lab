@@ -1324,6 +1324,75 @@ img { max-width: 100%; display: block; }
 .idx-hero-use:hover .idx-btn { background: #C13A22; }
 .idx-arw { font-family: var(--font-mono); font-size: 12px; }
 
+/* ----- ヒーローカード(FOLLOW / 英語ログ) ----- */
+.idx-hero-follow {
+  position: relative;
+  display: block;
+  background: #1B2A45;
+  border: 1px solid rgba(201, 162, 39, 0.34);
+  border-radius: 3px;
+  padding: 26px 22px 24px;
+  text-decoration: none;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.idx-hero-follow:hover { border-color: #C9A227; transform: translateY(-3px); }
+
+.idx-badge {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #101C33;
+  background: #C9A227;
+  padding: 3px 8px;
+  border-radius: 2px;
+  font-weight: 500;
+}
+
+.idx-verb-follow { color: #C9A227; }
+
+.idx-follow-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.55;
+  margin: 8px 0 8px;
+  color: #fff;
+}
+
+.idx-follow-text {
+  margin: 0 0 16px;
+  color: #AFBFD6;
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+
+.idx-link-brass {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: #C9A227;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(201, 162, 39, 0.45);
+}
+
+.idx-hero-follow:hover .idx-link-brass { border-bottom-color: #C9A227; }
+
+.idx-spec-dark .k { color: #8FA2BE; opacity: 1; }
+.idx-spec-dark .v { color: #C9A227; }
+
+.idx-hero-follow .idx-spec {
+  margin-top: 20px;
+  padding-top: 14px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
 /* ----- 研究ラベル(spec) ----- */
 .idx-spec {
   display: flex;
@@ -1413,6 +1482,17 @@ img { max-width: 100%; display: block; }
   font-size: 1.15rem;
   font-weight: 600;
   margin: 6px 0 8px;
+}
+
+.idx-lab-name a {
+  color: inherit;
+  border-bottom: 1px solid transparent;
+  transition: color 0.18s ease, border-color 0.18s ease;
+}
+
+.idx-lab-name a:hover {
+  color: var(--accent, var(--ink));
+  border-bottom-color: color-mix(in srgb, var(--accent, var(--ink)) 45%, transparent);
 }
 
 .idx-lab-desc {
@@ -1566,6 +1646,7 @@ img { max-width: 100%; display: block; }
   .idx-hero-use { padding: 32px 30px 28px; }
   .idx-hero-title { font-size: 25px; }
   .idx-labs { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .idx-heroes:has(.idx-hero-follow) { grid-template-columns: 1.05fr 0.95fr; }
   .idx-section { padding: 68px 0 0; }
   .idx-manifesto { padding: 60px 0; }
 }

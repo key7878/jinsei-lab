@@ -8,7 +8,7 @@
 <meta property="og:title" content="iDeCoのデメリット、始める前に知っておくこと">
 <meta property="og:description" content="iDeCoは税制優遇が注目されがちだが、始める前にデメリットも押さえておく必要がある。引き出し制限・手数料・元本割れリスクを整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -71,19 +71,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>お金研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="furusato-nozei-exceeding-limit.html" class="related-card">
+    <a href="severance-pay-first-steps.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">退職金の受け取り方</p>
+      <h3>退職金を受け取ったら、まず確認したい3つのこと</h3>
+    </a>
+    <a href="furusato-nozei-exceeding-limit.html" class="related-card entry-money" data-ga="related_article">
       <p class="cat">ふるさと納税</p>
       <h3>ふるさと納税、限度額を超えて寄付したらどうなるか</h3>
     </a>
-    <a href="new-nisa-pause-contribution-when.html" class="related-card">
+    <a href="new-nisa-pause-contribution-when.html" class="related-card entry-money" data-ga="related_article">
       <p class="cat">新NISA</p>
       <h3>新NISA、積立を一時停止した方がいいのはどんなときか</h3>
     </a>
-    <a href="credit-card-annual-fee-free-vs-paid.html" class="related-card">
-      <p class="cat">クレジットカード選び</p>
-      <h3>クレジットカード、年会費無料と有料どちらが得か</h3>
+    <a href="individual-jgb-july-2026-rates.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">個人向け国債</p>
+      <h3>個人向け国債、2026年7月の金利で今から始めるべきか</h3>
     </a>
   </div>
 </section>
@@ -101,6 +105,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

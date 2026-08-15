@@ -8,7 +8,7 @@
 <meta property="og:title" content="ChatGPT、無料版と有料版どちらを仕事で使うべきか">
 <meta property="og:description" content="ChatGPTを仕事で使い始めるとき、無料版で十分か有料版にすべきか迷う人は多い。判断の基準になる違いを整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -72,19 +72,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>AI研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="ai-jinzai-skills-needed.html" class="related-card">
-      <p class="cat">AI時代のキャリア</p>
-      <h3>「AI人材」とは何か、これから求められるスキルの中身</h3>
+    <a href="ai-writing-assistant-tips.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">AI文章作成</p>
+      <h3>生成AIで文章を書くときのコツ、初心者向け</h3>
     </a>
-    <a href="ai-fact-checking-basics.html" class="related-card">
+    <a href="one-prompt-framework.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">プロンプト設計</p>
+      <h3>プロンプトの「型」を1つ覚えるだけで、AIとの仕事は変わる</h3>
+    </a>
+    <a href="ai-fact-checking-basics.html" class="related-card entry-ai" data-ga="related_article">
       <p class="cat">生成AI活用</p>
       <h3>生成AIの回答を鵜呑みにしないための、情報の裏取りの基本</h3>
     </a>
-    <a href="ai-job-replacement-hiring-perspective.html" class="related-card">
-      <p class="cat">AIと雇用</p>
-      <h3>AIに仕事を奪われる人・奪われない人の違い、採用の現場で見えてきたこと</h3>
+    <a href="ai-adoption-roi-gap.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">生成AI活用</p>
+      <h3>生成AI導入で成果が出る企業・出ない企業を分けるもの</h3>
     </a>
   </div>
 </section>
@@ -102,6 +106,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>キャリア研究所 ― 人生ラボ</title>
 <meta name="description" content="現役の人事として、これまでキャリア相談2,000件超、採用面接1,000件超に携わってきました。昇格、異動、退職の意思決定の現場にも数多く立ち会ってきた経験から、キャリアの分岐点で使える意思決定と自己理解の知見を届ける研究所です。">
-<link rel="stylesheet" href="../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -38,7 +38,7 @@
       <p class="clab-tool-label">所長の研究ツール</p>
       <h2 class="clab-tool-title">見えない評価ギャップ診断</h2>
       <p class="clab-tool-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
-      <a href="/labs/career-diagnosis" class="clab-btn">3分で診断する <span class="clab-arw">→</span></a>
+      <a href="/labs/career-diagnosis" class="clab-btn" data-ga="career_page_diagnosis">3分で診断する <span class="clab-arw">→</span></a>
     </div>
   </div>
 </section>
@@ -148,6 +148,20 @@
     <a href="../about.html" class="clab-director-link">所長について <span class="clab-arw">→</span> 詳しくはこちら</a>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
+
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>

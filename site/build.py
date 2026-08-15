@@ -48,7 +48,7 @@ LABS = {
       <p class="clab-tool-label">所長の研究ツール</p>
       <h2 class="clab-tool-title">見えない評価ギャップ診断</h2>
       <p class="clab-tool-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
-      <a href="/labs/career-diagnosis" class="clab-btn">3分で診断する <span class="clab-arw">→</span></a>
+      <a href="/labs/career-diagnosis" class="clab-btn" data-ga="career_page_diagnosis">3分で診断する <span class="clab-arw">→</span></a>
     </div>''',
                "diag_flow_cta": '''
 <section class="clab-section">
@@ -179,7 +179,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 </article>
 
 <section class="related-wrap wrap">
-  <h2>{lab_name}の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
 {related}
   </div>
@@ -198,7 +198,7 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
     </div>
   </div>
 </section>
-
+{ga_events}
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>
@@ -210,10 +210,26 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 </html>
 """
 
-RELATED_CARD = """    <a href="{slug}.html" class="related-card">
-      <p class="cat">{category}</p>
+RELATED_CARD = """    <a href="{href}" class="related-card entry-{accent}" data-ga="related_article">
+      <p class="cat">{cat_label}</p>
       <h3>{title}</h3>
     </a>"""
+
+
+GA_EVENTS_SNIPPET = """<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
+"""
 
 DISCLOSURE_HTML = '<p class="disclosure">本記事にはアフィリエイトリンクを含む場合があります。商品の選定・評価は独自の基準に基づいています。</p>'
 
@@ -341,6 +357,7 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
   {article_section}
 </div>
 {note_series_cta}{consult_cta}{director_cta}
+{ga_events}
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>
@@ -536,12 +553,12 @@ INDEX_LAB_META = {
                   "tags": ["家計", "住宅ローン", "資産形成"], "tool": "準備中"},
 }
 
-IDX_LAB_ARTICLE = """          <li><a href="labs/{lab}/{slug}.html">{title}</a></li>"""
+IDX_LAB_ARTICLE = """          <li><a href="labs/{lab}/{slug}.html" data-ga="top_lab_article">{title}</a></li>"""
 
 IDX_LAB_BLOCK = """      <div class="idx-lab entry-{accent}">
         <div class="idx-lab-head">
           <span class="idx-lab-code">{code}</span>
-          <h3 class="idx-lab-name">{name}</h3>
+          <h3 class="idx-lab-name"><a href="labs/{lab}.html" data-ga="top_lab_name">{name}</a></h3>
           <p class="idx-lab-desc">{desc}</p>
           <div class="idx-lab-tags">{tags}</div>
           <ul class="idx-spec">
@@ -552,10 +569,10 @@ IDX_LAB_BLOCK = """      <div class="idx-lab entry-{accent}">
         <ul class="idx-lab-articles">
 {articles}
         </ul>
-        <a class="idx-lab-more" href="labs/{lab}.html">{name}の記事一覧（{count}件） <span class="idx-arw">→</span></a>
+        <a class="idx-lab-more" href="labs/{lab}.html" data-ga="top_lab_more">{name}の記事一覧（{count}件） <span class="idx-arw">→</span></a>
       </div>"""
 
-IDX_REPORT_ITEM = """      <li><a href="labs/{lab}/{slug}.html">
+IDX_REPORT_ITEM = """      <li><a href="labs/{lab}/{slug}.html" data-ga="top_latest">
         <div class="idx-r-meta"><span class="idx-r-lab">{lab_name}</span><span class="idx-r-date">{date}</span></div>
         <p class="idx-r-title">{title}</p>
       </a></li>"""
@@ -638,6 +655,20 @@ ELAB_FEATURE = """
 
 ELAB_EMPTY = """    <p class="elab-empty">記録はこれから始まります。学んだ単語・フレーズと、それを使いたかった場面を、日ごとにここへ積み上げていきます。</p>"""
 
+# トップページのヒーロー2枚目(FOLLOW)。英語ログの実データがある場合のみ出す。
+IDX_FOLLOW_CARD = """      <a class="idx-hero-follow" href="labs/english.html" data-ga="top_hero_english">
+        <span class="idx-badge">研究中</span>
+        <span class="idx-verb idx-verb-follow">Follow ｜ 追う</span>
+        <h2 class="idx-follow-title">所長の英語やり直し研究</h2>
+        <p class="idx-follow-text">B2からC1へ。学んだ単語・フレーズと、それを使いたかった場面を毎日記録しています。</p>
+        <span class="idx-link-brass">この実験を追う <span class="idx-arw">→</span></span>
+        <ul class="idx-spec idx-spec-dark">
+          <li><span class="k">分類</span><span class="v">英語研究所</span></li>
+          <li><span class="k">記録</span><span class="v">Day {days}</span></li>
+          <li><span class="k">語彙・フレーズ</span><span class="v">{items}</span></li>
+        </ul>
+      </a>"""
+
 BRAND_ARTICLE_CARD = """    <a href="brand/{slug}.html" class="article-card">
       <p class="cat">{category}</p>
       <h3>{title}</h3>
@@ -704,7 +735,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 
   <div class="wrap">
     <div class="idx-heroes">
-      <a class="idx-hero-use" href="labs/career-diagnosis">
+      <a class="idx-hero-use" href="labs/career-diagnosis" data-ga="top_hero_diagnosis">
         <span class="idx-verb">Use ｜ 触る</span>
         <h2 class="idx-hero-title">見えない評価ギャップ診断</h2>
         <p class="idx-hero-text">「評価されている」と自分が思っている項目と、人事が実際に見ている項目は、たいてい一致しません。そのズレがどこにあるかを、12の質問で切り分けます。</p>
@@ -716,6 +747,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
           <li><span class="k">登録</span><span class="v">不要</span></li>
         </ul>
       </a>
+{follow_card}
     </div>
   </div>
 </section>
@@ -756,7 +788,7 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
     <p>それぞれの研究所は独立して育ちますが、根っこは1つ。「人生をより良くする」という問いに対して、AIと一緒に、地道に実験を重ねる場所であることです。その根っこにある考え方は、<a href="brand.html">7つの鍵</a>としてまとめています。運営しているのは、<a href="about.html">こんな人</a>です。</p>
   </div>
 </section>
-
+{ga_events}
 <footer class="site-footer">
   <div class="wrap">
     <p>© 2026 人生ラボ</p>
@@ -847,16 +879,63 @@ def load_brand_articles():
     return articles
 
 
+def pick_related(article, lab, articles_by_lab, limit=4):
+    """関連記事を「関連度」で選ぶ。
+
+    従来は同じ研究所の最新3本を全記事に貼っていたため、キャリア28記事のうち
+    25記事が同じ3本を指しており、内部リンクが数本の記事に集中していた。
+    タグ・カテゴリの一致でスコアリングし、研究所をまたぐ関連も拾う。
+
+    スコア: 共通タグ +3 / 同カテゴリ +4 / 同研究所 +1
+    同点は新しい記事を優先。スコア0(接点なし)の記事は候補から外し、
+    埋め合わせに同研究所の新しい記事を使う。
+    """
+    my_tags = set(article.get("tags") or [])
+    my_cat = article.get("category")
+    scored = []
+    for other_lab, others in articles_by_lab.items():
+        for o in others:
+            if o["slug"] == article["slug"]:
+                continue
+            score = 3 * len(my_tags & set(o.get("tags") or []))
+            if my_cat and o.get("category") == my_cat:
+                score += 4
+            if other_lab == lab:
+                score += 1
+            scored.append((score, str(o.get("date", "")), other_lab, o))
+
+    scored.sort(key=lambda x: (-x[0], x[1] == "", x[1]), reverse=False)
+    scored.sort(key=lambda x: (x[0], x[1]), reverse=True)
+
+    picked = [(l, o) for s, _, l, o in scored if s > 0][:limit]
+
+    if len(picked) < limit:  # 接点のある記事が足りなければ同研究所の新着で補う
+        have = {o["slug"] for _, o in picked}
+        for o in articles_by_lab.get(lab, []):
+            if len(picked) >= limit:
+                break
+            if o["slug"] != article["slug"] and o["slug"] not in have:
+                picked.append((lab, o))
+                have.add(o["slug"])
+    return picked
+
+
 def build_article_pages(articles_by_lab):
     for lab, articles in articles_by_lab.items():
         info = LABS[lab]
         out_dir = os.path.join(LABS_DIR, lab)
         os.makedirs(out_dir, exist_ok=True)
         for i, a in enumerate(articles):
-            others = [x for x in articles if x["slug"] != a["slug"]][:3]
             related_html = "\n".join(
-                RELATED_CARD.format(slug=o["slug"], category=o.get("category", ""), title=o["title"])
-                for o in others
+                RELATED_CARD.format(
+                    href=(f'{o["slug"]}.html' if o_lab == lab else f'../{o_lab}/{o["slug"]}.html'),
+                    accent=LABS[o_lab]["accent"],
+                    # 他研究所の記事は、どこの記事か分かるよう研究所名を出す
+                    cat_label=(o.get("category", "") if o_lab == lab
+                               else f'{LABS[o_lab]["name"]} / {o.get("category", "")}'),
+                    title=o["title"],
+                )
+                for o_lab, o in pick_related(a, lab, articles_by_lab)
             ) or '    <p class="placeholder-note" style="grid-column: 1/-1;">他の記事は準備中です。</p>'
 
             haru_text = a.get("haru_comment", "")
@@ -900,6 +979,7 @@ def build_article_pages(articles_by_lab):
                 ),
                 related=related_html,
                 code=info["code"],
+                ga_events=GA_EVENTS_SNIPPET,
             )
             out_path = os.path.join(out_dir, f"{a['slug']}.html")
             with open(out_path, "w", encoding="utf-8") as f:
@@ -1076,6 +1156,7 @@ def build_lab_indexes(articles_by_lab, english_log=None):
             lab_panel=english_panel if lab == "english" else "",
             lab_feature=english_feature if lab == "english" else "",
             article_section=article_section, count_label=count_label,
+            ga_events=GA_EVENTS_SNIPPET,
         )
         out_path = os.path.join(LABS_DIR, f"{lab}.html")
         with open(out_path, "w", encoding="utf-8") as f:
@@ -1126,7 +1207,7 @@ def build_brand_index(brand_articles):
     print("updated index: brand.html")
 
 
-def build_index_page(articles_by_lab, n=8, per_lab=3):
+def build_index_page(articles_by_lab, english_log=None, n=8, per_lab=3):
     # 全研究所の記事を横断し、新しい順にn件取得
     flat = []
     for lab, articles in articles_by_lab.items():
@@ -1166,9 +1247,19 @@ def build_index_page(articles_by_lab, n=8, per_lab=3):
             tool=meta["tool"], count=len(articles), articles=items,
         ))
 
+    # FOLLOWカード: 英語ログに実データがあるときだけ出す(空のカードは出さない)
+    follow_card = ""
+    if english_log:
+        ents = english_log.get("entries") or []
+        if ents:
+            days = len({str(e.get("date", "")) for e in ents if e.get("date")})
+            follow_card = IDX_FOLLOW_CARD.format(days=days, items=f"{len(ents)}件")
+
     html = INDEX_TEMPLATE.format(
         new_articles=cards, new_count=len(latest),
         lab_blocks="\n".join(lab_blocks),
+        follow_card=follow_card,
+        ga_events=GA_EVENTS_SNIPPET,
     )
     out_path = os.path.join(ROOT, "index.html")
     with open(out_path, "w", encoding="utf-8") as f:
@@ -1324,7 +1415,7 @@ if __name__ == "__main__":
     build_brand_pages(brand_articles)
     build_brand_index(brand_articles)
     build_about_page()
-    build_index_page(articles_by_lab)
+    build_index_page(articles_by_lab, english_log)
     build_sns_drafts(articles_by_lab)
     build_sitemap(articles_by_lab, brand_articles)
     total = sum(len(v) for v in articles_by_lab.values())

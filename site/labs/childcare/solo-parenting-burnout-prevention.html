@@ -8,7 +8,7 @@
 <meta property="og:title" content="ワンオペ育児、限界を感じる前にできる対策">
 <meta property="og:description" content="ワンオペ育児は限界を感じてから対策を探すと選択肢が限られやすい。余裕があるうちに準備しておきたい考え方と具体的な対策を整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -72,19 +72,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>育児研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="baby-food-weaning-schedule-by-month.html" class="related-card">
+    <a href="baby-food-weaning-schedule-by-month.html" class="related-card entry-childcare" data-ga="related_article">
       <p class="cat">離乳食</p>
       <h3>離乳食の進め方、月齢別スケジュールと気をつけたいこと</h3>
     </a>
-    <a href="educational-toys-gift-by-age.html" class="related-card">
+    <a href="educational-toys-gift-by-age.html" class="related-card entry-childcare" data-ga="related_article">
       <p class="cat">知育玩具</p>
       <h3>知育玩具をプレゼントで選ぶとき、年齢別に気をつけたいポイント</h3>
     </a>
-    <a href="alobaby-milk-lotion-ingredients-review.html" class="related-card">
+    <a href="alobaby-milk-lotion-ingredients-review.html" class="related-card entry-childcare" data-ga="related_article">
       <p class="cat">赤ちゃんのスキンケア</p>
       <h3>なんだかんだアロベビーが良かった話、成分を見て納得したこと</h3>
+    </a>
+    <a href="nursery-admission-interview-what-they-look-for.html" class="related-card entry-childcare" data-ga="related_article">
+      <p class="cat">保育園入園準備</p>
+      <h3>保育園の面接（入園前面談）で聞かれること、園側は何を見ているか</h3>
     </a>
   </div>
 </section>
@@ -102,6 +106,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

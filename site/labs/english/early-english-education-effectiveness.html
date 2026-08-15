@@ -8,7 +8,7 @@
 <meta property="og:title" content="早期英語教育、効果はいつから出るのか">
 <meta property="og:description" content="早期英語教育は「始める年齢」の議論が中心になりがちだが、実際に効果を実感できるまでの期間についてはあまり語られていない。分かっていることと不確かなことを整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -71,19 +71,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>英語研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="english-picture-book-read-aloud-effect.html" class="related-card">
-      <p class="cat">親子英語学習</p>
-      <h3>英語の絵本の読み聞かせ、家庭で効果を高めるコツ</h3>
-    </a>
-    <a href="toeic-ip-vs-public-test-difference.html" class="related-card">
-      <p class="cat">TOEIC対策</p>
-      <h3>TOEIC IPテストと公開テスト、就活・転職ではどちらを受けるべきか</h3>
-    </a>
-    <a href="english-coaching-vs-self-study-continuity.html" class="related-card">
+    <a href="english-coaching-vs-self-study-continuity.html" class="related-card entry-english" data-ga="related_article">
       <p class="cat">英語学習の継続</p>
       <h3>英語学習、独学よりコーチングの方が続く理由</h3>
+    </a>
+    <a href="ai-translation-vs-speaking-skill.html" class="related-card entry-english" data-ga="related_article">
+      <p class="cat">AI時代の英語学習</p>
+      <h3>AI翻訳が進化しても「話せる」人が評価される理由</h3>
+    </a>
+    <a href="english-listening-plateau-habits.html" class="related-card entry-english" data-ga="related_article">
+      <p class="cat">リスニング学習</p>
+      <h3>英語のリスニングが伸びない人に共通する、聞き方の癖</h3>
+    </a>
+    <a href="english-immersion-environment-at-home.html" class="related-card entry-english" data-ga="related_article">
+      <p class="cat">家庭学習環境</p>
+      <h3>家庭でできる英語環境の作り方</h3>
     </a>
   </div>
 </section>
@@ -101,6 +105,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

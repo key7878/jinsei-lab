@@ -8,7 +8,7 @@
 <meta property="og:title" content="親子で英語を学ぶメリット・デメリット、始める前に知っておきたいこと">
 <meta property="og:description" content="親子での英語学習には発音や抵抗感の面でメリットがある一方、効果には個人差もある。始める前に知っておきたい研究の現状とデメリットを整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -74,17 +74,21 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>英語研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="english-picture-book-read-aloud-effect.html" class="related-card">
+    <a href="english-picture-book-read-aloud-effect.html" class="related-card entry-english" data-ga="related_article">
       <p class="cat">親子英語学習</p>
       <h3>英語の絵本の読み聞かせ、家庭で効果を高めるコツ</h3>
     </a>
-    <a href="toeic-ip-vs-public-test-difference.html" class="related-card">
-      <p class="cat">TOEIC対策</p>
-      <h3>TOEIC IPテストと公開テスト、就活・転職ではどちらを受けるべきか</h3>
+    <a href="parent-child-english-when-to-start.html" class="related-card entry-english" data-ga="related_article">
+      <p class="cat">親子英語</p>
+      <h3>親子英語、何歳から始めて何から始めるべきか</h3>
     </a>
-    <a href="english-coaching-vs-self-study-continuity.html" class="related-card">
+    <a href="../childcare/child-english-education-when-to-start.html" class="related-card entry-childcare" data-ga="related_article">
+      <p class="cat">育児研究所 / 英語教育の始め時</p>
+      <h3>子どもに英語、いつから始めるか(育児目線の判断基準)</h3>
+    </a>
+    <a href="english-coaching-vs-self-study-continuity.html" class="related-card entry-english" data-ga="related_article">
       <p class="cat">英語学習の継続</p>
       <h3>英語学習、独学よりコーチングの方が続く理由</h3>
     </a>
@@ -104,6 +108,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

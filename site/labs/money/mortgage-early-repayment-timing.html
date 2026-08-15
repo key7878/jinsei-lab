@@ -8,7 +8,7 @@
 <meta property="og:title" content="住宅ローンの繰り上げ返済、タイミングの目安">
 <meta property="og:description" content="繰り上げ返済は早いほど利息軽減効果が大きいとされるが、手元資金とのバランスも欠かせない。2つの返済方式とタイミングの考え方を整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -71,19 +71,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>お金研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="furusato-nozei-exceeding-limit.html" class="related-card">
-      <p class="cat">ふるさと納税</p>
-      <h3>ふるさと納税、限度額を超えて寄付したらどうなるか</h3>
+    <a href="mortgage-variable-rate-rising-response.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">住宅ローン金利動向</p>
+      <h3>住宅ローンの変動金利上昇、これからの対応をどう考えるか</h3>
     </a>
-    <a href="new-nisa-pause-contribution-when.html" class="related-card">
-      <p class="cat">新NISA</p>
-      <h3>新NISA、積立を一時停止した方がいいのはどんなときか</h3>
+    <a href="mortgage-down-payment-how-much.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">住宅ローン・頭金</p>
+      <h3>住宅ローンの頭金、いくら用意すべきか</h3>
     </a>
-    <a href="credit-card-annual-fee-free-vs-paid.html" class="related-card">
-      <p class="cat">クレジットカード選び</p>
-      <h3>クレジットカード、年会費無料と有料どちらが得か</h3>
+    <a href="mortgage-loan-rejection-reasons.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">住宅ローン審査</p>
+      <h3>住宅ローンの審査に通らない理由と対策</h3>
+    </a>
+    <a href="variable-vs-fixed-rate.html" class="related-card entry-money" data-ga="related_article">
+      <p class="cat">住宅ローン</p>
+      <h3>変動金利と固定金利、損得ではなく何で判断するか</h3>
     </a>
   </div>
 </section>
@@ -101,6 +105,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">

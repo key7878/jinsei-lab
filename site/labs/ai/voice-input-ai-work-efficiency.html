@@ -8,7 +8,7 @@
 <meta property="og:title" content="音声入力AI、仕事の効率化に使える活用場面">
 <meta property="og:description" content="音声入力AIはキーボード入力の代わりというより、場面によって使い分けることで効率化の効果が変わる。仕事で活かしやすい活用場面を整理する。">
 <meta property="og:type" content="article">
-<link rel="stylesheet" href="../../style.css?v=c8d4250f">
+<link rel="stylesheet" href="../../style.css?v=fdae0eea">
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-D94ZQMMMZ5"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -74,19 +74,23 @@
 </article>
 
 <section class="related-wrap wrap">
-  <h2>AI研究所の他の記事</h2>
+  <h2>関連する研究レポート</h2>
   <div class="related-list">
-    <a href="ai-jinzai-skills-needed.html" class="related-card">
-      <p class="cat">AI時代のキャリア</p>
-      <h3>「AI人材」とは何か、これから求められるスキルの中身</h3>
+    <a href="automate-meeting-notes-with-free-ai.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">業務効率化</p>
+      <h3>無料AIツールだけで議事録作成を自動化する方法</h3>
     </a>
-    <a href="chatgpt-free-vs-paid-work-use.html" class="related-card">
+    <a href="ai-contract-review-caution.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">AI活用の注意点</p>
+      <h3>AIに契約書チェックを頼むときの注意点</h3>
+    </a>
+    <a href="chatgpt-free-vs-paid-work-use.html" class="related-card entry-ai" data-ga="related_article">
       <p class="cat">AI活用・ツール選び</p>
       <h3>ChatGPT、無料版と有料版どちらを仕事で使うべきか</h3>
     </a>
-    <a href="ai-fact-checking-basics.html" class="related-card">
-      <p class="cat">生成AI活用</p>
-      <h3>生成AIの回答を鵜呑みにしないための、情報の裏取りの基本</h3>
+    <a href="ai-job-replacement-hiring-perspective.html" class="related-card entry-ai" data-ga="related_article">
+      <p class="cat">AIと雇用</p>
+      <h3>AIに仕事を奪われる人・奪われない人の違い、採用の現場で見えてきたこと</h3>
     </a>
   </div>
 </section>
@@ -104,6 +108,19 @@
     </div>
   </div>
 </section>
+<script>
+// 内部リンクのクリックをGA4に送る。GA4は内部リンクを自動計測しないため、
+// data-ga を付けた導線だけを対象に、どの枠が押されたかを記録する。
+document.addEventListener('click', function (e) {
+  var el = e.target.closest('[data-ga]');
+  if (!el || typeof gtag !== 'function') return;
+  gtag('event', 'internal_link_click', {
+    link_slot: el.getAttribute('data-ga'),
+    link_url: el.getAttribute('href') || '',
+    link_text: (el.textContent || '').trim().slice(0, 100)
+  });
+});
+</script>
 
 <footer class="site-footer">
   <div class="wrap">
