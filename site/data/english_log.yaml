@@ -96,3 +96,59 @@ entries:
     meaning: "～ではなく／～よりむしろ"
     example: "I prefer the idea of work-life integration rather than work-life balance."
     situation: "仕事と生活について、二つの考え方を比較して自分の考えを説明する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "sign up for"
+    meaning: "～に申し込む／～に登録する"
+    example: "I've just signed up for a new shadowing app to study English."
+    situation: "新しく英語学習サービスを使い始めたことを説明する場面"
+
+  - date: 2026-08-16
+    type: word
+    term: "affordable"
+    meaning: "手頃な／比較的安価な"
+    example: "It's more affordable."
+    situation: "複数の英語学習サービスの料金を比較する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "mark one's 100th day"
+    meaning: "生後100日を迎える／100日目を記念する"
+    example: "Today marks my daughter's 100th day."
+    situation: "娘が生後100日を迎えたことを説明する場面"
+
+  - date: 2026-08-16
+    type: word
+    term: "relative"
+    meaning: "親戚"
+    example: "We got a lot of gifts from friends and relatives."
+    situation: "家族や親戚から贈り物をもらったことを説明する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "grow out of clothes"
+    meaning: "成長して服が小さくなり着られなくなる"
+    example: "Babies grow out of clothes so quickly."
+    situation: "赤ちゃんの成長が早く、服がすぐ小さくなることを説明する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "one after another"
+    meaning: "次々と／立て続けに"
+    example: "It's still difficult for my daughter to change into lots of different outfits one after another."
+    situation: "娘が短時間に何着もの服を着替えるのはまだ大変だと説明する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "change someone into"
+    meaning: "人に～を着せ替える"
+    example: "It's still hard for her to be changed into lots of different outfits one after another."
+    situation: "娘に何着もの服を続けて着せ替えるのが大変だと説明する場面"
+
+  - date: 2026-08-16
+    type: phrase
+    term: "keep doing"
+    meaning: "～し続ける／何度も～する"
+    example: "She's still too little for us to keep changing her outfits one after another."
+    situation: "娘に何度も続けて着替えさせるのはまだ難しいと説明する場面"
