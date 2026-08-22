@@ -133,7 +133,10 @@ ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
+<link rel="icon" href="../../favicon.ico" sizes="any">
 <link rel="icon" href="../../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="../../favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../../apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
@@ -277,7 +280,10 @@ ABOUT_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="所長紹介 ｜ 人生ラボ">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="profile">
+<link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
@@ -341,7 +347,10 @@ LAB_INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="{name} ｜ 人生ラボ">
 <meta property="og:description" content="{lead}">
 <meta property="og:type" content="website">
+<link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="../favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
@@ -442,7 +451,10 @@ BRAND_ARTICLE_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{description}">
 <meta property="og:type" content="article">
+<link rel="icon" href="../favicon.ico" sizes="any">
 <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="../favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
@@ -513,7 +525,10 @@ BRAND_INDEX_TEMPLATE = """<!DOCTYPE html>
 <meta property="og:title" content="7つの鍵 ｜ 人生ラボ">
 <meta property="og:description" content="{lead}">
 <meta property="og:type" content="website">
+<link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
@@ -835,13 +850,16 @@ INDEX_TEMPLATE = """<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>人生ラボ ― 人生を研究する、AIライフプラットフォーム</title>
+<title>人生ラボ ― キャリア・AI・育児・英語・お金の研究所</title>
 <meta name="description" content="キャリア・AI・育児・英語・お金。5つの研究所で、人生の実験と発見を積み重ねる。">
-<meta property="og:title" content="人生ラボ ― 人生を研究する、AIライフプラットフォーム">
+<meta property="og:title" content="人生ラボ ― キャリア・AI・育児・英語・お金の研究所">
 <meta property="og:description" content="キャリア・AI・育児・英語・お金。5つの研究所で、人生の実験と発見を積み重ねる。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://mylifejinseilab.com/">
+<link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-48.png" type="image/png" sizes="48x48">
+<link rel="icon" href="favicon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta property="og:site_name" content="人生ラボ">
 <meta property="og:locale" content="ja_JP">
